@@ -72,7 +72,7 @@ outputs:
 steps:
 
   step1-d2s-download:
-    run: cwl-steps/d2s-download.cwl
+    run: ../steps/d2s-download.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -81,7 +81,7 @@ steps:
     out: [download_dataset_logs]
 
   step2-autor2rml:
-    run: cwl-steps/autor2rml.cwl
+    run: ../steps/autor2rml.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -93,7 +93,7 @@ steps:
     out: [r2rml_trig_file_output]
 
   step3-generate-r2rml-config:
-    run: cwl-steps/generate-r2rml-config.cwl
+    run: ../steps/generate-r2rml-config.cwl
     in:
       dataset: dataset
       input_data_jdbc: input_data_jdbc
@@ -101,7 +101,7 @@ steps:
     out: [r2rml_config_file_output]
 
   step4-r2rml:
-    run: cwl-steps/run-r2rml.cwl
+    run: ../steps/run-r2rml.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -111,7 +111,7 @@ steps:
 
 
   step5-rdf-upload:
-    run: cwl-steps/rdf-upload.cwl
+    run: ../steps/rdf-upload.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -121,7 +121,7 @@ steps:
     out: [rdf_upload_logs]
 
   step6-insert-metadata:
-    run: cwl-steps/execute-sparql-mapping.cwl
+    run: ../steps/execute-sparql-mapping.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -137,7 +137,7 @@ steps:
     out: [execute_sparql_query_logs]
 
   step7-split-property:
-    run: cwl-steps/run-split.cwl
+    run: ../steps/run-split.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -153,7 +153,7 @@ steps:
     out: [execute_split_logs]
 
   step8-execute-transform-queries:
-    run: cwl-steps/execute-sparql-mapping.cwl
+    run: ../steps/execute-sparql-mapping.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -169,7 +169,7 @@ steps:
     out: [execute_sparql_query_logs]
 
   step9-compute-hcls-stats:
-    run: cwl-steps/execute-sparql-mapping.cwl
+    run: ../steps/execute-sparql-mapping.cwl
     in: # No sparql_queries_path, HCLS stats is the default
       working_directory: working_directory
       dataset: dataset

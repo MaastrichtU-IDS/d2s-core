@@ -57,7 +57,7 @@ outputs:
 steps:
 
   step1-d2s-download:
-    run: cwl-steps/d2s-download.cwl
+    run: ../steps/d2s-download.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -66,7 +66,7 @@ steps:
     out: [download_dataset_logs]
 
   step2-xml2rdf:
-    run: cwl-steps/run-xml2rdf.cwl
+    run: ../steps/run-xml2rdf.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -75,7 +75,7 @@ steps:
     out: [xml2rdf_file_output,nquads_file_output]
 
   step3-rdf-upload:
-    run: cwl-steps/rdf-upload.cwl
+    run: ../steps/rdf-upload.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -85,7 +85,7 @@ steps:
     out: [rdf_upload_logs]
 
   step4-insert-metadata:
-    run: cwl-steps/execute-sparql-mapping.cwl
+    run: ../steps/execute-sparql-mapping.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -101,7 +101,7 @@ steps:
     out: [execute_sparql_query_logs]
 
   step5-execute-transform-queries:
-    run: cwl-steps/execute-sparql-mapping.cwl
+    run: ../steps/execute-sparql-mapping.cwl
     in:
       working_directory: working_directory
       dataset: dataset
@@ -117,7 +117,7 @@ steps:
     out: [execute_sparql_query_logs]
 
   step6-compute-hcls-stats:
-    run: cwl-steps/execute-sparql-mapping.cwl
+    run: ../steps/execute-sparql-mapping.cwl
     in:
       working_directory: working_directory
       dataset: dataset
