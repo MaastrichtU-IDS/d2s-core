@@ -16,6 +16,11 @@ inputs:
 
   input_data_jdbc: string
 
+  split_property: string
+  split_class: string
+  split_delimiter: string
+  split_quote: string
+
   autor2rml_column_header: string?
   sparql_base_uri: string?
   
