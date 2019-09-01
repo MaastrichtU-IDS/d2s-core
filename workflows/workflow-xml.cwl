@@ -71,7 +71,7 @@ steps:
       working_directory: working_directory
       dataset: dataset
       sparql_tmp_graph_uri: sparql_tmp_graph_uri
-      #previous_step_results: step1-d2s-download/download_dataset_logs # TO REMOVE?
+      previous_step_results: step1-d2s-download/download_dataset_logs
     out: [xml2rdf_file_output,nquads_file_output]
 
   step3-rdf-upload:
