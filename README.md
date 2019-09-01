@@ -4,25 +4,29 @@ The [Common Workflow Language](https://www.commonwl.org/) is used to describe wo
 
 ---
 
-## Running examples
+## Requirements
 
-The [data2services-transform-biolink](https://github.com/MaastrichtU-IDS/data2services-transform-biolink) project will be used as example to transform XML, TSV, CSV, RDB, JSON to the [BioLink](https://biolink.github.io/biolink-model/docs/) RDF data model.
-
-* Clone the repository with its submodules
-
-```shell
-git clone --recursive https://github.com/MaastrichtU-IDS/data2services-transform-biolink.git
-```
-
-* Install [Docker](https://docs.docker.com/install/) to run the modules.
-* Install [cwltool](https://github.com/common-workflow-language/cwltool#install) to get cwl-runner to run workflows of Docker modules.
+- Install [Docker](https://docs.docker.com/install/) to run the modules.
+- Install [cwltool](https://github.com/common-workflow-language/cwltool#install) to get cwl-runner to run workflows of Docker modules.
 
 ```shell
 apt-get install cwltool
 ```
 
-* Those workflows use Data2Services modules, see the [data2services-pipeline](https://github.com/MaastrichtU-IDS/data2services-pipeline) project.
-* It is recommended to build the Docker images before running workflows, as the `docker pull` might crash when done through `cwl-runner`.
+- Those workflows use Data2Services modules, see the [data2services-pipeline](https://github.com/MaastrichtU-IDS/data2services-pipeline) project.
+- It is recommended to build the Docker images before running workflows, as the `docker pull` might crash when done through `cwl-runner`.
+
+---
+
+## Running examples
+
+The [data2services-transform-biolink](https://github.com/MaastrichtU-IDS/data2services-transform-biolink) project will be used as example to transform XML, TSV, CSV, RDB, JSON to the [BioLink](https://biolink.github.io/biolink-model/docs/) RDF data model.
+
+Clone the repository with its submodules:
+
+```shell
+git clone --recursive https://github.com/MaastrichtU-IDS/data2services-transform-biolink.git
+```
 
 ---
 
@@ -70,6 +74,42 @@ docker run -d --rm --name graphdb -p 7200:7200 -v /data/graphdb:/opt/graphdb/hom
     - e.g. `data2services-cwl-workflows/workflows/workflow-xml.cwl`
   - The `.yml` [configuration file](https://github.com/MaastrichtU-IDS/data2services-transform-biolink/blob/master/support/cwl/config/config-transform-xml-drugbank.yml) with all parameters required to run the workflow
     - e.g. `support/config/config-transform-xml-drugbank.yml`
+
+* 3 types of workflows can be run depending on the input data and the tasks executed:
+
+### Convert XML with [xml2rdf](https://github.com/MaastrichtU-IDS/xml2rdf)
+
+```shell
+cwl-runner --outdir output/drugbank data2services-cwl-workflows/workflows/workflow-xml.cwl support/example-config/config-transform-xml-drugbank.yml
+```
+
+* See [config file](https://github.com/MaastrichtU-IDS/data2services-transform-biolink/blob/master/support/example-config/config-transform-xml-drugbank.yml).
+
+### Convert CSV/TSV with [AutoR2RML](https://github.com/amalic/autor2rml)
+
+```shell
+cwl-runner --outdir output/stitch data2services-cwl-workflows/workflows/workflow-csv.cwl support/example-config/config-transform-csv-stitch.yml
+```
+
+* See [config file](https://github.com/MaastrichtU-IDS/data2services-transform-biolink/blob/master/support/example-config/config-transform-csv-stitch.yml).
+
+### Convert CSV/TSV with [AutoR2RML](https://github.com/amalic/autor2rml) and split a property
+
+```shell
+cwl-runner --outdir output/eggnog data2services-cwl-workflows/workflows/workflow-csv-split.cwl support/example-config/config-transform-split-eggnog.yml
+```
+
+* See [config file](https://github.com/MaastrichtU-IDS/data2services-transform-biolink/blob/master/support/example-config/config-transform-split-eggnog.yml).
+
+### Generate mappings for AutoR2RML
+
+When you don't have set the mappings for R2RML: generates the generic RDF and template SPARQL mapping files, and load the generic RDF.
+
+```shell
+cwl-runner --outdir output/stitch data2services-cwl-workflows/workflows/workflow-csv-generate_mapping.cwl support/example-config/config-transform-csv-stitch.yml
+```
+
+Same [config file](https://github.com/MaastrichtU-IDS/data2services-transform-biolink/blob/master/support/cwl/config/config-transform-csv-stitch.yml) as the regular CSV workflow.
 
 ### Run in the background
 
