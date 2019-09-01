@@ -21,9 +21,11 @@ inputs:
   sparql_tmp_triplestore_password: string
 
   sparql_tmp_graph_uri: string
-  sparql_tmp_service_url:
-    type: string
-    default: "repository:" + sparql_tmp_triplestore_repository
+  sparql_tmp_service_url: string
+    # it should be define by 'repository:' + sparql_tmp_triplestore_repository
+    # sparql_tmp_triplestore_repository CWL does not support properly simple string concatenation or condition...
+    #type: string
+    #valueFrom: ${ return "repository:" + inputs.sparql_tmp_triplestore_repository;}
 
   # Final RDF4J server SPARQL endpoint to load the BioLink RDF
   sparql_final_triplestore_url: string

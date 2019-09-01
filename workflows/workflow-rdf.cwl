@@ -14,15 +14,22 @@ inputs:
   download_username: string?
   download_password: string?
 
-  sparql_tmp_graph_uri: string?
+  # tmp RDF4J server SPARQL endpoint to load generic RDF
+  sparql_tmp_triplestore_url: string
+  sparql_tmp_triplestore_repository: string
+  sparql_tmp_triplestore_username: string
+  sparql_tmp_triplestore_password: string
 
-  sparql_triplestore_url: string
-  sparql_triplestore_repository: string
+  sparql_tmp_graph_uri: string
+  sparql_tmp_service_url: string
 
-  sparql_username: string
-  sparql_password: string
-  sparql_output_graph_uri: string
-  sparql_service_url: string
+  # Final RDF4J server SPARQL endpoint to load the BioLink RDF
+  sparql_final_triplestore_url: string
+  sparql_final_triplestore_repository: string
+  sparql_final_triplestore_username: string
+  sparql_final_triplestore_password: string
+
+  sparql_final_graph_uri: string
 
   sparql_insert_metadata_path: string
   sparql_transform_queries_path: string
@@ -80,8 +87,10 @@ steps:
       working_directory: working_directory
       dataset: dataset
       nquads_file: step2-xml2rdf/nquads_file_output
-      sparql_triplestore_url: sparql_triplestore_url
-      sparql_triplestore_repository: sparql_triplestore_repository
+      sparql_triplestore_url: sparql_tmp_triplestore_url
+      sparql_triplestore_repository: sparql_tmp_triplestore_repository
+      # sparql_username: sparql_tmp_triplestore_username
+      # sparql_password: sparql_tmp_triplestore_password
     out: [rdf_upload_logs]
 
   step4-insert-metadata:
@@ -90,13 +99,11 @@ steps:
       working_directory: working_directory
       dataset: dataset
       sparql_queries_path: sparql_insert_metadata_path
-      sparql_triplestore_url: sparql_triplestore_url
-      sparql_triplestore_repository: sparql_triplestore_repository
-      sparql_username: sparql_username
-      sparql_password: sparql_password
-      sparql_input_graph_uri: sparql_tmp_graph_uri
-      sparql_output_graph_uri: sparql_output_graph_uri
-      sparql_service_url: sparql_service_url
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_triplestore_repository: sparql_final_triplestore_repository
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      sparql_output_graph_uri: sparql_final_graph_uri
       previous_step_results: step3-rdf-upload/rdf_upload_logs
     out: [execute_sparql_query_logs]
 
@@ -106,13 +113,13 @@ steps:
       working_directory: working_directory
       dataset: dataset
       sparql_queries_path: sparql_transform_queries_path
-      sparql_triplestore_url: sparql_triplestore_url
-      sparql_triplestore_repository: sparql_triplestore_repository
-      sparql_username: sparql_username
-      sparql_password: sparql_password
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_triplestore_repository: sparql_final_triplestore_repository
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
       sparql_input_graph_uri: sparql_tmp_graph_uri
-      sparql_output_graph_uri: sparql_output_graph_uri
-      sparql_service_url: sparql_service_url
+      sparql_output_graph_uri: sparql_final_graph_uri
+      sparql_service_url: sparql_tmp_service_url
       previous_step_results: step4-insert-metadata/execute_sparql_query_logs
     out: [execute_sparql_query_logs]
 
@@ -122,10 +129,10 @@ steps:
       working_directory: working_directory
       dataset: dataset
       sparql_queries_path: sparql_compute_hcls_path
-      sparql_triplestore_url: sparql_triplestore_url
-      sparql_triplestore_repository: sparql_triplestore_repository
-      sparql_username: sparql_username
-      sparql_password: sparql_password
-      sparql_input_graph_uri: sparql_output_graph_uri
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_triplestore_repository: sparql_final_triplestore_repository
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      sparql_input_graph_uri: sparql_final_graph_uri
       previous_step_results: step5-execute-transform-queries/execute_sparql_query_logs
     out: [execute_sparql_query_logs]
