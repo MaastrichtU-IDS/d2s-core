@@ -80,7 +80,7 @@ docker run -d --rm --name graphdb -p 7200:7200 -v /data/graphdb:/opt/graphdb/hom
 ### Convert XML with [xml2rdf](https://github.com/MaastrichtU-IDS/xml2rdf)
 
 ```shell
-cwl-runner --outdir output/drugbank data2services-cwl-workflows/workflows/workflow-xml.cwl support/example-config/config-transform-xml-drugbank.yml
+cwl-runner --outdir output/drugbank-sample data2services-cwl-workflows/workflows/workflow-xml.cwl support/example-config/config-transform-xml-drugbank.yml
 ```
 
 * See [config file](https://github.com/MaastrichtU-IDS/data2services-transform-biolink/blob/master/support/example-config/config-transform-xml-drugbank.yml).
@@ -88,7 +88,7 @@ cwl-runner --outdir output/drugbank data2services-cwl-workflows/workflows/workfl
 ### Convert CSV/TSV with [AutoR2RML](https://github.com/amalic/autor2rml)
 
 ```shell
-cwl-runner --outdir output/stitch data2services-cwl-workflows/workflows/workflow-csv.cwl support/example-config/config-transform-csv-stitch.yml
+cwl-runner --outdir output/stitch-sample data2services-cwl-workflows/workflows/workflow-csv.cwl support/example-config/config-transform-csv-stitch.yml
 ```
 
 * See [config file](https://github.com/MaastrichtU-IDS/data2services-transform-biolink/blob/master/support/example-config/config-transform-csv-stitch.yml).
@@ -96,7 +96,7 @@ cwl-runner --outdir output/stitch data2services-cwl-workflows/workflows/workflow
 ### Convert CSV/TSV with [AutoR2RML](https://github.com/amalic/autor2rml) and split a property
 
 ```shell
-cwl-runner --outdir output/eggnog data2services-cwl-workflows/workflows/workflow-csv-split.cwl support/example-config/config-transform-split-eggnog.yml
+cwl-runner --outdir output/eggnog-sample data2services-cwl-workflows/workflows/workflow-csv-split.cwl support/example-config/config-transform-split-eggnog.yml
 ```
 
 * See [config file](https://github.com/MaastrichtU-IDS/data2services-transform-biolink/blob/master/support/example-config/config-transform-split-eggnog.yml).
@@ -106,7 +106,7 @@ cwl-runner --outdir output/eggnog data2services-cwl-workflows/workflows/workflow
 When you don't have set the mappings for R2RML: generates the generic RDF and template SPARQL mapping files, and load the generic RDF.
 
 ```shell
-cwl-runner --outdir output/stitch data2services-cwl-workflows/workflows/workflow-csv-generate_mapping.cwl support/example-config/config-transform-csv-stitch.yml
+cwl-runner --outdir output/stitch-sample data2services-cwl-workflows/workflows/workflow-csv-generate_mapping.cwl support/example-config/config-transform-csv-stitch.yml
 ```
 
 Same [config file](https://github.com/MaastrichtU-IDS/data2services-transform-biolink/blob/master/support/cwl/config/config-transform-csv-stitch.yml) as the regular CSV workflow.
@@ -116,7 +116,7 @@ Same [config file](https://github.com/MaastrichtU-IDS/data2services-transform-bi
 Will write all terminal output to `nohup.out`.
 
 ```shell
-nohup cwl-runner --outdir output/drugbank data2services-cwl-workflows/workflows/workflow-xml.cwl support/config/config-transform-xml-drugbank.yml &
+nohup cwl-runner --outdir output/drugbank-sample data2services-cwl-workflows/workflows/workflow-xml.cwl support/example-config/config-transform-xml-drugbank.yml &
 ```
 
 
