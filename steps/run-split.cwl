@@ -10,7 +10,7 @@ label: Data2Services tool split RDF statements, Vincent Emonet <vincent.emonet@g
 baseCommand: [docker, run]
 
 arguments: [ "--rm", "--link","graphdb:graphdb", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-"vemonet/data2services-sparql-operations", "-op", "split", "--split-delete" ]
+"vemonet/data2services-sparql-operations:latest", "-op", "split", "--split-delete" ]
 
 inputs:
 

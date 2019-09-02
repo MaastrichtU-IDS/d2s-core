@@ -8,7 +8,7 @@ label: Data2Services tool run xml2rdf to generate RDF, Vincent Emonet <vincent.e
 baseCommand: [docker, run]
 
 arguments: [ "--rm", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-"vemonet/xml2rdf", "-i", "/data/input/$(inputs.dataset)/*.xml*", "-o", "/tmp/rdf_output.nq"]
+"vemonet/xml2rdf:latest", "-i", "/data/input/$(inputs.dataset)/*.xml*", "-o", "/tmp/rdf_output.nq"]
 
 requirements:
   EnvVarRequirement:
@@ -30,6 +30,7 @@ inputs:
 
 stdout: xml2rdf_file_structure.txt
 
+# TODO: get all template SPARQL mapping files? They are lost at the moment
 outputs:
   xml2rdf_file_output:
     type: stdout
