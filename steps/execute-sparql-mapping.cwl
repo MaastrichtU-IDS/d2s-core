@@ -57,6 +57,8 @@ inputs:
     inputBinding:
       position: 8
       prefix: --var-service
+  previous_step_results:
+    type: File?
 
 stdout: execute-sparql-query-logs.txt
 
