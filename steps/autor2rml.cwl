@@ -43,6 +43,8 @@ inputs:
     inputBinding:
       position: 4
       prefix: -c
+  previous_step_results:
+    type: File?
 
 outputs:
   
