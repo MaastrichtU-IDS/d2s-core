@@ -20,18 +20,18 @@ inputs:
   sparql_base_uri: string?
   # tmp RDF4J server SPARQL endpoint to load generic RDF
   sparql_tmp_triplestore_url: string
-  sparql_tmp_triplestore_repository: string
-  sparql_tmp_triplestore_username: string
-  sparql_tmp_triplestore_password: string
+  sparql_tmp_triplestore_repository: string?
+  sparql_tmp_triplestore_username: string?
+  sparql_tmp_triplestore_password: string?
 
   sparql_tmp_graph_uri: string
   sparql_tmp_service_url: string
 
   # Final RDF4J server SPARQL endpoint to load the BioLink RDF
   sparql_final_triplestore_url: string
-  sparql_final_triplestore_repository: string
-  sparql_final_triplestore_username: string
-  sparql_final_triplestore_password: string
+  sparql_final_triplestore_repository: string?
+  sparql_final_triplestore_username: string?
+  sparql_final_triplestore_password: string?
 
   sparql_final_graph_uri: string
 
@@ -39,9 +39,9 @@ inputs:
   # sparql_transform_queries_path: string
 outputs:
   
-  download_dataset_logs:
-    type: File
-    outputSource: step1-d2s-download/download_dataset_logs
+  # download_dataset_logs:
+  #   type: File
+  #   outputSource: step1-d2s-download/download_dataset_logs
   r2rml_trig_file_output:
     type: File
     outputSource: step2-autor2rml/r2rml_trig_file_output
@@ -57,14 +57,14 @@ outputs:
 
 steps:
 
-  step1-d2s-download:
-    run: ../steps/d2s-download.cwl
-    in:
-      working_directory: working_directory
-      dataset: dataset
-      download_username: download_username
-      download_password: download_password
-    out: [download_dataset_logs]
+  # step1-d2s-download:
+  #   run: ../steps/d2s-download.cwl
+  #   in:
+  #     working_directory: working_directory
+  #     dataset: dataset
+  #     download_username: download_username
+  #     download_password: download_password
+  #   out: [download_dataset_logs]
 
   step2-autor2rml:
     run: ../steps/autor2rml.cwl
@@ -75,7 +75,7 @@ steps:
       autor2rml_column_header: autor2rml_column_header
       sparql_base_uri: sparql_base_uri
       sparql_tmp_graph_uri: sparql_tmp_graph_uri
-      previous_step_results: step1-d2s-download/download_dataset_logs
+      # previous_step_results: step1-d2s-download/download_dataset_logs
     out: [r2rml_trig_file_output]
 
   step3-generate-r2rml-config:

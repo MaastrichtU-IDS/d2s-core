@@ -21,18 +21,18 @@ inputs:
   
   # tmp RDF4J server SPARQL endpoint to load generic RDF
   sparql_tmp_triplestore_url: string
-  sparql_tmp_triplestore_repository: string
-  sparql_tmp_triplestore_username: string
-  sparql_tmp_triplestore_password: string
+  sparql_tmp_triplestore_repository: string?
+  sparql_tmp_triplestore_username: string?
+  sparql_tmp_triplestore_password: string?
 
   sparql_tmp_graph_uri: string
   sparql_tmp_service_url: string
 
   # Final RDF4J server SPARQL endpoint to load the BioLink RDF
   sparql_final_triplestore_url: string
-  sparql_final_triplestore_repository: string
-  sparql_final_triplestore_username: string
-  sparql_final_triplestore_password: string
+  sparql_final_triplestore_repository: string?
+  sparql_final_triplestore_username: string?
+  sparql_final_triplestore_password: string?
 
   sparql_final_graph_uri: string
 
