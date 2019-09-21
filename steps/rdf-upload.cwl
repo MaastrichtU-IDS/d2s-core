@@ -8,7 +8,7 @@ label: Data2Services tool to Upload RDF to a SPARQL endpoint, Ammar Ammar <ammar
 
 baseCommand: [docker, run]
 
-arguments: [ "--rm", "--net", "data2services-transform-biolink_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
+arguments: [ "--rm", "--net", "docker-compose_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
 "-v", "$(inputs.nquads_file.path):/tmp/$(inputs.nquads_file.basename)", 
 "vemonet/rdf-upload:latest", "-if", "/tmp/$(inputs.nquads_file.basename)"]
 

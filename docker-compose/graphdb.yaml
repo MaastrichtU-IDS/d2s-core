@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+
+  graphdb:
+    build: ./submodules/graphdb
+    volumes:
+      - /data/red-kg/graphdb:/opt/graphdb/home
+      - /data/red-kg/graphdb-import:/root/graphdb-import
+    ports:
+      - 7200:7200
+    networks:
+      - d2s-network
+
+
+networks:
+  d2s-network:
+    driver: bridge
+
+

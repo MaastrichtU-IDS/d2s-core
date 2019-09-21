@@ -8,7 +8,7 @@ label: Data2Services tool to execute SPARQL queries, Ammar Ammar <ammar257ammar@
 
 baseCommand: [docker, run]
 
-arguments: [ "--rm", "--net", "data2services-transform-biolink_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
+arguments: [ "--rm", "--net", "docker-compose_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
 "vemonet/data2services-sparql-operations:latest" ]
 
 inputs:
