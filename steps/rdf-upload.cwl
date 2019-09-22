@@ -30,6 +30,16 @@ inputs:
     inputBinding:
       position: 2
       prefix: -rep
+  sparql_username:
+    type: string?
+    inputBinding:
+      position: 3
+      prefix: -un
+  sparql_password:
+    type: string?
+    inputBinding:
+      position: 4
+      prefix: -pw
 
 stdout: rdf-upload.txt
 

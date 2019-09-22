@@ -110,7 +110,8 @@ steps:
     out: [nquads_file_output]
 
   step5-rdf-upload:
-    run: ../steps/rdf-upload.cwl
+    # run: ../steps/rdf-upload.cwl
+    run: ../steps/virtuoso-bulk-load.cwl
     in:
       working_directory: working_directory
       dataset: dataset
