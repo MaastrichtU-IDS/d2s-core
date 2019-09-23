@@ -29,15 +29,20 @@ services:
       - d2s-network
 
 
-  # graphdb:
-  #   build: ./submodules/graphdb
-  #   volumes:
-  #     - /data/red-kg/graphdb:/opt/graphdb/home
-  #     - /data/red-kg/graphdb-import:/root/graphdb-import
-  #   ports:
-  #     - 7200:7200
-  #   networks:
-  #     - d2s-network
+  graphdb:
+    build:
+      context: ./support/graphdb
+      dockerfile: Dockerfile
+      args:
+        version: 8.10.1
+    # build: ./support/graphdb
+    volumes:
+      - /data/red-kg/graphdb:/opt/graphdb/home
+      - /data/red-kg/graphdb-import:/root/graphdb-import
+    ports:
+      - 7200:7200
+    networks:
+      - d2s-network
 
 
   postgres:
