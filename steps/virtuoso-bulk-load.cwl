@@ -8,7 +8,7 @@ label: Data2Services tool to bulk load RDF to a Virtuoso triplestore, Vincent Em
 
 baseCommand: [docker, exec]
 
-arguments: [ "docker-compose_virtuoso_1", "isql-v", "-U" , "dba", "-P", "password",
+arguments: [ "data2services-cwl-workflows_virtuoso_1", "isql-v", "-U" , "dba", "-P", "password",
 "exec=\"ld_dir('/usr/local/virtuoso-opensource/var/lib/virtuoso/db/output','*.nq','http://test/');rdf_loader_run();\""]
 
 # docker exec -it docker-compose_virtuoso_1 isql-v -U dba -P password exec="ld_dir('/usr/local/virtuoso-opensource/var/lib/virtuoso/db/output', '*.nq', 'http://test/'); rdf_loader_run();"
