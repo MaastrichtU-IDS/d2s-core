@@ -68,6 +68,27 @@ services:
     networks:
       - d2s-network
 
+  # Pull Data2Services images
+  data2services-download:
+    image: vemonet/data2services-download:latest
+
+  data2services-sparql-operations:
+    image: vemonet/data2services-sparql-operations:latest
+
+  autor2rml:
+    image: vemonet/autor2rml:latest
+
+  r2rml:
+    image: vemonet/r2rml:latest
+
+  xml2rdf:
+    image: vemonet/xml2rdf:latest
+
+  rdf-upload:
+    image: vemonet/rdf-upload:latest
+
+  
+
 networks:
   d2s-network:
     driver: bridge
