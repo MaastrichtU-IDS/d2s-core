@@ -18,6 +18,12 @@ apt-get install cwltool
 
 ---
 
+## Pull images
+
+```shell
+docker-compose pull
+```
+
 ## Running examples
 
 The [data2services-transform-biolink](https://github.com/MaastrichtU-IDS/data2services-transform-biolink) project will be used as example to transform XML, TSV, CSV, RDB, JSON to the [BioLink](https://biolink.github.io/biolink-model/docs/) RDF data model.
@@ -50,16 +56,18 @@ GraphDB needs to be built locally, for this:
 * Put the downloaded `.zip` file in the GraphDB repository (cloned from [GitHub](https://github.com/MaastrichtU-IDS/graphdb/)).
 * Run `docker build -t graphdb --build-arg version=CHANGE_ME .` in the GraphDB repository.
 
-```shell
-# Start Apache Drill sharing volume with this repository.
-# Here shared locally at /data/data2services-transform-biolink
-docker run -dit --rm -v /data/data2services-transform-biolink:/data:ro -p 8047:8047 -p 31010:31010 --name drill vemonet/apache-drill
+```bash
+# Start GraphDB and Apache Drill (run this for the example)
+docker-compose -f data2services-cwl-workflows/docker-compose.yaml up graphdb drill
 
-# GraphDB needs to be downloaded manually and built. 
-# Here shared locally at /data/graphdb and /data/graphdb-import
-docker build -t graphdb --build-arg version=8.11.0 .
-docker run -d --rm --name graphdb -p 7200:7200 -v /data/graphdb:/opt/graphdb/home -v /data/graphdb-import:/root/graphdb-import graphdb
+# Start Virtuoso and Apache Drill
+docker-compose -f data2services-cwl-workflows/docker-compose.yaml up virtuoso drill
+
+# Start blazegraph and postgres
+docker-compose -f data2services-cwl-workflows/docker-compose.yaml up blazegraph postgres
 ```
+
+> Shared locally at `/data/red-kg`
 
 ---
 
