@@ -9,8 +9,8 @@ label: Data2Services tool split RDF statements, Vincent Emonet <vincent.emonet@g
 
 baseCommand: [docker, run]
 
-arguments: [ "--rm", "--net","data2services-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-"vemonet/data2services-sparql-operations:latest", "-op", "split", "--split-delete" ]
+arguments: [ "--rm", "--net","d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
+"vemonet/d2s-sparql-operations:latest", "-op", "split", "--split-delete" ]
 
 inputs:
 

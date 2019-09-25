@@ -69,11 +69,11 @@ services:
       - d2s-network
 
   # Pull Data2Services images
-  data2services-download:
-    image: vemonet/data2services-download:latest
+  d2s-download:
+    image: vemonet/d2s-download:latest
 
-  data2services-sparql-operations:
-    image: vemonet/data2services-sparql-operations:latest
+  d2s-sparql-operations:
+    image: vemonet/d2s-sparql-operations:latest
 
   autor2rml:
     image: vemonet/autor2rml:latest
@@ -111,4 +111,4 @@ networks:
 # docker run -it --rm --net docker-compose_d2s-network -v /data/red-kg/output:/data vemonet/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
 
 # sparql-operations works though
-# docker run -it --net docker-compose_d2s-network --rm vemonet/data2services-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"
+# docker run -it --net docker-compose_d2s-network --rm vemonet/d2s-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"
