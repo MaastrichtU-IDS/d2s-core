@@ -10,7 +10,7 @@ baseCommand: [docker, run]
 
 arguments: [ "--rm", "--net", "d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
 "-v", "$(inputs.nquads_file.path):/tmp/$(inputs.nquads_file.basename)", 
-"vemonet/rdf-upload:latest", "-if", "/tmp/$(inputs.nquads_file.basename)"]
+"maastrichtuids/rdf-upload:latest", "-if", "/tmp/$(inputs.nquads_file.basename)"]
 
 inputs:
   

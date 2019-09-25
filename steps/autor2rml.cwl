@@ -8,7 +8,7 @@ label: Data2Services tool to run AutoR2RML to generate R2RML mappings, Ammar Amm
 baseCommand: [docker, run]
 
 arguments: [ "--rm", "--net", "d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-"vemonet/autor2rml:latest", "-r", "-o", "/tmp/mapping.trig", "-d", "/data/input/$(inputs.dataset)"]
+"maastrichtuids/autor2rml:latest", "-r", "-o", "/tmp/mapping.trig", "-d", "/data/input/$(inputs.dataset)"]
 
 requirements:
   EnvVarRequirement:

@@ -9,7 +9,7 @@ label: Data2Services tool to execute SPARQL queries, Ammar Ammar <ammar257ammar@
 baseCommand: [docker, run]
 
 arguments: [ "--rm", "--net", "d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-"vemonet/d2s-sparql-operations:latest" ]
+"maastrichtuids/d2s-sparql-operations:latest" ]
 
 inputs:
 

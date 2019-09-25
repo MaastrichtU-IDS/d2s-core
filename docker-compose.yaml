@@ -18,7 +18,7 @@ services:
       - d2s-network
 
   drill:
-    image: vemonet/apache-drill
+    image: maastrichtuids/apache-drill
     ports:
       - 8047:8047
       - 31010:31010
@@ -70,22 +70,22 @@ services:
 
   # Pull Data2Services images
   d2s-download:
-    image: vemonet/d2s-download:latest
+    image: maastrichtuids/d2s-download:latest
 
   d2s-sparql-operations:
-    image: vemonet/d2s-sparql-operations:latest
+    image: maastrichtuids/d2s-sparql-operations:latest
 
   autor2rml:
-    image: vemonet/autor2rml:latest
+    image: maastrichtuids/autor2rml:latest
 
   r2rml:
-    image: vemonet/r2rml:latest
+    image: maastrichtuids/r2rml:latest
 
   xml2rdf:
-    image: vemonet/xml2rdf:latest
+    image: maastrichtuids/xml2rdf:latest
 
   rdf-upload:
-    image: vemonet/rdf-upload:latest
+    image: maastrichtuids/rdf-upload:latest
 
   
 
@@ -108,7 +108,7 @@ networks:
 #docker exec -it docker-compose_virtuoso_1 isql-v -U dba -P password exec="RDF_GLOBAL_RESET ();"
 
 # Try to load with RdfUpload
-# docker run -it --rm --net docker-compose_d2s-network -v /data/red-kg/output:/data vemonet/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
+# docker run -it --rm --net docker-compose_d2s-network -v /data/red-kg/output:/data maastrichtuids/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
 
 # sparql-operations works though
-# docker run -it --net docker-compose_d2s-network --rm vemonet/d2s-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"
+# docker run -it --net docker-compose_d2s-network --rm maastrichtuids/d2s-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"
