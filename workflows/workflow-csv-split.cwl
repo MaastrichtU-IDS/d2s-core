@@ -45,7 +45,7 @@ inputs:
   sparql_insert_metadata_path: string
   sparql_compute_hcls_path:
     type: string
-    default: https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats
+    default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
 
 outputs:
   
