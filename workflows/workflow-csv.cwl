@@ -1,5 +1,4 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: Workflow
 label: Convert CSV/TSV files to a target RDF
@@ -89,7 +88,6 @@ outputs:
     label: "RDF Upload log file"
 
 
-
   # nquads_file_output:
   #   type: File
   #   outputSource: step3-r2rml/nquads_file_output
@@ -107,7 +105,6 @@ outputs:
   #   outputSource: step9-compute-hcls-stats/execute_sparql_query_logs
 
 steps:
-
   step1-d2s-download:
     run: ../steps/d2s-bash-exec.cwl
     in:
@@ -124,14 +121,6 @@ steps:
       dataset: dataset
       input_data_jdbc: input_data_jdbc
     out: [r2rml_trig_file_output, sparql_mapping_templates]
-
-  # step3-generate-r2rml-config:
-  #   run: ../steps/generate-r2rml-config.cwl
-  #   in:
-  #     dataset: dataset
-  #     input_data_jdbc: input_data_jdbc
-  #     r2rml_trig_file: step2-autor2rml/r2rml_trig_file_output
-  #   out: [r2rml_config_file_output]
 
   step3-r2rml:
     run: ../steps/run-r2rml.cwl
