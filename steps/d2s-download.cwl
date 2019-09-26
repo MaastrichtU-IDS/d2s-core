@@ -2,9 +2,8 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
-
 label: Data2Services tool to download files to process based on Shell scripts, Vincent Emonet <vincent.emonet@gmail.com> 
-
+# DEPRECATED, use d2s-bash-exec instead
 
 baseCommand: [docker, run]
 

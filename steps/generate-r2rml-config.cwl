@@ -4,7 +4,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Data2Services tool to generate R2RML config file, Ammar Ammar <ammar257ammar@gmail.com>
 
-# Not useful anymore, use r2rml with command line instead
+# DEPRECATED, use r2rml with command line instead
 
 baseCommand: echo
 

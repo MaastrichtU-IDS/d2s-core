@@ -42,7 +42,6 @@ inputs:
 
 stdout: download-dataset.txt
 
-#glob: input
 outputs:
   download_dataset_logs:
     type: stdout
