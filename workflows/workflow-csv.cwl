@@ -69,11 +69,11 @@ outputs:
     type: Directory
     label: "SPARQL mapping templates files"
   - id: r2rml_nquads_file_output
-    outputSource: step4-r2rml/r2rml_nquads_file_output
+    outputSource: step3-r2rml/r2rml_nquads_file_output
     type: File
     label: "Nquads file produced by R2RML"
   - id: r2rml_logs
-    outputSource: step4-r2rml/r2rml_logs
+    outputSource: step3-r2rml/r2rml_logs
     type: File
     label: "R2RML logs file"
 
@@ -81,7 +81,7 @@ outputs:
 
   # nquads_file_output:
   #   type: File
-  #   outputSource: step4-r2rml/nquads_file_output
+  #   outputSource: step3-r2rml/nquads_file_output
   # rdf_upload_logs:
   #   type: File
   #   outputSource: step5-rdf-upload/rdf_upload_logs
@@ -122,7 +122,7 @@ steps:
   #     r2rml_trig_file: step2-autor2rml/r2rml_trig_file_output
   #   out: [r2rml_config_file_output]
 
-  step4-r2rml:
+  step3-r2rml:
     run: ../steps/run-r2rml.cwl
     in:
       dataset: dataset
@@ -136,7 +136,7 @@ steps:
   #   in:
   #     working_directory: working_directory
   #     dataset: dataset
-  #     nquads_file: step4-r2rml/nquads_file_output
+  #     nquads_file: step3-r2rml/nquads_file_output
   #     sparql_triplestore_url: sparql_tmp_triplestore_url
   #     sparql_triplestore_repository: sparql_tmp_triplestore_repository
   #     sparql_username: sparql_tmp_triplestore_username
