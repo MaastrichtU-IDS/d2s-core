@@ -42,11 +42,11 @@ inputs:
 
 stdout: download-dataset.txt
 
+#glob: input
 outputs:
   download_dataset_logs:
     type: stdout
   download_dir:
     type: Directory
     outputBinding:
-      glob: .
-      #glob: input
+      glob: input
