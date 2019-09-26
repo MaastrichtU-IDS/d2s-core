@@ -2,10 +2,56 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
+label: Run AutoR2RML to generate R2RML mappings
+# requirements:
+#   # Get the config dir as input
+#   InitialWorkDirRequirement:
+#     listing:
+#       - $(inputs.config_dir)
+  # InlineJavascriptRequirement: {}
 
-label: Data2Services tool to run AutoR2RML to generate R2RML mappings, Ammar Ammar <ammar257ammar@gmail.com> 
+hints:
+  DockerRequirement:
+    dockerPull: maastrichtuids/autor2rml:latest
+    dockerOutputDirectory: /data
+    # Link the output dir to /data in the Docker container
 
-baseCommand: [docker, run]
+# baseCommand: ["https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-biolink/master/datasets/stitch/download/download-stitch.sh"]
+baseCommand: []
+arguments: ["$(runtime.outdir)/$(inputs.dataset)/download/download.sh"]
+
+# https://www.commonwl.org/user_guide/08-arguments/
+
+inputs:
+  dataset:
+    type: string
+  config_dir:
+    type: Directory
+  download_username:
+    type: string?
+    inputBinding:
+      position: 1
+      prefix: --username
+  download_password:
+    type: string?
+    inputBinding:
+      position: 2
+      prefix: --password
+
+
+stdout: download-dataset.txt
+
+outputs:
+  download_dataset_logs:
+    type: stdout
+  download_dir:
+    type: Directory
+    outputBinding:
+      glob: .
+
+
+
+#################
 
 arguments: [ "--rm", "--net", "d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
 "maastrichtuids/autor2rml:latest", "-r", "-o", "/tmp/mapping.trig", "-d", "/data/input/$(inputs.dataset)"]

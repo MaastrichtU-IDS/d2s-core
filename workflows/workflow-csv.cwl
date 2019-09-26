@@ -2,20 +2,20 @@
 
 cwlVersion: v1.0
 class: Workflow
-label: Data2Services CWL workflow to convert CSV/TSV files, Vincent Emonet <vincent.emonet@gmail.com> 
+label: Convert CSV/TSV files to a target RDF
 
 inputs:   
   - id: dataset
-    label: "Dataset ID"
+    label: "Dataset name"
     type: string
   - id: config_dir
     label: "CWL config directory"
     type: Directory
   - id: download_username
-    label: "Login username to download files"
+    label: "Username to download files"
     type: string?
   - id: download_password
-    label: "Login password to download files"
+    label: "Password to download files"
     type: string?
 
   # - id: download_file
@@ -54,11 +54,11 @@ outputs:
   - id: download_dir
     outputSource: step1-d2s-download/download_dir
     type: Directory
-    label: "Downloaded input files directory"
+    label: "Downloaded files"
   - id: download_dataset_logs
     outputSource: step1-d2s-download/download_dataset_logs
     type: File
-    label: "Logs of download scripts execution"
+    label: "Download execution logs"
 
   # r2rml_trig_file_output:
   #   type: File
@@ -91,18 +91,14 @@ steps:
       config_dir: config_dir
       download_username: download_username
       download_password: download_password
-    out: [download_dataset_logs, download_dir]
+    out: [download_dir, download_dataset_logs]
 
   # step2-autor2rml:
   #   run: ../steps/autor2rml.cwl
   #   in:
-  #     working_directory: working_directory
+  #     download_dir: step1-d2s-download/download_dir
   #     dataset: dataset
   #     input_data_jdbc: input_data_jdbc
-  #     autor2rml_column_header: autor2rml_column_header
-  #     sparql_base_uri: sparql_base_uri
-  #     sparql_tmp_graph_uri: sparql_tmp_graph_uri
-  #     previous_step_results: step1-d2s-download/download_dataset_logs
   #   out: [r2rml_trig_file_output]
 
   # step3-generate-r2rml-config:
