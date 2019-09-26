@@ -21,9 +21,6 @@ inputs:
     label: "Login password to download files"
     type: string?
 
-  # download_username: string?
-  # download_password: string?
-
   # input_data_jdbc: string
 
   # autor2rml_column_header: string?
@@ -62,13 +59,6 @@ outputs:
     type: File
     label: "Logs of download scripts execution"
 
-  # download_dataset_logs:
-  #   type: File
-  #   outputSource: step1-d2s-download/download_dataset_logs
-  # download_output:
-  #   type: array
-  #   items: File
-  #   outputSource: step1-d2s-download/download_output
   # r2rml_trig_file_output:
   #   type: File
   #   outputSource: step2-autor2rml/r2rml_trig_file_output
