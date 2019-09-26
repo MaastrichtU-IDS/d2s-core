@@ -17,12 +17,13 @@ inputs:
   - id: download_password
     label: "Password to download files"
     type: string?
+  - id: input_data_jdbc
+    label: "JDBC URL for database connexion"
+    type: string
 
   # - id: download_file
   #   label: "Input files download script path"
   #   type: File
-
-  # input_data_jdbc: string
 
   # autor2rml_column_header: string?
   # sparql_base_uri: string?
@@ -59,10 +60,11 @@ outputs:
     outputSource: step1-d2s-download/download_dataset_logs
     type: File
     label: "Download execution logs"
+  - id: r2rml_trig_file_output
+    outputSource: step2-autor2rml/r2rml_trig_file_output
+    type: File
+    label: "AutoR2RML execution logs"
 
-  # r2rml_trig_file_output:
-  #   type: File
-  #   outputSource: step2-autor2rml/r2rml_trig_file_output
   # r2rml_config_file_output:
   #   type: File
   #   outputSource: step3-generate-r2rml-config/r2rml_config_file_output
@@ -93,13 +95,13 @@ steps:
       download_password: download_password
     out: [download_dir, download_dataset_logs]
 
-  # step2-autor2rml:
-  #   run: ../steps/autor2rml.cwl
-  #   in:
-  #     download_dir: step1-d2s-download/download_dir
-  #     dataset: dataset
-  #     input_data_jdbc: input_data_jdbc
-  #   out: [r2rml_trig_file_output]
+  step2-autor2rml:
+    run: ../steps/autor2rml.cwl
+    in:
+      download_dir: step1-d2s-download/download_dir
+      dataset: dataset
+      input_data_jdbc: input_data_jdbc
+    out: [r2rml_trig_file_output]
 
   # step3-generate-r2rml-config:
   #   run: ../steps/generate-r2rml-config.cwl

@@ -25,6 +25,7 @@ services:
     tty: true
     volumes:
       - /data/red-kg:/data:ro
+      # - /data/red-kg:/data:ro
     networks:
       - d2s-network
 
