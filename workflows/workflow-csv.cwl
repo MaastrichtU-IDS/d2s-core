@@ -68,11 +68,12 @@ outputs:
     outputSource: step2-autor2rml/sparql_mapping_templates
     type: Directory
     label: "SPARQL mapping templates files"
+  - id: r2rml_config_file_output
+    outputSource: step3-generate-r2rml-config/r2rml_config_file_output
+    type: File
+    label: "SPARQL mapping templates files"
 
 
-  # r2rml_config_file_output:
-  #   type: File
-  #   outputSource: step3-generate-r2rml-config/r2rml_config_file_output
   # nquads_file_output:
   #   type: File
   #   outputSource: step4-r2rml/nquads_file_output
@@ -108,13 +109,13 @@ steps:
       input_data_jdbc: input_data_jdbc
     out: [r2rml_trig_file_output, sparql_mapping_templates]
 
-  # step3-generate-r2rml-config:
-  #   run: ../steps/generate-r2rml-config.cwl
-  #   in:
-  #     dataset: dataset
-  #     input_data_jdbc: input_data_jdbc
-  #     r2rml_trig_file: step2-autor2rml/r2rml_trig_file_output
-  #   out: [r2rml_config_file_output]
+  step3-generate-r2rml-config:
+    run: ../steps/generate-r2rml-config.cwl
+    in:
+      dataset: dataset
+      input_data_jdbc: input_data_jdbc
+      r2rml_trig_file: step2-autor2rml/r2rml_trig_file_output
+    out: [r2rml_config_file_output]
 
   # step4-r2rml:
   #   run: ../steps/run-r2rml.cwl
