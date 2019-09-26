@@ -18,7 +18,7 @@ services:
       - d2s-network
 
   drill:
-    image: maastrichtuids/apache-drill
+    image: vemonet/apache-drill
     ports:
       - 8047:8047
       - 31010:31010

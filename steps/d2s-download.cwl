@@ -8,9 +8,11 @@ label: Data2Services tool to download files to process based on Shell scripts, V
 
 baseCommand: [docker, run]
 
-arguments: [ "--rm", "-v" , "$(inputs.working_directory)/input:/data", "-v", "$(runtime.outdir):/tmp", 
+# Use runtime.outdir /input and /output
+arguments: [ "--rm", "-v" , "$(runtime.outdir)/input:/data", "-v", "$(runtime.outdir)/output:/tmp", 
 "maastrichtuids/d2s-download:latest", "--download-datasets", "$(inputs.dataset)"]
-
+# runtime.tmpdir
+# https://www.commonwl.org/user_guide/08-arguments/
 inputs:
   
   working_directory:
