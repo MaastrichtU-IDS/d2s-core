@@ -2,13 +2,18 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
-# requirements:
-#   InlineJavascriptRequirement: {}
+requirements:
+  InitialWorkDirRequirement:
+    # Get the config dir as input
+    listing:
+      - $(inputs.config_dir)
+  # InlineJavascriptRequirement: {}
 
 hints:
   DockerRequirement:
     dockerPull: maastrichtuids/d2s-bash-exec:latest
     dockerOutputDirectory: /data
+    # Link the output dir to /data in the Docker container
 
 label: Data2Services tool to download files to process based on Shell scripts, Vincent Emonet <vincent.emonet@gmail.com> 
 
@@ -16,7 +21,7 @@ label: Data2Services tool to download files to process based on Shell scripts, V
 # baseCommand: [docker, run]
 # baseCommand: ["https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-biolink/master/datasets/stitch/download/download-stitch.sh"]
 baseCommand: []
-arguments: ["$(inputs.download_file)"]
+arguments: ["/data/$(inputs.dataset)/download/download.sh"]
 
 # Use runtime.outdir /input and /output
 # arguments: [ "--rm", "-v", "$(inputs.config_dir)/datasets/$(inputs.dataset)/download:/config", 
