@@ -20,17 +20,24 @@ inputs:
   - id: input_data_jdbc
     label: "JDBC URL for database connexion"
     type: string
-
-  # - id: download_file
-  #   label: "Input files download script path"
-  #   type: File
+  - id: sparql_tmp_triplestore_url
+    label: "URL of tmp triplestore"
+    type: string
+  - id: sparql_tmp_triplestore_username
+    label: "Username for tmp triplestore"
+    type: string?
+  - id: sparql_tmp_triplestore_password
+    label: "Password for tmp triplestore"
+    type: string?
 
   # autor2rml_column_header: string?
   # sparql_base_uri: string?
+  # sparql_tmp_triplestore_repository: string?
+
+  #######
   
   # # tmp RDF4J server SPARQL endpoint to load generic RDF
   # sparql_tmp_triplestore_url: string
-  # sparql_tmp_triplestore_repository: string?
   # sparql_tmp_triplestore_username: string?
   # sparql_tmp_triplestore_password: string?
 
@@ -59,11 +66,11 @@ outputs:
   - id: download_dataset_logs
     outputSource: step1-d2s-download/download_dataset_logs
     type: File
-    label: "Download execution logs"
+    label: "Download script log file"
   - id: r2rml_trig_file_output
     outputSource: step2-autor2rml/r2rml_trig_file_output
     type: File
-    label: "AutoR2RML execution logs"
+    label: "AutoR2RML log file"
   - id: sparql_mapping_templates
     outputSource: step2-autor2rml/sparql_mapping_templates
     type: Directory
@@ -75,7 +82,11 @@ outputs:
   - id: r2rml_logs
     outputSource: step3-r2rml/r2rml_logs
     type: File
-    label: "R2RML logs file"
+    label: "R2RML log file"
+  - id: rdf_upload_logs
+    outputSource: step4-rdf-upload/rdf_upload_logs
+    type: File
+    label: "RDF Upload log file"
 
 
 
@@ -84,7 +95,7 @@ outputs:
   #   outputSource: step3-r2rml/nquads_file_output
   # rdf_upload_logs:
   #   type: File
-  #   outputSource: step5-rdf-upload/rdf_upload_logs
+  #   outputSource: step4-rdf-upload/rdf_upload_logs
   # execute_sparql_metadata_logs:
   #   type: File
   #   outputSource: step6-insert-metadata/execute_sparql_query_logs
@@ -130,18 +141,15 @@ steps:
       input_data_jdbc: input_data_jdbc
     out: [r2rml_nquads_file_output, r2rml_logs]
 
-  # step5-rdf-upload:
-  #   # run: ../steps/rdf-upload.cwl
-  #   run: ../steps/virtuoso-bulk-load.cwl
-  #   in:
-  #     working_directory: working_directory
-  #     dataset: dataset
-  #     nquads_file: step3-r2rml/nquads_file_output
-  #     sparql_triplestore_url: sparql_tmp_triplestore_url
-  #     sparql_triplestore_repository: sparql_tmp_triplestore_repository
-  #     sparql_username: sparql_tmp_triplestore_username
-  #     sparql_password: sparql_tmp_triplestore_password
-  #   out: [rdf_upload_logs]
+  step4-rdf-upload:
+    run: ../steps/rdf-upload.cwl
+    # run: ../steps/virtuoso-bulk-load.cwl
+    in:
+      file_to_load: step3-r2rml/r2rml_nquads_file_output
+      sparql_triplestore_url: sparql_tmp_triplestore_url
+      sparql_username: sparql_tmp_triplestore_username
+      sparql_password: sparql_tmp_triplestore_password
+    out: [rdf_upload_logs]
 
   # step6-insert-metadata:
   #   run: ../steps/execute-sparql-mapping.cwl
@@ -154,7 +162,7 @@ steps:
   #     sparql_username: sparql_final_triplestore_username
   #     sparql_password: sparql_final_triplestore_password
   #     sparql_output_graph_uri: sparql_final_graph_uri
-  #     previous_step_results: step5-rdf-upload/rdf_upload_logs
+  #     previous_step_results: step4-rdf-upload/rdf_upload_logs
   #   out: [execute_sparql_query_logs]
 
   # step8-execute-transform-queries:
@@ -170,7 +178,7 @@ steps:
   #     sparql_input_graph_uri: sparql_tmp_graph_uri
   #     sparql_output_graph_uri: sparql_final_graph_uri
   #     sparql_service_url: sparql_tmp_service_url
-  #     previous_step_results: step5-rdf-upload/rdf_upload_logs
+  #     previous_step_results: step4-rdf-upload/rdf_upload_logs
   #   out: [execute_sparql_query_logs]
 
   # step9-compute-hcls-stats:

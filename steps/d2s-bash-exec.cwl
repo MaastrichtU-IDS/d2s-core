@@ -1,5 +1,4 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: CommandLineTool
 label: Download files to process
@@ -16,12 +15,9 @@ hints:
     dockerOutputDirectory: /data
     # Link the output dir to /data in the Docker container
 
-# baseCommand: ["https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-biolink/master/datasets/stitch/download/download-stitch.sh", "input"]
 baseCommand: []
+# baseCommand: ["https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-biolink/master/datasets/stitch/download/download-stitch.sh", "input"]
 arguments: ["$(runtime.outdir)/$(inputs.dataset)/download/download.sh", "input"]
-
-
-# https://www.commonwl.org/user_guide/08-arguments/
 
 inputs:
   dataset:
@@ -38,7 +34,6 @@ inputs:
     inputBinding:
       position: 2
       prefix: --password
-
 
 stdout: download-dataset.txt
 
