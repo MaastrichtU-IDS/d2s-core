@@ -18,7 +18,8 @@ hints:
 
 # baseCommand: ["https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-biolink/master/datasets/stitch/download/download-stitch.sh"]
 baseCommand: []
-arguments: ["$(runtime.outdir)/$(inputs.dataset)/download/download.sh"]
+arguments: ["$(runtime.outdir)/$(inputs.dataset)/download/download.sh", "input"]
+
 
 # https://www.commonwl.org/user_guide/08-arguments/
 
@@ -48,3 +49,4 @@ outputs:
     type: Directory
     outputBinding:
       glob: .
+      #glob: input

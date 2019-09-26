@@ -64,6 +64,11 @@ outputs:
     outputSource: step2-autor2rml/r2rml_trig_file_output
     type: File
     label: "AutoR2RML execution logs"
+  - id: sparql_mapping_templates
+    outputSource: step2-autor2rml/sparql_mapping_templates
+    type: Directory
+    label: "SPARQL mapping templates files"
+
 
   # r2rml_config_file_output:
   #   type: File
@@ -101,7 +106,7 @@ steps:
       download_dir: step1-d2s-download/download_dir
       dataset: dataset
       input_data_jdbc: input_data_jdbc
-    out: [r2rml_trig_file_output]
+    out: [r2rml_trig_file_output, sparql_mapping_templates]
 
   # step3-generate-r2rml-config:
   #   run: ../steps/generate-r2rml-config.cwl

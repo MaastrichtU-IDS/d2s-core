@@ -18,7 +18,8 @@ hints:
 
 
 # baseCommand: [docker, run]
-# arguments: [ "--rm", "--net","d2s-cwl-workflows_d2s-network", "-v" , "$(runtime.outdir):/data", "maastrichtuids/autor2rml:latest", "-r", "-o", "/data/mapping.trig", "-d", "/data"]
+# arguments: [ "--rm", "--net","d2s-cwl-workflows_d2s-network", 
+# "-v" , "$(runtime.outdir):/data", "maastrichtuids/autor2rml:latest", "-r", "-o", "/data/mapping.trig", "-d", "/data"]
 
 baseCommand: []
 # arguments: ["-r", "-o", "/data/mapping.trig", "-d", "$(inputs.download_dir)"]
@@ -26,6 +27,8 @@ baseCommand: []
 
 arguments: ["-r", "-o", "/data/mapping.trig", "-d", "/data"]
 # TODO: fix AutoR2RML to accept wild card to get a dir?
+# TODO: no more full path in rdf:type
+# TODO: fix output SPARQL template
 
 inputs:
   dataset:
@@ -46,6 +49,10 @@ outputs:
     type: File
     outputBinding:
       glob: mapping.trig
+  sparql_mapping_templates:
+    type: Directory
+    outputBinding:
+      glob: sparql_mapping_templates
 
 
 ## Extra inputs
