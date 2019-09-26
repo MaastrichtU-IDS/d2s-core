@@ -11,15 +11,16 @@ inputs:
   - id: config_dir
     label: "CWL config directory"
     type: Directory
-  - id: download_file
-    label: "Input files download script path"
-    type: File
   - id: download_username
     label: "Login username to download files"
     type: string?
   - id: download_password
     label: "Login password to download files"
     type: string?
+
+  # - id: download_file
+  #   label: "Input files download script path"
+  #   type: File
 
   # input_data_jdbc: string
 
@@ -86,9 +87,8 @@ steps:
   step1-d2s-download:
     run: ../steps/d2s-bash-exec.cwl
     in:
-      config_dir: config_dir
-      download_file: download_file
       dataset: dataset
+      config_dir: config_dir
       download_username: download_username
       download_password: download_password
     out: [download_dataset_logs, download_dir]
