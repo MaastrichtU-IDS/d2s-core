@@ -8,7 +8,7 @@ label: Execute SPARQL queries
 #   InitialWorkDirRequirement:
 #     listing:
 #       - $(inputs.config_dir)
-  # InlineJavascriptRequirement: {}
+#   InlineJavascriptRequirement: {}
 
 hints:
   DockerRequirement:

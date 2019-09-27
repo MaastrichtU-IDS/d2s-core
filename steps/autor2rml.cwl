@@ -7,7 +7,7 @@ label: Run AutoR2RML to generate R2RML mappings
 #   InitialWorkDirRequirement:
 #     listing:
 #       - $(inputs.config_dir)
-  # InlineJavascriptRequirement: {}
+#   InlineJavascriptRequirement: {}
 
 hints:
   DockerRequirement:

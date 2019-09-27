@@ -1,244 +1,154 @@
-class: Workflow
+#!/usr/bin/env cwl-runner
 cwlVersion: v1.0
-label: >-
-  Data2Services CWL workflow to convert XML files, Vincent Emonet
-  <vincent.emonet@gmail.com>
-$namespaces:
-  sbg: 'https://www.sevenbridges.com/'
-inputs:
+class: Workflow
+label: Convert XML files to a target RDF
+
+inputs:   
   - id: dataset
+    label: "Dataset name"
     type: string
-    'sbg:x': 0
-    'sbg:y': 1392.421875
-  - id: download_password
-    type: string?
-    'sbg:x': 0
-    'sbg:y': 1285.3125
+  - id: config_dir
+    label: "CWL config directory"
+    type: Directory
   - id: download_username
+    label: "Username to download files"
     type: string?
-    'sbg:x': 0
-    'sbg:y': 1178.203125
-  - id: sparql_compute_hcls_path
-    type: string
-    default: >-
-      https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
-    'sbg:x': 0
-    'sbg:y': 1071.09375
-  - id: sparql_final_graph_uri
-    type: string
-    'sbg:x': 0
-    'sbg:y': 963.984375
-  - id: sparql_final_triplestore_password
-    type: string
-    'sbg:x': 0
-    'sbg:y': 856.875
-  - id: sparql_final_triplestore_repository
-    type: string
-    'sbg:x': 0
-    'sbg:y': 749.765625
-  - id: sparql_final_triplestore_url
-    type: string
-    'sbg:x': -476.1847229003906
-    'sbg:y': 605.798828125
-  - id: sparql_final_triplestore_username
-    type: string
-    'sbg:x': 0
-    'sbg:y': 535.546875
-  - id: sparql_insert_metadata_path
-    type: string
-    'sbg:x': 0
-    'sbg:y': 428.4375
-  - id: sparql_tmp_graph_uri
-    type: string
-    'sbg:x': 0
-    'sbg:y': 321.328125
-  - id: sparql_tmp_service_url
-    type: string
-    'sbg:x': 0
-    'sbg:y': 214.21875
-  - id: sparql_tmp_triplestore_repository
-    type: string
-    'sbg:x': 322.390625
-    'sbg:y': 1164.5390625
+  - id: download_password
+    label: "Password to download files"
+    type: string?
   - id: sparql_tmp_triplestore_url
+    label: "URL of tmp triplestore"
     type: string
-    'sbg:x': 322.390625
-    'sbg:y': 1057.4296875
+  - id: sparql_tmp_service_url
+    label: "Service URL of tmp triplestore"
+    type: string
+  - id: sparql_tmp_triplestore_username
+    label: "Username for tmp triplestore"
+    type: string?
+  - id: sparql_tmp_triplestore_password
+    label: "Password for tmp triplestore"
+    type: string?
+  - id: sparql_final_triplestore_url
+    label: "URL of final triplestore"
+    type: string
+  - id: sparql_final_triplestore_username
+    label: "Username for final triplestore"
+    type: string?
+  - id: sparql_final_triplestore_password
+    label: "Password for final triplestore"
+    type: string?
+  - id: sparql_final_graph_uri
+    label: "Graph URI of transformed RDF"
+    type: string
+  - id: sparql_insert_metadata_path
+    label: "Path to queries to insert metadata"
+    type: string
   - id: sparql_transform_queries_path
+    label: "Path to queries to transform generic RDF"
     type: string
-    'sbg:x': 0
-    'sbg:y': 107.109375
-  - id: working_directory
+  - id: sparql_compute_hcls_path
+    label: "Path to queries to compute HCLS stats"
     type: string
-    'sbg:x': 0
-    'sbg:y': 0
+    default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
+
+
 outputs:
+  - id: download_dir
+    outputSource: step1-d2s-download/download_dir
+    type: Directory
+    label: "Downloaded files"
   - id: download_dataset_logs
-    outputSource:
-      - step1-d2s-download/download_dataset_logs
+    outputSource: step1-d2s-download/download_dataset_logs
     type: File
-    'sbg:x': 829.4376220703125
-    'sbg:y': 1045.5390625
-  - id: execute_sparql_hcls_logs
-    outputSource:
-      - step6-compute-hcls-stats/execute_sparql_query_logs
+    label: "Download script log file"
+  # - id: sparql_mapping_templates
+  #   outputSource: step2-autor2rml/sparql_mapping_templates
+  #   type: Directory
+  #   label: "SPARQL mapping templates files"
+  - id: xml2rdf_nquads_file_output
+    outputSource: step2-xml2rdf/xml2rdf_nquads_file_output
     type: File
-    'sbg:x': 829.4376220703125
-    'sbg:y': 938.4296875
-  - id: execute_sparql_metadata_logs
-    outputSource:
-      - step4-insert-metadata/execute_sparql_query_logs
+    label: "Nquads file produced by xml2rdf"
+  - id: xml2rdf_logs
+    outputSource: step2-xml2rdf/xml2rdf_logs
     type: File
-    'sbg:x': 829.4376220703125
-    'sbg:y': 831.3203125
-  - id: execute_sparql_transform_logs
-    outputSource:
-      - step5-execute-transform-queries/execute_sparql_query_logs
-    type: File
-    'sbg:x': 829.4376220703125
-    'sbg:y': 724.2109375
-  - id: nquads_file_output
-    outputSource:
-      - step2-xml2rdf/nquads_file_output
-    type: File
-    'sbg:x': 829.4376220703125
-    'sbg:y': 617.1015625
+    label: "xml2rdf log file"
   - id: rdf_upload_logs
-    outputSource:
-      - step3-rdf-upload/rdf_upload_logs
+    outputSource: step4-rdf-upload/rdf_upload_logs
     type: File
-    'sbg:x': 1212.2188720703125
-    'sbg:y': 696.2109375
-  - id: xml2rdf_file_output
-    outputSource:
-      - step2-xml2rdf/xml2rdf_file_output
+    label: "RDF Upload log file"
+  - id: sparql_insert_metadata_logs
+    outputSource: step5-insert-metadata/execute_sparql_query_logs
     type: File
-    'sbg:x': 829.4376220703125
-    'sbg:y': 289.3253479003906
+    label: "SPARQL insert metadata log file"
+  - id: sparql_transform_queries_logs
+    outputSource: step6-execute-transform-queries/execute_sparql_query_logs
+    type: File
+    label: "SPARQL transform queries log file"
+  - id: sparql_hcls_statistics_logs
+    outputSource: step7-compute-hcls-stats/execute_sparql_query_logs
+    type: File
+    label: "SPARQL HCLS statistics log file"
+
+
 steps:
-  - id: step1-d2s-download
+  step1-d2s-download:
+    run: ../steps/d2s-bash-exec.cwl
     in:
-      - id: dataset
-        source: dataset
-      - id: download_password
-        source: download_password
-      - id: download_username
-        source: download_username
-      - id: working_directory
-        source: working_directory
-    out:
-      - id: download_dataset_logs
-    run: ../steps/d2s-download.cwl
-    label: Download files to process
-    'sbg:x': 322.390625
-    'sbg:y': 929.3203125
-  - id: step2-xml2rdf
-    in:
-      - id: dataset
-        source: dataset
-      - id: sparql_tmp_graph_uri
-        source: sparql_tmp_graph_uri
-      - id: working_directory
-        source: working_directory
-    out:
-      - id: nquads_file_output
-      - id: xml2rdf_file_output
+      dataset: dataset
+      config_dir: config_dir
+      download_username: download_username
+      download_password: download_password
+    out: [download_dir, download_dataset_logs]
+
+  step2-xml2rdf:
     run: ../steps/run-xml2rdf.cwl
-    label: Run xml2rdf
-    'sbg:x': 326.0675048828125
-    'sbg:y': 778.3864135742188
-  - id: step3-rdf-upload
     in:
-      - id: dataset
-        source: dataset
-      - id: nquads_file
-        source: step2-xml2rdf/nquads_file_output
-      - id: sparql_triplestore_repository
-        source: sparql_tmp_triplestore_repository
-      - id: sparql_triplestore_url
-        source: sparql_tmp_triplestore_url
-      - id: working_directory
-        source: working_directory
-    out:
-      - id: rdf_upload_logs
+      download_dir: step1-d2s-download/download_dir
+    out: [xml2rdf_nquads_file_output, xml2rdf_logs]
+    # out: [xml2rdf_nquads_file_output, xml2rdf_logs, sparql_mapping_templates]
+
+  step4-rdf-upload:
     run: ../steps/rdf-upload.cwl
-    label: Upload RDF to a SPARQL endpoint
-    'sbg:x': 829.4376220703125
-    'sbg:y': 481.9921875
-  - id: step4-insert-metadata
+    # run: ../steps/virtuoso-bulk-load.cwl
     in:
-      - id: dataset
-        source: dataset
-      - id: sparql_output_graph_uri
-        source: sparql_final_graph_uri
-      - id: sparql_password
-        source: sparql_final_triplestore_password
-      - id: sparql_queries_path
-        source: sparql_insert_metadata_path
-      - id: sparql_triplestore_repository
-        source: sparql_final_triplestore_repository
-      - id: sparql_triplestore_url
-        source: sparql_final_triplestore_url
-      - id: sparql_username
-        source: sparql_final_triplestore_username
-      - id: working_directory
-        source: working_directory
-    out:
-      - id: execute_sparql_query_logs
-    run: ../steps/execute-sparql-mapping.cwl
-    label: Execute SPARQL queries
-    'sbg:x': 322.390625
-    'sbg:y': 617.1015625
-  - id: step5-execute-transform-queries
+      file_to_load: step2-xml2rdf/xml2rdf_nquads_file_output
+      sparql_triplestore_url: sparql_tmp_triplestore_url
+      sparql_username: sparql_tmp_triplestore_username
+      sparql_password: sparql_tmp_triplestore_password
+    out: [rdf_upload_logs]
+
+  step5-insert-metadata:
+    run: ../steps/execute-sparql-queries.cwl
     in:
-      - id: dataset
-        source: dataset
-      - id: sparql_input_graph_uri
-        source: sparql_tmp_graph_uri
-      - id: sparql_output_graph_uri
-        source: sparql_final_graph_uri
-      - id: sparql_password
-        source: sparql_final_triplestore_password
-      - id: sparql_queries_path
-        source: sparql_transform_queries_path
-      - id: sparql_service_url
-        source: sparql_tmp_service_url
-      - id: sparql_triplestore_repository
-        source: sparql_final_triplestore_repository
-      - id: sparql_triplestore_url
-        source: sparql_final_triplestore_url
-      - id: sparql_username
-        source: sparql_final_triplestore_username
-      - id: working_directory
-        source: working_directory
-    out:
-      - id: execute_sparql_query_logs
-    run: ../steps/execute-sparql-mapping.cwl
-    label: Execute SPARQL queries
-    'sbg:x': 355.0260009765625
-    'sbg:y': 380.01446533203125
-  - id: step6-compute-hcls-stats
+      sparql_queries_path: sparql_insert_metadata_path
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      sparql_output_graph_uri: sparql_final_graph_uri
+      previous_step_output: step4-rdf-upload/rdf_upload_logs
+    out: [execute_sparql_query_logs]
+
+  step6-execute-transform-queries:
+    run: ../steps/execute-sparql-queries.cwl
     in:
-      - id: dataset
-        source: dataset
-      - id: sparql_input_graph_uri
-        source: sparql_final_graph_uri
-      - id: sparql_password
-        source: sparql_final_triplestore_password
-      - id: sparql_queries_path
-        source: sparql_compute_hcls_path
-      - id: sparql_triplestore_repository
-        source: sparql_final_triplestore_repository
-      - id: sparql_triplestore_url
-        source: sparql_final_triplestore_url
-      - id: sparql_username
-        source: sparql_final_triplestore_username
-      - id: working_directory
-        source: working_directory
-    out:
-      - id: execute_sparql_query_logs
-    run: ../steps/execute-sparql-mapping.cwl
-    label: Execute SPARQL queries
-    'sbg:x': 386.50579833984375
-    'sbg:y': 144.2112579345703
-requirements: []
+      sparql_queries_path: sparql_transform_queries_path
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      # sparql_input_graph_uri: sparql_tmp_graph_uri
+      sparql_output_graph_uri: sparql_final_graph_uri
+      sparql_service_url: sparql_tmp_service_url
+      previous_step_output: step4-rdf-upload/rdf_upload_logs
+    out: [execute_sparql_query_logs]
+
+  step7-compute-hcls-stats:
+    run: ../steps/execute-sparql-queries.cwl
+    in: # No sparql_queries_path, HCLS stats is the default
+      sparql_queries_path: sparql_compute_hcls_path
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      sparql_input_graph_uri: sparql_final_graph_uri
+      previous_step_output: step6-execute-transform-queries/execute_sparql_query_logs
+    out: [execute_sparql_query_logs]

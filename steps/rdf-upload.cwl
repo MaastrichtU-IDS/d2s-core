@@ -8,7 +8,7 @@ label: Upload RDF to a SPARQL endpoint
 #   InitialWorkDirRequirement:
 #     listing:
 #       - $(inputs.config_dir)
-  # InlineJavascriptRequirement: {}
+#   InlineJavascriptRequirement: {}
 
 hints:
   DockerRequirement:

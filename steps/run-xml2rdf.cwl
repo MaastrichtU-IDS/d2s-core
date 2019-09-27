@@ -1,40 +1,44 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: CommandLineTool
+label: Run xml2rdf
 
-label: Data2Services tool run xml2rdf to generate RDF, Vincent Emonet <vincent.emonet@gmail.com> 
+# requirements:
+#   # Get the config dir as input
+#   InitialWorkDirRequirement:
+#     listing:
+#       - $(inputs.config_dir)
+#   InlineJavascriptRequirement: {}
 
-baseCommand: [docker, run]
+hints:
+  DockerRequirement:
+    dockerPull: maastrichtuids/xml2rdf:latest
+    dockerOutputDirectory: /data
+    # Link the output dir to /data in the Docker container
 
-arguments: [ "--rm", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-"maastrichtuids/xml2rdf:latest", "-i", "/data/input/$(inputs.dataset)/*.xml*", "-o", "/tmp/rdf_output.nq"]
-
-requirements:
-  EnvVarRequirement:
-    envDef:
-      HOME: $(inputs.working_directory)
+baseCommand: []
+# arguments: ["-i", "$(inputs.download_dir.path)/*.xml*", "-o", "/tmp/rdf_output.nq",
+arguments: ["-i", "$(inputs.download_dir.path)/*.xml", "-o", "$(runtime.outdir)/rdf_output.nq",
+"-g", "https://w3id.org/data2services/graph/xml2rdf"]
 
 inputs:
-  
-  working_directory:
-    type: string
-  dataset:
-    type: string
-  sparql_tmp_graph_uri:
-    type: string
-    default: https://w3id.org/data2services/graph/xml2rdf
-    inputBinding:
-      position: 3
-      prefix: -g
+  download_dir:
+    type: Directory
 
-stdout: xml2rdf_file_structure.txt
+stdout: xml2rdf-logs.txt
 
-# TODO: get all template SPARQL mapping files? They are lost at the moment
 outputs:
-  xml2rdf_file_output:
+  xml2rdf_logs:
     type: stdout
-  nquads_file_output:
+  xml2rdf_nquads_file_output:
     type: File
     outputBinding:
       glob: rdf_output.nq
+  # sparql_mapping_templates:
+  #   type: Directory
+  #   outputBinding:
+  #     glob: sparql_mapping_templates
+
+
+# arguments: [ "--rm", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
+# "maastrichtuids/xml2rdf:latest", "-i", "/data/input/$(inputs.dataset)/*.xml*", "-o", "/tmp/rdf_output.nq"]
