@@ -3,10 +3,7 @@ cwlVersion: v1.0
 class: Workflow
 label: Convert CSV/TSV files to a target RDF
 
-inputs:   
-  - id: dataset
-    label: "Dataset name"
-    type: string
+inputs:
   - id: config_dir
     label: "CWL config directory"
     type: Directory
@@ -160,7 +157,6 @@ steps:
   step3-r2rml:
     run: ../steps/run-r2rml.cwl
     in:
-      dataset: dataset
       r2rml_trig_file: step2-autor2rml/r2rml_trig_file_output
       input_data_jdbc: input_data_jdbc
     out: [r2rml_nquads_file_output, r2rml_logs]

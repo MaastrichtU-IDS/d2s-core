@@ -16,12 +16,9 @@ hints:
     # Link the output dir to /data in the Docker container
 
 baseCommand: []
-# arguments: ["$(inputs.config_dir.path)/download/download.sh", "input"] 
-arguments: ["$(runtime.outdir)/$(inputs.dataset)/download/download.sh", "input"]
+arguments: ["$(inputs.config_dir.path)/download/download.sh", "input"]
 
 inputs:
-  dataset:
-    type: string
   config_dir:
     type: Directory
   download_username:

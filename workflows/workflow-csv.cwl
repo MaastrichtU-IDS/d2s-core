@@ -3,10 +3,7 @@ cwlVersion: v1.0
 class: Workflow
 label: Convert CSV/TSV files to a target RDF
 
-inputs:   
-  - id: dataset
-    label: "Dataset name"
-    type: string
+inputs:
   - id: config_dir
     label: "CWL config directory"
     type: Directory
@@ -130,7 +127,6 @@ steps:
   step1-d2s-download:
     run: ../steps/d2s-bash-exec.cwl
     in:
-      dataset: dataset
       config_dir: config_dir
       download_username: download_username
       download_password: download_password
