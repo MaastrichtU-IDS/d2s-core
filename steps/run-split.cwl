@@ -11,7 +11,7 @@ label: Split RDF statements
 
 hints:
   DockerRequirement:
-    dockerPull: maastrichtuids/autor2rml:latest
+    dockerPull: maastrichtuids/d2s-sparql-operations:latest
     dockerOutputDirectory: /data
     # Link the output dir to /data in the Docker container
 
