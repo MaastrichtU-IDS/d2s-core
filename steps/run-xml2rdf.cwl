@@ -3,6 +3,11 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Run xml2rdf
 
+$namespaces:
+  dct: "http://purl.org/dc/terms/"
+  foaf: "http://xmlns.com/foaf/0.1/"
+  edam: "https://identifiers.org/edam:"
+
 # requirements:
 #   # Get the config dir as input
 #   InitialWorkDirRequirement:
@@ -30,6 +35,7 @@ stdout: xml2rdf-logs.txt
 outputs:
   xml2rdf_logs:
     type: stdout
+    format: edam:format_1964    # Plain text
   xml2rdf_nquads_file_output:
     type: File
     outputBinding:

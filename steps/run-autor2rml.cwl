@@ -2,6 +2,9 @@
 cwlVersion: v1.0
 class: CommandLineTool
 label: Run AutoR2RML to generate R2RML mappings
+doc: |
+    AutoR2RML Docker container to automatically generate R2RML and SPARQL mappings files for SQL databases and tabular files (via Apache Drill). See http://d2s.semanticscience.org/ for more details.
+
 # requirements:
 #   # Get the config dir as input
 #   InitialWorkDirRequirement:
@@ -36,12 +39,48 @@ stdout: autor2rml-logs.txt
 outputs:
   r2rml_trig_file_output:
     type: File
+    format: edam:format_3255    # Turtle
     outputBinding:
       glob: mapping.trig
   sparql_mapping_templates:
     type: Directory
     outputBinding:
       glob: sparql_mapping_templates
+
+
+### Annotation documentation
+# https://biotools.readthedocs.io/en/latest/curators_guide.html
+# EDAM ontology: https://www.ebi.ac.uk/ols/ontologies/edam
+
+$namespaces:
+  dct: "http://purl.org/dc/terms/"
+  foaf: "http://xmlns.com/foaf/0.1/"
+  edam: "https://identifiers.org/edam:"
+  s: "https://schema.org/"
+
+$schemas:
+  - http://edamontology.org/EDAM_1.18.owl
+  - https://schema.org/docs/schema_org_rdfa.html
+
+# Dockstore requirement
+dct:creator:
+  "@id": "https://orcid.org/0000-0002-1501-1082"
+  foaf:name: "Vincent Emonet"
+  foaf:mbox: "mailto:vincent.emonet@gmail.com"
+
+dct:contributor:
+  "@id": "https://orcid.org/0000-0002-1501-1082"
+  foaf:name: "Ammar Ammar"
+  foaf:mbox: "mailto:a.ammar@student.maastrichtuniversity.nl"
+
+dct:license: "https://opensource.org/licenses/MIT"
+
+# Provided by https://www.commonwl.org/user_guide/17-metadata/
+s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
+s:codeRepository: https://github.com/MaastrichtU-IDS/AutoR2RML
+# s:dateCreated: "2019-09-27"
+
+
 
 
 ## Extra inputs
