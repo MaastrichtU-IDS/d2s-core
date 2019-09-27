@@ -2,7 +2,7 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
-label: Data2Services tool to Upload RDF to a SPARQL endpoint, Ammar Ammar <ammar257ammar@gmail.com> 
+label: Upload RDF to a SPARQL endpoint
 # requirements:
 #   # Get the config dir as input
 #   InitialWorkDirRequirement:
