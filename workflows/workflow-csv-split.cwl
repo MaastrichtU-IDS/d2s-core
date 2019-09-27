@@ -152,7 +152,7 @@ steps:
     out: [download_dir, download_dataset_logs]
 
   step2-autor2rml:
-    run: ../steps/autor2rml.cwl
+    run: ../steps/run-autor2rml.cwl
     in:
       download_dir: step1-d2s-download/download_dir
       dataset: dataset
