@@ -137,7 +137,7 @@ outputs:
     type: File
     label: "SPARQL HCLS statistics log file"
   - id: execute_split_logs
-    outputSource: step8-split-property/execute_split_logs
+    outputSource: step7-split-property/execute_split_logs
     type: File
 
 
@@ -205,7 +205,6 @@ steps:
     run: ../steps/run-split.cwl
     in:
       sparql_triplestore_url: sparql_tmp_triplestore_url
-      sparql_triplestore_repository: sparql_tmp_triplestore_repository
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
       split_delimiter: split_delimiter

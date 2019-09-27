@@ -29,40 +29,35 @@ inputs:
     inputBinding:
       position: 1
       prefix: -ep
-  sparql_triplestore_repository:
-    type: string
-    inputBinding:
-      position: 2
-      prefix: -rep
   sparql_username:
     type: string?
     inputBinding:
-      position: 3
+      position: 2
       prefix: -un
   sparql_password:
     type: string?
     inputBinding:
-      position: 4
+      position: 3
       prefix: -pw
   split_property:
     type: string
     inputBinding:
-      position: 5
+      position: 4
       prefix: --split-property
   split_class:
     type: string
     inputBinding:
-      position: 6
+      position: 5
       prefix: --split-class
   split_delimiter:
     type: string
     inputBinding:
-      position: 7
+      position: 6
       prefix: --split-delimiter
   split_quote:
     type: string?
     inputBinding:
-      position: 8
+      position: 7
       prefix: --split-quote
 
 stdout: execute-split-logs.txt
