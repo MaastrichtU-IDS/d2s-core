@@ -2,7 +2,7 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
-label: Upload RDF to a SPARQL endpoint
+label: Upload RDF to SPARQL endpoint
 # requirements:
 #   # Get the config dir as input
 #   InitialWorkDirRequirement:

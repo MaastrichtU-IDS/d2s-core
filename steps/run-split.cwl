@@ -59,6 +59,8 @@ inputs:
     inputBinding:
       position: 7
       prefix: --split-quote
+  previous_step_output:
+    type: File?
 
 stdout: execute-split-logs.txt
 

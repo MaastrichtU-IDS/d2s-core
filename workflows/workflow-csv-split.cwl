@@ -211,7 +211,7 @@ steps:
       split_quote: split_quote
       split_class: split_class
       split_property: split_property
-      previous_step_results: step6-execute-transform-queries/execute_sparql_query_logs
+      previous_step_output: step6-execute-transform-queries/execute_sparql_query_logs
     out: [execute_split_logs]
 
   step7-compute-hcls-stats:
