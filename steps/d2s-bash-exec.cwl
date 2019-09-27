@@ -16,7 +16,7 @@ hints:
     # Link the output dir to /data in the Docker container
 
 baseCommand: []
-# baseCommand: ["https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-biolink/master/datasets/stitch/download/download-stitch.sh", "input"]
+# arguments: ["$(inputs.config_dir.path)/download/download.sh", "input"] 
 arguments: ["$(runtime.outdir)/$(inputs.dataset)/download/download.sh", "input"]
 
 inputs:

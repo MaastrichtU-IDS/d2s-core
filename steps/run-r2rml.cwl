@@ -25,8 +25,6 @@ arguments: [ "--connectionURL", "$(inputs.input_data_jdbc)",
 "--format", "NQUADS" ]
 
 inputs:
-  dataset:
-    type: string
   r2rml_trig_file:
     type: File 
   input_data_jdbc:

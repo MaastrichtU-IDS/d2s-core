@@ -140,14 +140,12 @@ steps:
     run: ../steps/run-autor2rml.cwl
     in:
       download_dir: step1-d2s-download/download_dir
-      dataset: dataset
       input_data_jdbc: input_data_jdbc
     out: [r2rml_trig_file_output, sparql_mapping_templates]
 
   step3-r2rml:
     run: ../steps/run-r2rml.cwl
     in:
-      dataset: dataset
       r2rml_trig_file: step2-autor2rml/r2rml_trig_file_output
       input_data_jdbc: input_data_jdbc
     out: [r2rml_nquads_file_output, r2rml_logs]

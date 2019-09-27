@@ -1,10 +1,9 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: Workflow
-
 label: Data2Services CWL workflow to convert XML files, Vincent Emonet <vincent.emonet@gmail.com> 
 
+# TODO: fix
 
 inputs: 
   

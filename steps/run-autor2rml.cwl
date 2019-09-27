@@ -23,9 +23,7 @@ baseCommand: []
 arguments: ["-r", "-o", "/data/mapping.trig", "-d", "/data"]
 
 inputs:
-  dataset:
-    type: string
-  download_dir:
+  download_dir:   # Previous step output
     type: Directory
   input_data_jdbc:
     type: string

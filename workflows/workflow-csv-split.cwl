@@ -145,7 +145,6 @@ steps:
   step1-d2s-download:
     run: ../steps/d2s-bash-exec.cwl
     in:
-      dataset: dataset
       config_dir: config_dir
       download_username: download_username
       download_password: download_password
@@ -155,7 +154,6 @@ steps:
     run: ../steps/run-autor2rml.cwl
     in:
       download_dir: step1-d2s-download/download_dir
-      dataset: dataset
       input_data_jdbc: input_data_jdbc
     out: [r2rml_trig_file_output, sparql_mapping_templates]
 
