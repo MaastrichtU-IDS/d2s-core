@@ -22,12 +22,38 @@ inputs:
   - id: sparql_tmp_triplestore_url
     label: "URL of tmp triplestore"
     type: string
+  - id: sparql_tmp_service_url
+    label: "Service URL of tmp triplestore"
+    type: string
   - id: sparql_tmp_triplestore_username
     label: "Username for tmp triplestore"
     type: string?
   - id: sparql_tmp_triplestore_password
     label: "Password for tmp triplestore"
     type: string?
+  - id: sparql_final_triplestore_url
+    label: "URL of final triplestore"
+    type: string
+  - id: sparql_final_triplestore_username
+    label: "Username for final triplestore"
+    type: string?
+  - id: sparql_final_triplestore_password
+    label: "Password for final triplestore"
+    type: string?
+  - id: sparql_final_graph_uri
+    label: "Graph URI of transformed RDF"
+    type: string
+  - id: sparql_insert_metadata_path
+    label: "Path to queries to insert metadata"
+    type: string
+  - id: sparql_transform_queries_path
+    label: "Path to queries to transform generic RDF"
+    type: string
+  - id: sparql_compute_hcls_path
+    label: "Path to queries to compute HCLS stats"
+    type: string
+    default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
+
 
   # autor2rml_column_header: string?
   # sparql_base_uri: string?
@@ -86,23 +112,19 @@ outputs:
     outputSource: step4-rdf-upload/rdf_upload_logs
     type: File
     label: "RDF Upload log file"
+  - id: sparql_insert_metadata_logs
+    outputSource: step5-insert-metadata/execute_sparql_query_logs
+    type: File
+    label: "SPARQL insert metadata log file"
+  - id: sparql_transform_queries_logs
+    outputSource: step6-execute-transform-queries/execute_sparql_query_logs
+    type: File
+    label: "SPARQL transform queries log file"
+  - id: sparql_hcls_statistics_logs
+    outputSource: step7-compute-hcls-stats/execute_sparql_query_logs
+    type: File
+    label: "SPARQL HCLS statistics log file"
 
-
-  # nquads_file_output:
-  #   type: File
-  #   outputSource: step3-r2rml/nquads_file_output
-  # rdf_upload_logs:
-  #   type: File
-  #   outputSource: step4-rdf-upload/rdf_upload_logs
-  # execute_sparql_metadata_logs:
-  #   type: File
-  #   outputSource: step6-insert-metadata/execute_sparql_query_logs
-  # execute_sparql_transform_logs:
-  #   type: File
-  #   outputSource: step8-execute-transform-queries/execute_sparql_query_logs
-  # execute_sparql_hcls_logs:
-  #   type: File
-  #   outputSource: step9-compute-hcls-stats/execute_sparql_query_logs
 
 steps:
   step1-d2s-download:
@@ -140,46 +162,37 @@ steps:
       sparql_password: sparql_tmp_triplestore_password
     out: [rdf_upload_logs]
 
-  # step6-insert-metadata:
-  #   run: ../steps/execute-sparql-mapping.cwl
-  #   in:
-  #     working_directory: working_directory
-  #     dataset: dataset
-  #     sparql_queries_path: sparql_insert_metadata_path
-  #     sparql_triplestore_url: sparql_final_triplestore_url
-  #     sparql_triplestore_repository: sparql_final_triplestore_repository
-  #     sparql_username: sparql_final_triplestore_username
-  #     sparql_password: sparql_final_triplestore_password
-  #     sparql_output_graph_uri: sparql_final_graph_uri
-  #     previous_step_results: step4-rdf-upload/rdf_upload_logs
-  #   out: [execute_sparql_query_logs]
+  step5-insert-metadata:
+    run: ../steps/execute-sparql-queries.cwl
+    in:
+      sparql_queries_path: sparql_insert_metadata_path
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      sparql_output_graph_uri: sparql_final_graph_uri
+      previous_step_output: step4-rdf-upload/rdf_upload_logs
+    out: [execute_sparql_query_logs]
 
-  # step8-execute-transform-queries:
-  #   run: ../steps/execute-sparql-mapping.cwl
-  #   in:
-  #     working_directory: working_directory
-  #     dataset: dataset
-  #     sparql_queries_path: sparql_transform_queries_path
-  #     sparql_triplestore_url: sparql_final_triplestore_url
-  #     sparql_triplestore_repository: sparql_final_triplestore_repository
-  #     sparql_username: sparql_final_triplestore_username
-  #     sparql_password: sparql_final_triplestore_password
-  #     sparql_input_graph_uri: sparql_tmp_graph_uri
-  #     sparql_output_graph_uri: sparql_final_graph_uri
-  #     sparql_service_url: sparql_tmp_service_url
-  #     previous_step_results: step4-rdf-upload/rdf_upload_logs
-  #   out: [execute_sparql_query_logs]
+  step6-execute-transform-queries:
+    run: ../steps/execute-sparql-queries.cwl
+    in:
+      sparql_queries_path: sparql_transform_queries_path
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      # sparql_input_graph_uri: sparql_tmp_graph_uri
+      sparql_output_graph_uri: sparql_final_graph_uri
+      sparql_service_url: sparql_tmp_service_url
+      previous_step_output: step4-rdf-upload/rdf_upload_logs
+    out: [execute_sparql_query_logs]
 
-  # step9-compute-hcls-stats:
-  #   run: ../steps/execute-sparql-mapping.cwl
-  #   in: # No sparql_queries_path, HCLS stats is the default
-  #     working_directory: working_directory
-  #     dataset: dataset
-  #     sparql_queries_path: sparql_compute_hcls_path
-  #     sparql_triplestore_url: sparql_final_triplestore_url
-  #     sparql_triplestore_repository: sparql_final_triplestore_repository
-  #     sparql_username: sparql_final_triplestore_username
-  #     sparql_password: sparql_final_triplestore_password
-  #     sparql_input_graph_uri: sparql_final_graph_uri
-  #     previous_step_results: step8-execute-transform-queries/execute_sparql_query_logs
-  #   out: [execute_sparql_query_logs]
+  step7-compute-hcls-stats:
+    run: ../steps/execute-sparql-queries.cwl
+    in: # No sparql_queries_path, HCLS stats is the default
+      sparql_queries_path: sparql_compute_hcls_path
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      sparql_input_graph_uri: sparql_final_graph_uri
+      previous_step_output: step6-execute-transform-queries/execute_sparql_query_logs
+    out: [execute_sparql_query_logs]

@@ -1,5 +1,4 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: CommandLineTool
 label: Run AutoR2RML to generate R2RML mappings

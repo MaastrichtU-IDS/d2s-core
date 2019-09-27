@@ -1,22 +1,28 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: CommandLineTool
+label: Execute SPARQL queries
 
-label: Data2Services tool to execute SPARQL queries, Ammar Ammar <ammar257ammar@gmail.com> 
+# requirements:
+#   # Get the config dir as input
+#   InitialWorkDirRequirement:
+#     listing:
+#       - $(inputs.config_dir)
+  # InlineJavascriptRequirement: {}
+
+hints:
+  DockerRequirement:
+    dockerPull: maastrichtuids/d2s-sparql-operations:latest
+    dockerOutputDirectory: /data
+    # Link the output dir to /data in the Docker container
 
 
-baseCommand: [docker, run]
-
-arguments: [ "--rm", "--net", "d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-"maastrichtuids/d2s-sparql-operations:latest" ]
+baseCommand: []
+arguments: []
 
 inputs:
-
-  working_directory:
-    type: string
-  dataset:
-    type: string
+  # dataset:
+  #   type: string
   sparql_queries_path:
     type: string
     inputBinding:
@@ -44,6 +50,7 @@ inputs:
       prefix: -pw
   sparql_input_graph_uri:
     type: string?
+    default: "https://w3id.org/data2services/graph/autor2rml"
     inputBinding:
       position: 6
       prefix: --var-input
@@ -57,11 +64,20 @@ inputs:
     inputBinding:
       position: 8
       prefix: --var-service
-  previous_step_results:
+  previous_step_output:
     type: File?
 
-stdout: execute-sparql-query-logs.txt
+
+stdout: execute-sparql-queries-logs.txt
 
 outputs:
   execute_sparql_query_logs:
     type: stdout
+
+
+####################
+
+# baseCommand: [docker, run]
+
+# arguments: [ "--rm", "--net", "d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
+# "maastrichtuids/d2s-sparql-operations:latest" ]
