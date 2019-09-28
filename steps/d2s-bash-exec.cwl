@@ -44,15 +44,15 @@ outputs:
       glob: input
 
 $namespaces:
+  s: "http://schema.org/"
   dct: "http://purl.org/dc/terms/"
   foaf: "http://xmlns.com/foaf/0.1/"
-  edam: "https://identifiers.org/edam:"
-  s: "http://schema.org/"
+  edam: "http://edamontology.org/"
 $schemas:
-  - http://xmlns.com/foaf/spec/index.rdf
-  - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
-  - http://edamontology.org/EDAM_1.18.owl
   - http://schema.org/version/latest/schema.rdf
+  - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
+  - http://xmlns.com/foaf/spec/index.rdf
+  - http://edamontology.org/EDAM_1.18.owl
 
 dct:creator:
   class: foaf:Person
