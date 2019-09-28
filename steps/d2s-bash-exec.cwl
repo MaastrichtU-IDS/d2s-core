@@ -32,10 +32,10 @@ inputs:
       position: 2
       prefix: --password
 
-stdout: download-dataset.txt
+stdout: logs-download-dataset.txt
 
 outputs:
-  download_dataset_logs:
+  logs_download_dataset:
     type: stdout
     format: edam:format_1964    # Plain text
   download_dir:

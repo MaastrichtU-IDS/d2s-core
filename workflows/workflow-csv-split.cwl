@@ -97,8 +97,8 @@ outputs:
     outputSource: step1-d2s-download/download_dir
     type: Directory
     label: "Downloaded files"
-  - id: download_dataset_logs
-    outputSource: step1-d2s-download/download_dataset_logs
+  - id: logs_download_dataset
+    outputSource: step1-d2s-download/logs_download_dataset
     type: File
     label: "Download script log file"
   - id: logs_autor2rml
@@ -126,15 +126,15 @@ outputs:
     type: File
     label: "RDF Upload log file"
   - id: sparql_insert_metadata_logs
-    outputSource: step5-insert-metadata/execute_sparql_query_logs
+    outputSource: step5-insert-metadata/logs_execute_sparql_query_
     type: File
     label: "SPARQL insert metadata log file"
   - id: sparql_transform_queries_logs
-    outputSource: step6-execute-transform-queries/execute_sparql_query_logs
+    outputSource: step6-execute-transform-queries/logs_execute_sparql_query_
     type: File
     label: "SPARQL transform queries log file"
   - id: sparql_hcls_statistics_logs
-    outputSource: step7-compute-hcls-stats/execute_sparql_query_logs
+    outputSource: step7-compute-hcls-stats/logs_execute_sparql_query_
     type: File
     label: "SPARQL HCLS statistics log file"
   - id: logs_split
@@ -149,7 +149,7 @@ steps:
       config_dir: config_dir
       download_username: download_username
       download_password: download_password
-    out: [download_dir, download_dataset_logs]
+    out: [download_dir, logs_download_dataset]
 
   step2-autor2rml:
     run: ../steps/run-autor2rml.cwl
@@ -184,7 +184,7 @@ steps:
       sparql_password: sparql_final_triplestore_password
       sparql_output_graph_uri: sparql_final_graph_uri
       previous_step_output: step4-rdf-upload/logs_rdf_upload
-    out: [execute_sparql_query_logs]
+    out: [logs_execute_sparql_query_]
 
   step6-execute-transform-queries:
     run: ../steps/execute-sparql-queries.cwl
@@ -197,7 +197,7 @@ steps:
       sparql_output_graph_uri: sparql_final_graph_uri
       sparql_service_url: sparql_tmp_service_url
       previous_step_output: step4-rdf-upload/logs_rdf_upload
-    out: [execute_sparql_query_logs]
+    out: [logs_execute_sparql_query_]
 
   step7-split-property:
     run: ../steps/run-split.cwl
@@ -209,7 +209,7 @@ steps:
       split_quote: split_quote
       split_class: split_class
       split_property: split_property
-      previous_step_output: step6-execute-transform-queries/execute_sparql_query_logs
+      previous_step_output: step6-execute-transform-queries/logs_execute_sparql_query_
     out: [logs_split]
 
   step7-compute-hcls-stats:
@@ -221,7 +221,7 @@ steps:
       sparql_password: sparql_final_triplestore_password
       sparql_input_graph_uri: sparql_final_graph_uri
       previous_step_output: step7-split-property/logs_split
-    out: [execute_sparql_query_logs]
+    out: [logs_execute_sparql_query_]
 
 $namespaces:
   s: "http://schema.org/"

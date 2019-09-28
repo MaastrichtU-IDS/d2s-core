@@ -38,9 +38,9 @@ inputs:
 
 outputs:
   
-  download_dataset_logs:
+  logs_download_dataset:
     type: File
-    outputSource: step1-d2s-download/download_dataset_logs
+    outputSource: step1-d2s-download/logs_download_dataset
   xml2rdf_file_output:
     type: File
     outputSource: step2-xml2rdf/xml2rdf_file_output
@@ -52,13 +52,13 @@ outputs:
     outputSource: step3-rdf-upload/logs_rdf_upload
   execute_sparql_metadata_logs:
     type: File
-    outputSource: step4-insert-metadata/execute_sparql_query_logs
+    outputSource: step4-insert-metadata/logs_execute_sparql_query_
   execute_sparql_transform_logs:
     type: File
-    outputSource: step5-execute-transform-queries/execute_sparql_query_logs
+    outputSource: step5-execute-transform-queries/logs_execute_sparql_query_
   execute_sparql_hcls_logs:
     type: File
-    outputSource: step6-compute-hcls-stats/execute_sparql_query_logs
+    outputSource: step6-compute-hcls-stats/logs_execute_sparql_query_
 
 steps:
 
@@ -69,7 +69,7 @@ steps:
       dataset: dataset
       download_username: download_username
       download_password: download_password
-    out: [download_dataset_logs]
+    out: [logs_download_dataset]
 
   step2-xml2rdf:
     run: ../steps/run-xml2rdf.cwl
@@ -77,7 +77,7 @@ steps:
       working_directory: working_directory
       dataset: dataset
       sparql_tmp_graph_uri: sparql_tmp_graph_uri
-      #previous_step_results: step1-d2s-download/download_dataset_logs # TO REMOVE?
+      #previous_step_results: step1-d2s-download/logs_download_dataset # TO REMOVE?
     out: [xml2rdf_file_output,nquads_file_output]
 
   step3-rdf-upload:
@@ -104,7 +104,7 @@ steps:
       sparql_password: sparql_final_triplestore_password
       sparql_output_graph_uri: sparql_final_graph_uri
       previous_step_results: step3-rdf-upload/logs_rdf_upload
-    out: [execute_sparql_query_logs]
+    out: [logs_execute_sparql_query_]
 
   step5-execute-transform-queries:
     run: ../steps/execute-sparql-mapping.cwl
@@ -119,8 +119,8 @@ steps:
       sparql_input_graph_uri: sparql_tmp_graph_uri
       sparql_output_graph_uri: sparql_final_graph_uri
       sparql_service_url: sparql_tmp_service_url
-      previous_step_results: step4-insert-metadata/execute_sparql_query_logs
-    out: [execute_sparql_query_logs]
+      previous_step_results: step4-insert-metadata/logs_execute_sparql_query_
+    out: [logs_execute_sparql_query_]
 
   step6-compute-hcls-stats:
     run: ../steps/execute-sparql-mapping.cwl
@@ -133,5 +133,5 @@ steps:
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
       sparql_input_graph_uri: sparql_final_graph_uri
-      previous_step_results: step5-execute-transform-queries/execute_sparql_query_logs
-    out: [execute_sparql_query_logs]
+      previous_step_results: step5-execute-transform-queries/logs_execute_sparql_query_
+    out: [logs_execute_sparql_query_]

@@ -65,10 +65,10 @@ inputs:
     type: File?
 
 
-stdout: execute-sparql-queries-logs.txt
+stdout: logs-execute-sparql-queries.txt
 
 outputs:
-  execute_sparql_query_logs:
+  logs_execute_sparql_query_:
     type: stdout
     format: edam:format_1964    # Plain text
 
