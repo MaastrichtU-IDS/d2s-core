@@ -1,5 +1,4 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: CommandLineTool
 label: Run R2RML
@@ -18,7 +17,6 @@ hints:
 
 
 baseCommand: []
-
 arguments: [ "--connectionURL", "$(inputs.input_data_jdbc)",
 "--mappingFile", "$(inputs.r2rml_trig_file)", 
 "--outputFile", "$(runtime.outdir)/rdf_output.nq", 
@@ -35,15 +33,33 @@ stdout: r2rml-logs.txt
 outputs:
   r2rml_nquads_file_output:
     type: File
+    format: edam:format_3256    # N-Triple, no nquads in EDAM
     outputBinding:
       glob: rdf_output.nq
   r2rml_logs:
     type: stdout
 
-#########################
+$namespaces:
+  dct: "http://purl.org/dc/terms/"
+  foaf: "http://xmlns.com/foaf/0.1/"
+  edam: "https://identifiers.org/edam:"
+  s: "http://schema.org/"
+$schemas:
+  - http://xmlns.com/foaf/spec/index.rdf
+  - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
+  - http://edamontology.org/EDAM_1.18.owl
+  - http://schema.org/version/latest/schema.rdf
 
-# baseCommand: [docker, run]
-# arguments: [ "--rm", "--net","d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-# "-v", "$(inputs.r2rml_config_file.path):/tmp/$(inputs.r2rml_config_file.basename)", 
-# "-v", "$(inputs.r2rml_trig_file.path):/tmp/$(inputs.r2rml_trig_file.basename)", 
-# "maastrichtuids/r2rml:latest", "/tmp/$(inputs.r2rml_config_file.basename)" ]
+dct:creator:
+  "@id": "https://orcid.org/0000-0002-1501-1082"
+  foaf:name: "Vincent Emonet"
+  foaf:mbox: "mailto:vincent.emonet@gmail.com"
+
+dct:contributor:
+  "@id": "https://orcid.org/0000-0000-ammar-ammar"
+  foaf:name: "Ammar Ammar"
+  foaf:mbox: "mailto:a.ammar@student.maastrichtuniversity.nl"
+
+dct:license: "https://opensource.org/licenses/MIT"
+s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
+s:codeRepository: https://github.com/MaastrichtU-IDS/r2rml

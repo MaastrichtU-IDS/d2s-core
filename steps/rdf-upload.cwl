@@ -23,6 +23,7 @@ arguments: ["-if", "$(inputs.file_to_load.path)"]
 inputs:
   file_to_load:
     type: File
+    format: edam:format_3256    # N-Triple, no nquads in EDAM
   sparql_triplestore_url:
     type: string
     inputBinding:
@@ -44,13 +45,29 @@ stdout: rdf-upload.txt
 outputs:
   rdf_upload_logs:
     type: stdout
+    format: edam:format_1964    # Plain text
 
+$namespaces:
+  dct: "http://purl.org/dc/terms/"
+  foaf: "http://xmlns.com/foaf/0.1/"
+  edam: "https://identifiers.org/edam:"
+  s: "http://schema.org/"
+$schemas:
+  - http://xmlns.com/foaf/spec/index.rdf
+  - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
+  - http://edamontology.org/EDAM_1.18.owl
+  - http://schema.org/version/latest/schema.rdf
 
-      #########################################
+dct:creator:
+  "@id": "https://orcid.org/0000-0002-1501-1082"
+  foaf:name: "Vincent Emonet"
+  foaf:mbox: "mailto:vincent.emonet@gmail.com"
 
-# baseCommand: [docker, run]
-# arguments: [ "--rm", "--net", "d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-# "-v", "$(inputs.nquads_file.path):/tmp/$(inputs.nquads_file.basename)", 
-# "maastrichtuids/rdf-upload:latest", "-if", "/tmp/$(inputs.nquads_file.basename)"]
+dct:contributor:
+  "@id": "https://orcid.org/0000-0000-ammar-ammar"
+  foaf:name: "Ammar Ammar"
+  foaf:mbox: "mailto:a.ammar@student.maastrichtuniversity.nl"
 
-
+dct:license: "https://opensource.org/licenses/MIT"
+s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
+s:codeRepository: https://github.com/MaastrichtU-IDS/RdfUpload

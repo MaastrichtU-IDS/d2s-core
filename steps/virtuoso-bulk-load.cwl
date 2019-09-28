@@ -55,3 +55,25 @@ stdout: rdf-upload.txt
 outputs:
   rdf_upload_logs:
     type: stdout
+    format: edam:format_1964    # Plain text
+
+$namespaces:
+  dct: "http://purl.org/dc/terms/"
+  foaf: "http://xmlns.com/foaf/0.1/"
+  edam: "https://identifiers.org/edam:"
+  s: "https://schema.org/"
+$schemas:
+  - http://edamontology.org/EDAM_1.18.owl
+  - https://schema.org/docs/schema_org_rdfa.html
+
+dct:creator:
+  "@id": "https://orcid.org/0000-0002-1501-1082"
+  foaf:name: "Vincent Emonet"
+  foaf:mbox: "mailto:vincent.emonet@gmail.com"
+
+dct:contributor:
+  "@id": "https://orcid.org/0000-0000-ammar-ammar"
+  foaf:name: "Ammar Ammar"
+  foaf:mbox: "mailto:a.ammar@student.maastrichtuniversity.nl"
+
+# dct:license: "https://opensource.org/licenses/MIT"

@@ -16,13 +16,10 @@ hints:
     dockerOutputDirectory: /data
     # Link the output dir to /data in the Docker container
 
-
 baseCommand: []
 arguments: []
 
 inputs:
-  # dataset:
-  #   type: string
   sparql_queries_path:
     type: string
     inputBinding:
@@ -73,11 +70,30 @@ stdout: execute-sparql-queries-logs.txt
 outputs:
   execute_sparql_query_logs:
     type: stdout
+    format: edam:format_1964    # Plain text
 
 
-####################
+$namespaces:
+  dct: "http://purl.org/dc/terms/"
+  foaf: "http://xmlns.com/foaf/0.1/"
+  edam: "https://identifiers.org/edam:"
+  s: "http://schema.org/"
+$schemas:
+  - http://xmlns.com/foaf/spec/index.rdf
+  - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
+  - http://edamontology.org/EDAM_1.18.owl
+  - http://schema.org/version/latest/schema.rdf
 
-# baseCommand: [docker, run]
+dct:creator:
+  "@id": "https://orcid.org/0000-0002-1501-1082"
+  foaf:name: "Vincent Emonet"
+  foaf:mbox: "mailto:vincent.emonet@gmail.com"
 
-# arguments: [ "--rm", "--net", "d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-# "maastrichtuids/d2s-sparql-operations:latest" ]
+dct:contributor:
+  "@id": "https://orcid.org/0000-0000-ammar-ammar"
+  foaf:name: "Ammar Ammar"
+  foaf:mbox: "mailto:a.ammar@student.maastrichtuniversity.nl"
+
+dct:license: "https://opensource.org/licenses/MIT"
+s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
+s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-sparql-operations
