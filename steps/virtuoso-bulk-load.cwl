@@ -50,10 +50,10 @@ inputs:
   #     position: 2
   #     prefix: -rep
 
-stdout: rdf-upload.txt
+stdout: logs-virtuoso-bulkload.txt
 
 outputs:
-  rdf_upload_logs:
+  logs_rdf_upload:
     type: stdout
     format: edam:format_1964    # Plain text
 

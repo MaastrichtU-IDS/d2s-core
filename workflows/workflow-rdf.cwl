@@ -47,9 +47,9 @@ outputs:
   nquads_file_output:
     type: File
     outputSource: step2-xml2rdf/nquads_file_output
-  rdf_upload_logs:
+  logs_rdf_upload:
     type: File
-    outputSource: step3-rdf-upload/rdf_upload_logs
+    outputSource: step3-rdf-upload/logs_rdf_upload
   execute_sparql_metadata_logs:
     type: File
     outputSource: step4-insert-metadata/execute_sparql_query_logs
@@ -90,7 +90,7 @@ steps:
       sparql_triplestore_repository: sparql_tmp_triplestore_repository
       # sparql_username: sparql_tmp_triplestore_username
       # sparql_password: sparql_tmp_triplestore_password
-    out: [rdf_upload_logs]
+    out: [logs_rdf_upload]
 
   step4-insert-metadata:
     run: ../steps/execute-sparql-mapping.cwl
@@ -103,7 +103,7 @@ steps:
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
       sparql_output_graph_uri: sparql_final_graph_uri
-      previous_step_results: step3-rdf-upload/rdf_upload_logs
+      previous_step_results: step3-rdf-upload/logs_rdf_upload
     out: [execute_sparql_query_logs]
 
   step5-execute-transform-queries:

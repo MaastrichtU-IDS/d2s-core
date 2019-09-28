@@ -28,7 +28,7 @@ inputs:
   input_data_jdbc:
     type: string
 
-stdout: r2rml-logs.txt
+stdout: logs-r2rml.txt
 
 outputs:
   r2rml_nquads_file_output:
@@ -36,7 +36,7 @@ outputs:
     format: edam:format_3256    # N-Triple, no nquads in EDAM
     outputBinding:
       glob: rdf_output.nq
-  r2rml_logs:
+  logs_r2rml:
     type: stdout
     format: edam:format_1964    # Plain text
 

@@ -62,10 +62,10 @@ inputs:
   previous_step_output:
     type: File?
 
-stdout: execute-split-logs.txt
+stdout: logs-split.txt
 
 outputs:
-  execute_split_logs:
+  logs_split:
     type: stdout
     format: edam:format_1964    # Plain text
 

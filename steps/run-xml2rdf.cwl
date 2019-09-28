@@ -25,10 +25,10 @@ inputs:
     type: Directory
     # format: edam:format_2332    # XML, validation exception if find .zip
 
-stdout: xml2rdf-logs.txt
+stdout: logs-xml2rdf.txt
 
 outputs:
-  xml2rdf_logs:
+  logs-xml2rdf:
     type: stdout
     format: edam:format_1964    # Plain text
   xml2rdf_nquads_file_output:

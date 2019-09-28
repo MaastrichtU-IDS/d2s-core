@@ -89,8 +89,8 @@ outputs:
     outputSource: step1-d2s-download/download_dataset_logs
     type: File
     label: "Download script log file"
-  - id: autor2rml_logs
-    outputSource: step2-autor2rml/autor2rml_logs
+  - id: logs_autor2rml
+    outputSource: step2-autor2rml/logs_autor2rml
     type: File
     label: "AutoR2RML log file"
   - id: r2rml_trig_file_output
@@ -105,12 +105,12 @@ outputs:
     outputSource: step3-r2rml/r2rml_nquads_file_output
     type: File
     label: "Nquads file produced by R2RML"
-  - id: r2rml_logs
-    outputSource: step3-r2rml/r2rml_logs
+  - id: logs_r2rml
+    outputSource: step3-r2rml/logs_r2rml
     type: File
     label: "R2RML log file"
-  - id: rdf_upload_logs
-    outputSource: step4-rdf-upload/rdf_upload_logs
+  - id: logs_rdf_upload
+    outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
     label: "RDF Upload log file"
   - id: sparql_insert_metadata_logs
@@ -141,14 +141,14 @@ steps:
     in:
       download_dir: step1-d2s-download/download_dir
       input_data_jdbc: input_data_jdbc
-    out: [r2rml_trig_file_output, sparql_mapping_templates, autor2rml_logs]
+    out: [r2rml_trig_file_output, sparql_mapping_templates, logs_autor2rml]
 
   step3-r2rml:
     run: ../steps/run-r2rml.cwl
     in:
       r2rml_trig_file: step2-autor2rml/r2rml_trig_file_output
       input_data_jdbc: input_data_jdbc
-    out: [r2rml_nquads_file_output, r2rml_logs]
+    out: [r2rml_nquads_file_output, logs_r2rml]
 
   step4-rdf-upload:
     run: ../steps/rdf-upload.cwl
@@ -158,7 +158,7 @@ steps:
       sparql_triplestore_url: sparql_tmp_triplestore_url
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
-    out: [rdf_upload_logs]
+    out: [logs_rdf_upload]
 
   step5-insert-metadata:
     run: ../steps/execute-sparql-queries.cwl
@@ -168,7 +168,7 @@ steps:
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
       sparql_output_graph_uri: sparql_final_graph_uri
-      previous_step_output: step4-rdf-upload/rdf_upload_logs
+      previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [execute_sparql_query_logs]
 
   step6-execute-transform-queries:
@@ -181,7 +181,7 @@ steps:
       # sparql_input_graph_uri: sparql_tmp_graph_uri
       sparql_output_graph_uri: sparql_final_graph_uri
       sparql_service_url: sparql_tmp_service_url
-      previous_step_output: step4-rdf-upload/rdf_upload_logs
+      previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [execute_sparql_query_logs]
 
   step7-compute-hcls-stats:

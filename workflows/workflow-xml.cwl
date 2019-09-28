@@ -66,12 +66,12 @@ outputs:
     outputSource: step2-xml2rdf/xml2rdf_nquads_file_output
     type: File
     label: "Nquads file produced by xml2rdf"
-  - id: xml2rdf_logs
-    outputSource: step2-xml2rdf/xml2rdf_logs
+  - id: logs-xml2rdf
+    outputSource: step2-xml2rdf/logs-xml2rdf
     type: File
     label: "xml2rdf log file"
-  - id: rdf_upload_logs
-    outputSource: step4-rdf-upload/rdf_upload_logs
+  - id: logs_rdf_upload
+    outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
     label: "RDF Upload log file"
   - id: sparql_insert_metadata_logs
@@ -101,8 +101,8 @@ steps:
     run: ../steps/run-xml2rdf.cwl
     in:
       download_dir: step1-d2s-download/download_dir
-    out: [xml2rdf_nquads_file_output, xml2rdf_logs, sparql_mapping_templates]
-    # out: [xml2rdf_nquads_file_output, xml2rdf_logs, sparql_mapping_templates]
+    out: [xml2rdf_nquads_file_output, logs-xml2rdf, sparql_mapping_templates]
+    # out: [xml2rdf_nquads_file_output, logs-xml2rdf, sparql_mapping_templates]
 
   step4-rdf-upload:
     run: ../steps/rdf-upload.cwl
@@ -112,7 +112,7 @@ steps:
       sparql_triplestore_url: sparql_tmp_triplestore_url
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
-    out: [rdf_upload_logs]
+    out: [logs_rdf_upload]
 
   step5-insert-metadata:
     run: ../steps/execute-sparql-queries.cwl
@@ -122,7 +122,7 @@ steps:
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
       sparql_output_graph_uri: sparql_final_graph_uri
-      previous_step_output: step4-rdf-upload/rdf_upload_logs
+      previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [execute_sparql_query_logs]
 
   step6-execute-transform-queries:
@@ -135,7 +135,7 @@ steps:
       # sparql_input_graph_uri: sparql_tmp_graph_uri
       sparql_output_graph_uri: sparql_final_graph_uri
       sparql_service_url: sparql_tmp_service_url
-      previous_step_output: step4-rdf-upload/rdf_upload_logs
+      previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [execute_sparql_query_logs]
 
   step7-compute-hcls-stats:

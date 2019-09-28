@@ -40,10 +40,10 @@ inputs:
       position: 3
       prefix: -pw
 
-stdout: rdf-upload.txt
+stdout: logs-rdfupload.txt
 
 outputs:
-  rdf_upload_logs:
+  logs_rdf_upload:
     type: stdout
     format: edam:format_1964    # Plain text
 

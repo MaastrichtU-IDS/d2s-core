@@ -33,10 +33,10 @@ inputs:
       prefix: -j
 
 
-stdout: autor2rml-logs.txt
+stdout: logs-autor2rml.txt
 
 outputs:
-  autor2rml_logs:
+  logs_autor2rml:
     type: stdout
     format: edam:format_1964    # Plain text
   r2rml_trig_file_output:
