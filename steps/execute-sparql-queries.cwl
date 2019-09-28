@@ -4,11 +4,10 @@ class: CommandLineTool
 label: Execute SPARQL queries
 
 # requirements:
-#   # Get the config dir as input
-#   InitialWorkDirRequirement:
-#     listing:
-#       - $(inputs.config_dir)
 #   InlineJavascriptRequirement: {}
+#   InitialWorkDirRequirement:
+#     listing:    # Get the config dir as input
+#       - $(inputs.config_dir)
 
 hints:
   DockerRequirement:

@@ -2,28 +2,16 @@
 cwlVersion: v1.0
 class: CommandLineTool
 label: Split RDF statements
-# requirements:
-#   # Get the config dir as input
-#   InitialWorkDirRequirement:
-#     listing:
-#       - $(inputs.config_dir)
-#   InlineJavascriptRequirement: {}
 
 hints:
   DockerRequirement:
     dockerPull: maastrichtuids/d2s-sparql-operations:latest
     dockerOutputDirectory: /data
-    # Link the output dir to /data in the Docker container
-
 
 baseCommand: []
 arguments: [ "-op", "split", "--split-delete" ]
 
-# arguments: [ "--rm", "--net","d2s-cwl-workflows_d2s-network", "-v" , "$(inputs.working_directory):/data", "-v", "$(runtime.outdir):/tmp", 
-# "maastrichtuids/d2s-sparql-operations:latest", "-op", "split", "--split-delete" ]
-
 inputs:
-
   sparql_triplestore_url:
     type: string
     inputBinding:

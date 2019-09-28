@@ -2,19 +2,11 @@
 cwlVersion: v1.0
 class: CommandLineTool
 label: Run R2RML
-# requirements:
-#   # Get the config dir as input
-#   InitialWorkDirRequirement:
-#     listing:
-#       - $(inputs.config_dir)
-  # InlineJavascriptRequirement: {}
 
 hints:
   DockerRequirement:
     dockerPull: maastrichtuids/r2rml:latest
     dockerOutputDirectory: /data
-    # Link the output dir to /data in the Docker container
-
 
 baseCommand: []
 arguments: [ "--connectionURL", "$(inputs.input_data_jdbc)",

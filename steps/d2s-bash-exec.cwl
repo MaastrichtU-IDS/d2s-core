@@ -3,11 +3,10 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Download files to process
 requirements:
-  # Get the config dir as input
-  InitialWorkDirRequirement:
-    listing:
-      - $(inputs.config_dir)
   # InlineJavascriptRequirement: {}
+  InitialWorkDirRequirement:
+    listing:    # Get the config dir as input
+      - $(inputs.config_dir)
 
 hints:
   DockerRequirement:
@@ -69,6 +68,7 @@ dct:contributor:
 dct:license: "https://opensource.org/licenses/MIT"
 s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
 s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-bash-exec
+# s:dateCreated: "2019-09-27"
 
 edam:has_function:
   - edam:operation_2422   # Data retrieval
@@ -81,3 +81,20 @@ edam:has_output:
 
 edam:has_topic:
   - edam:topic_3077   # Data acquisition
+
+### Annotation documentation
+# CWL doc: https://www.commonwl.org/user_guide/17-metadata/
+# https://github.com/common-workflow-language/common-workflow-language/blob/master/v1.0/v1.0/metadata.cwl
+# https://biotools.readthedocs.io/en/latest/curators_guide.html
+# EDAM ontology: https://www.ebi.ac.uk/ols/ontologies/edam
+
+# biotools:function:
+#   biotools:operation
+#   biotools:input:
+#     biotools:data
+#     biotools:format
+#   biotools:output:
+#     biotools:data
+#     biotools:format
+#   biotools:note
+#   biotools:cmd    # CommandLine

@@ -13,6 +13,7 @@ inputs:
   - id: download_password
     label: "Password to download files"
     type: string?
+  # tmp RDF4J server SPARQL endpoint to load generic RDF
   - id: sparql_tmp_triplestore_url
     label: "URL of tmp triplestore"
     type: string
@@ -25,6 +26,7 @@ inputs:
   - id: sparql_tmp_triplestore_password
     label: "Password for tmp triplestore"
     type: string?
+  # Final RDF4J server SPARQL endpoint to load the BioLink RDF
   - id: sparql_final_triplestore_url
     label: "URL of final triplestore"
     type: string

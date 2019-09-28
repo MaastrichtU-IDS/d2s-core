@@ -16,6 +16,7 @@ inputs:
   - id: input_data_jdbc
     label: "JDBC URL for database connexion"
     type: string
+  # tmp RDF4J server SPARQL endpoint to load generic RDF
   - id: sparql_tmp_triplestore_url
     label: "URL of tmp triplestore"
     type: string
@@ -28,6 +29,7 @@ inputs:
   - id: sparql_tmp_triplestore_password
     label: "Password for tmp triplestore"
     type: string?
+  # Final RDF4J server SPARQL endpoint to load the BioLink RDF
   - id: sparql_final_triplestore_url
     label: "URL of final triplestore"
     type: string
@@ -50,7 +52,7 @@ inputs:
     label: "Path to queries to compute HCLS stats"
     type: string
     default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
-
+  # Split params
   - id: split_property
     label: "URI of property to split"
     type: string
@@ -63,34 +65,6 @@ inputs:
   - id: split_quote
     label: "Remove specified quotes"
     type: string
-
-  # autor2rml_column_header: string?
-  # sparql_base_uri: string?
-  # sparql_tmp_triplestore_repository: string?
-
-  #######
-  
-  # # tmp RDF4J server SPARQL endpoint to load generic RDF
-  # sparql_tmp_triplestore_url: string
-  # sparql_tmp_triplestore_username: string?
-  # sparql_tmp_triplestore_password: string?
-
-  # sparql_tmp_graph_uri: string
-  # sparql_tmp_service_url: string
-
-  # # Final RDF4J server SPARQL endpoint to load the BioLink RDF
-  # sparql_final_triplestore_url: string
-  # sparql_final_triplestore_repository: string?
-  # sparql_final_triplestore_username: string?
-  # sparql_final_triplestore_password: string?
-
-  # sparql_final_graph_uri: string
-
-  # # sparql_transform_queries_path: string
-  # # sparql_insert_metadata_path: string
-  # sparql_compute_hcls_path:
-  #   type: string
-  #   default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
 
 outputs:
   - id: download_dir
@@ -140,7 +114,6 @@ outputs:
   - id: logs_split
     outputSource: step7-split-property/logs_split
     type: File
-
 
 steps:
   step1-d2s-download:

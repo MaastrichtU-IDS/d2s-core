@@ -3,18 +3,10 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Run xml2rdf
 
-# requirements:
-#   # Get the config dir as input
-#   InitialWorkDirRequirement:
-#     listing:
-#       - $(inputs.config_dir)
-#   InlineJavascriptRequirement: {}
-
 hints:
   DockerRequirement:
     dockerPull: maastrichtuids/xml2rdf:latest
     dockerOutputDirectory: /data
-    # Link the output dir to /data in the Docker container
 
 baseCommand: []
 arguments: ["-i", "$(inputs.download_dir.path)/*.xml", "-o", "$(runtime.outdir)/rdf_output.nq",
@@ -23,7 +15,7 @@ arguments: ["-i", "$(inputs.download_dir.path)/*.xml", "-o", "$(runtime.outdir)/
 inputs:
   download_dir:
     type: Directory
-    # format: edam:format_2332    # XML, validation exception if find .zip
+    # format: edam:format_2332    # XML (validation exception because finds .zip)
 
 stdout: logs-xml2rdf.txt
 

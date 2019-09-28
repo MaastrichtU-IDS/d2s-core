@@ -1,21 +1,12 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: CommandLineTool
 label: Upload RDF to SPARQL endpoint
-# requirements:
-#   # Get the config dir as input
-#   InitialWorkDirRequirement:
-#     listing:
-#       - $(inputs.config_dir)
-#   InlineJavascriptRequirement: {}
 
 hints:
   DockerRequirement:
     dockerPull: maastrichtuids/rdf-upload:latest
     dockerOutputDirectory: /data
-    # Link the output dir to /data in the Docker container
-
 
 baseCommand: []
 arguments: ["-if", "$(inputs.file_to_load.path)"]
