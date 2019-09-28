@@ -1,7 +1,7 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: Workflow
-label: Convert CSV/TSV files to a target RDF
+label: Convert CSV/TSV files to a target RDF and split statements
 
 inputs:
   - id: config_dir
@@ -16,7 +16,7 @@ inputs:
   - id: input_data_jdbc
     label: "JDBC URL for database connexion"
     type: string
-  # tmp RDF4J server SPARQL endpoint to load generic RDF
+  # Tmp RDF4J server SPARQL endpoint to load generic RDF
   - id: sparql_tmp_triplestore_url
     label: "URL of tmp triplestore"
     type: string

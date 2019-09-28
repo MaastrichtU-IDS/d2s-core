@@ -75,13 +75,13 @@ edam:has_function:
   - edam:operation_2422   # Data retrieval
 
 edam:has_input: 
-  - edam:data_3786 # Query script
+  - edam:data_3786        # Query script
 
 edam:has_output:
-  - edam:data_2526    # Text data
+  - edam:data_2526        # Text data
 
 edam:has_topic:
-  - edam:topic_3077   # Data acquisition
+  - edam:topic_3077       # Data acquisition
 
 ### Annotation documentation
 # CWL doc: https://www.commonwl.org/user_guide/17-metadata/
