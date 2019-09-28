@@ -69,3 +69,15 @@ dct:contributor:
 dct:license: "https://opensource.org/licenses/MIT"
 s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
 s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-bash-exec
+
+edam:has_function:
+  - edam:operation_2422   # Data retrieval
+
+edam:has_input: 
+  - edam:data_3786 # Query script
+
+edam:has_output:
+  - edam:data_2526    # Text data
+
+edam:has_topic:
+  - edam:topic_3077   # Data acquisition

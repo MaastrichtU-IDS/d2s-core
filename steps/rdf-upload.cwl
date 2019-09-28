@@ -73,3 +73,16 @@ dct:contributor:
 dct:license: "https://opensource.org/licenses/MIT"
 s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
 s:codeRepository: https://github.com/MaastrichtU-IDS/RdfUpload
+
+edam:has_function:
+  - edam:operation_3436   # Aggregation
+
+edam:has_input: 
+  - edam:format_3256    # N-Triples, no nquads
+
+edam:has_output:
+  - edam:format_2376    # RDF format
+  - edam:data_0954      # Database cross-mapping
+
+edam:has_topic:
+  - edam:topic_3366   # Data integration and warehousing

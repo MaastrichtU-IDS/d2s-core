@@ -85,6 +85,7 @@ s:codeRepository: https://github.com/MaastrichtU-IDS/AutoR2RML
 
 edam:has_function:
   - edam:operation_2429   # Mapping
+  - edam:operation_1812   # Parsing
 
 edam:has_input: 
   - edam:data_1048 # Database ID
@@ -95,6 +96,8 @@ edam:has_output:
 edam:has_topic:
   - edam:topic_0102   # Mapping
   - edam:topic_3489   # Database management
+  - edam:topic_3345   # Data identity and mapping
+
 
 # biotools:function:
 #   biotools:operation

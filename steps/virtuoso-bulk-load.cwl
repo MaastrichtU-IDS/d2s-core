@@ -58,13 +58,15 @@ outputs:
     format: edam:format_1964    # Plain text
 
 $namespaces:
+  s: "http://schema.org/"
   dct: "http://purl.org/dc/terms/"
   foaf: "http://xmlns.com/foaf/0.1/"
-  edam: "https://identifiers.org/edam:"
-  s: "https://schema.org/"
+  edam: "http://edamontology.org/"
 $schemas:
+  - http://schema.org/version/latest/schema.rdf
+  - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
+  - http://xmlns.com/foaf/spec/index.rdf
   - http://edamontology.org/EDAM_1.18.owl
-  - https://schema.org/docs/schema_org_rdfa.html
 
 dct:creator:
   class: foaf:Person
@@ -79,3 +81,16 @@ dct:contributor:
   foaf:mbox: "mailto:a.ammar@student.maastrichtuniversity.nl"
 
 # dct:license: "https://opensource.org/licenses/MIT"
+
+edam:has_function:
+  - edam:operation_3436   # Aggregation
+
+edam:has_input: 
+  - edam:format_3256    # N-Triples, no nquads
+
+edam:has_output:
+  - edam:format_2376    # RDF format
+  - edam:data_0954      # Database cross-mapping
+
+edam:has_topic:
+  - edam:topic_3366   # Data integration and warehousing

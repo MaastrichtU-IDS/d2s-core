@@ -99,3 +99,19 @@ dct:contributor:
 dct:license: "https://opensource.org/licenses/MIT"
 s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
 s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-sparql-operations
+
+edam:has_function:
+  - edam:operation_0224   # Query and retrieval
+
+edam:has_input: 
+  - edam:format_3790 # SPARQL
+
+edam:has_output:
+  - edam:format_2376    # RDF format
+
+edam:has_topic:
+  - edam:topic_0219   # Data submission, annotation and curation
+  - edam:topic_3366   # Data integration and warehousing
+  - edam:topic_3365   # Data architecture, analysis and design
+
+# TODO: get warning 'unrecognized extension field http://commonwl.org/cwltool#generation'
