@@ -58,10 +58,10 @@ outputs:
     outputSource: step1-d2s-download/download_dataset_logs
     type: File
     label: "Download script log file"
-  # - id: sparql_mapping_templates
-  #   outputSource: step2-autor2rml/sparql_mapping_templates
-  #   type: Directory
-  #   label: "SPARQL mapping templates files"
+  - id: sparql_mapping_templates
+    outputSource: step2-xml2rdf/sparql_mapping_templates
+    type: Directory
+    label: "xml2rdf SPARQL mapping templates files"
   - id: xml2rdf_nquads_file_output
     outputSource: step2-xml2rdf/xml2rdf_nquads_file_output
     type: File
@@ -101,7 +101,7 @@ steps:
     run: ../steps/run-xml2rdf.cwl
     in:
       download_dir: step1-d2s-download/download_dir
-    out: [xml2rdf_nquads_file_output, xml2rdf_logs]
+    out: [xml2rdf_nquads_file_output, xml2rdf_logs, sparql_mapping_templates]
     # out: [xml2rdf_nquads_file_output, xml2rdf_logs, sparql_mapping_templates]
 
   step4-rdf-upload:

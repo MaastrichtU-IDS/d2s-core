@@ -36,7 +36,9 @@ inputs:
 stdout: autor2rml-logs.txt
 
 outputs:
-  # TODO: add logs as output
+  autor2rml_logs:
+    type: stdout
+    format: edam:format_1964    # Plain text
   r2rml_trig_file_output:
     type: File
     format: edam:format_3255    # Turtle

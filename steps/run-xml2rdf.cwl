@@ -36,11 +36,10 @@ outputs:
     format: edam:format_3256    # N-Triple, no nquads in EDAM
     outputBinding:
       glob: rdf_output.nq
-  # TODO: output sparql_mapping_templates
-  # sparql_mapping_templates:
-  #   type: Directory
-  #   outputBinding:
-  #     glob: sparql_mapping_templates
+  sparql_mapping_templates:
+    type: Directory
+    outputBinding:
+      glob: sparql_mapping_templates
 
 $namespaces:
   s: "http://schema.org/"

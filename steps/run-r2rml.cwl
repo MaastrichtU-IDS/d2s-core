@@ -38,6 +38,7 @@ outputs:
       glob: rdf_output.nq
   r2rml_logs:
     type: stdout
+    format: edam:format_1964    # Plain text
 
 $namespaces:
   s: "http://schema.org/"
