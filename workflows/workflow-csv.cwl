@@ -224,8 +224,8 @@ s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_auto
 s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-cwl-workflows
 
 edam:has_function:
-  - edam:operation_2429   # Mapping
   - edam:operation_1812   # Parsing
+  - edam:operation_2429   # Mapping
 
 edam:has_input: 
   - edam:data_3786      # Query script
