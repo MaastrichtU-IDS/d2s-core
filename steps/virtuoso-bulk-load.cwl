@@ -67,11 +67,13 @@ $schemas:
   - https://schema.org/docs/schema_org_rdfa.html
 
 dct:creator:
+  class: foaf:Person
   "@id": "https://orcid.org/0000-0002-1501-1082"
   foaf:name: "Vincent Emonet"
   foaf:mbox: "mailto:vincent.emonet@gmail.com"
 
 dct:contributor:
+  class: foaf:Person
   "@id": "https://orcid.org/0000-0000-ammar-ammar"
   foaf:name: "Ammar Ammar"
   foaf:mbox: "mailto:a.ammar@student.maastrichtuniversity.nl"
