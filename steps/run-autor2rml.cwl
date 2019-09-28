@@ -55,18 +55,17 @@ outputs:
 # EDAM ontology: https://www.ebi.ac.uk/ols/ontologies/edam
 
 $namespaces:
+  s: "http://schema.org/"
   dct: "http://purl.org/dc/terms/"
   foaf: "http://xmlns.com/foaf/0.1/"
-  edam: "https://identifiers.org/edam:"
-  s: "http://schema.org/"
+  edam: "http://edamontology.org/"
 $schemas:
-  - http://xmlns.com/foaf/spec/index.rdf
-  - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
-  - http://edamontology.org/EDAM_1.18.owl
   - http://schema.org/version/latest/schema.rdf
+  - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
+  - http://xmlns.com/foaf/spec/index.rdf
+  - http://edamontology.org/EDAM_1.18.owl
 
-# Dockstore requirement
-dct:creator:
+dct:creator:    # Dockstore requirement
   class: foaf:Person
   "@id": "https://orcid.org/0000-0002-1501-1082"
   foaf:name: "Vincent Emonet"
@@ -79,10 +78,41 @@ dct:contributor:
   foaf:mbox: "mailto:a.ammar@student.maastrichtuniversity.nl"
 
 dct:license: "https://opensource.org/licenses/MIT"
-# Provided by https://www.commonwl.org/user_guide/17-metadata/
 s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
 s:codeRepository: https://github.com/MaastrichtU-IDS/AutoR2RML
 # s:dateCreated: "2019-09-27"
+# Provided by https://www.commonwl.org/user_guide/17-metadata/
+
+edam:has_function:
+  - edam:operation_2429   # Mapping
+
+edam:has_input: 
+  - edam:data_1048 # Database ID
+
+edam:has_output:
+  - edam:data_3509    # Ontology mapping
+
+edam:has_topic:
+  - edam:topic_0102   # Mapping
+  - edam:topic_3489   # Database management
+
+# biotools:function:
+#   biotools:operation
+#   biotools:input:
+#     biotools:data
+#     biotools:format
+#   biotools:output:
+#     biotools:data
+#     biotools:format
+#   biotools:note
+#   biotools:cmd    # CommandLine
+
+# Also interesting: SIO ( https://bioportal.bioontology.org/ontologies/SIO/?p=properties )
+#  http://semanticscience.org/resource/SIO_000225  sio:has_function
+#  http://semanticscience.org/resource/SIO_000217  sio:has_quality
+#  http://semanticscience.org/resource/SIO_000228  sio:has_role
+#  http://semanticscience.org/resource/SIO_000253  has source
+#  http://semanticscience.org/resource/SIO_000362  satisfies
 
 
 ## Extra inputs
