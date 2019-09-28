@@ -2,6 +2,7 @@
 cwlVersion: v1.0
 class: CommandLineTool
 label: Download files to process
+doc: Docker container to automatically execute Bash script from files and URLs. See http://d2s.semanticscience.org/ for more details.
 requirements:
   # InlineJavascriptRequirement: {}
   InitialWorkDirRequirement:
