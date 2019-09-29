@@ -42,7 +42,7 @@ inputs:
 stdout: cwl-workflows-rdf-description.ttl
 
 outputs:
-  cwl_workflows_rdf_description_file:
+  cwl_workflow_rdf_description_file:
     type: stdout
     format: edam:format_3255    # Turtle
 

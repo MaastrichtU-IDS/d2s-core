@@ -20,7 +20,7 @@ inputs:
 stdout: logs-xml2rdf.txt
 
 outputs:
-  logs-xml2rdf:
+  logs_xml2rdf:
     type: stdout
     format: edam:format_1964    # Plain text
   xml2rdf_nquads_file_output:

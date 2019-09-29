@@ -32,14 +32,14 @@ inputs:
 
 
 outputs:
-  - id: cwl_workflows_rdf_description_file
-    outputSource: step1-get-cwl-rdf/cwl_workflows_rdf_description_file
+  - id: cwl_workflow_rdf_description_file
+    outputSource: step1-get-cwl-rdf/cwl_workflow_rdf_description_file
     type: File
-    label: "RDF file describing the CWL workflow"
+    label: "CWL workflow RDF description file"
   - id: logs_rdf_upload
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
-    label: "RDF Upload log file"
+    label: "CWL RDF Upload log file"
   # - id: r2rml_nquads_file_output
   #   outputSource: step3-r2rml/r2rml_nquads_file_output
   #   type: File
@@ -63,13 +63,13 @@ steps:
     in:
       cwl_workflow_filename: cwl_workflow_filename
       cwl_dir: cwl_dir
-    out: [cwl_workflows_rdf_description_file]
+    out: [cwl_workflow_rdf_description_file]
 
   step4-rdf-upload:
     run: ../steps/rdf-upload.cwl
     # run: ../steps/virtuoso-bulk-load.cwl
     in:
-      file_to_load: step1-get-cwl-rdf/cwl_workflows_rdf_description_file
+      file_to_load: step1-get-cwl-rdf/cwl_workflow_rdf_description_file
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password

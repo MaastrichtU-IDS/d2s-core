@@ -74,14 +74,22 @@ outputs:
     outputSource: step2-xml2rdf/xml2rdf_nquads_file_output
     type: File
     label: "Nquads file produced by xml2rdf"
-  - id: logs-xml2rdf
-    outputSource: step2-xml2rdf/logs-xml2rdf
+  - id: logs_xml2rdf
+    outputSource: step2-xml2rdf/logs_xml2rdf
     type: File
     label: "xml2rdf log file"
   - id: logs_rdf_upload
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
     label: "RDF Upload log file"
+  - id: cwl_workflow_rdf_description_file
+    outputSource: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
+    type: File
+    label: "CWL workflow RDF description file"
+  - id: logs_upload_cwl_rdf
+    outputSource: step6-upload-cwl-rdf/logs_rdf_upload
+    type: File
+    label: "CWL RDF Upload log file"
   - id: sparql_insert_metadata_logs
     outputSource: step5-insert-metadata/logs_execute_sparql_query_
     type: File
@@ -109,8 +117,8 @@ steps:
     run: ../steps/run-xml2rdf.cwl
     in:
       download_dir: step1-d2s-download/download_dir
-    out: [xml2rdf_nquads_file_output, logs-xml2rdf, sparql_mapping_templates]
-    # out: [xml2rdf_nquads_file_output, logs-xml2rdf, sparql_mapping_templates]
+    out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
+    # out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
 
   step4-rdf-upload:
     run: ../steps/rdf-upload.cwl
@@ -133,6 +141,7 @@ steps:
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [logs_execute_sparql_query_]
 
+  # TODO: do it before the RdfUpload to tmp repo?
   # Generate RDF describing CWL workflows and upload it to final triplestore
   step5-get-cwl-rdf:
     run: ../steps/cwl-print-rdf.cwl
@@ -140,13 +149,13 @@ steps:
       cwl_workflow_filename: cwl_workflow_filename
       cwl_dir: cwl_dir
       previous_step_output: step4-rdf-upload/logs_rdf_upload
-    out: [cwl_workflows_rdf_description_file]
+    out: [cwl_workflow_rdf_description_file]
 
   step6-upload-cwl-rdf:
     run: ../steps/rdf-upload.cwl
     # run: ../steps/virtuoso-bulk-load.cwl
     in:
-      file_to_load: step5-get-cwl-rdf/cwl_workflows_rdf_description_file
+      file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
