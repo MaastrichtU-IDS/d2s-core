@@ -3,9 +3,15 @@ cwlVersion: v1.0
 class: Workflow
 label: Convert XML files to a target RDF
 
-inputs:   
+inputs:
   - id: config_dir
-    label: "CWL config directory"
+    label: "CWL config directory (config.yml)"
+    type: Directory
+  - id: cwl_workflow_filename
+    label: "CWL workflow definition file (workflow-xml.cwl)"
+    type: string
+  - id: cwl_dir
+    label: "CWL workflow directory (workflow.cwl)"
     type: Directory
   - id: download_username
     label: "Username to download files"
@@ -126,6 +132,25 @@ steps:
       sparql_output_graph_uri: sparql_final_graph_uri
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [logs_execute_sparql_query_]
+
+  # Generate RDF describing CWL workflows and upload it to final triplestore
+  step5-get-cwl-rdf:
+    run: ../steps/cwl-print-rdf.cwl
+    in:
+      cwl_workflow_filename: cwl_workflow_filename
+      cwl_dir: cwl_dir
+      previous_step_output: step4-rdf-upload/logs_rdf_upload
+    out: [cwl_workflows_rdf_description_file]
+
+  step6-upload-cwl-rdf:
+    run: ../steps/rdf-upload.cwl
+    # run: ../steps/virtuoso-bulk-load.cwl
+    in:
+      file_to_load: step5-get-cwl-rdf/cwl_workflows_rdf_description_file
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+    out: [logs_rdf_upload]
 
   step6-execute-transform-queries:
     run: ../steps/execute-sparql-queries.cwl

@@ -4,6 +4,9 @@ class: Workflow
 label: Load CWL descriptions as RDF
 
 inputs:
+  - id: cwl_workflow_filename
+    label: "CWL workflow definition file (workflow-xml.cwl)"
+    type: string
   - id: cwl_dir
     label: "CWL config directory"
     type: Directory
@@ -58,6 +61,7 @@ steps:
   step1-get-cwl-rdf:
     run: ../steps/cwl-print-rdf.cwl
     in:
+      cwl_workflow_filename: cwl_workflow_filename
       cwl_dir: cwl_dir
     out: [cwl_workflows_rdf_description_file]
 

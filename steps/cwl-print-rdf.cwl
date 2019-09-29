@@ -16,12 +16,14 @@ requirements:
 
 baseCommand: ["cwl-runner"]
 
-arguments: ["--print-rdf", "$(inputs.cwl_dir.path)/workflows/workflow-csv.cwl"]
+arguments: ["--print-rdf", "$(inputs.cwl_dir.path)/workflows/$(inputs.cwl_workflow_filename)"]
 
 # baseCommand: []
 # arguments: ["cwltool", "--print-rdf", "$(inputs.cwl_dir.path)/workflows/workflow-csv.cwl"]
 
 inputs:
+  cwl_workflow_filename:
+    type: string
   cwl_dir:
     type: Directory
   download_username:
@@ -34,6 +36,8 @@ inputs:
     inputBinding:
       position: 2
       prefix: --password
+  previous_step_output:
+    type: File?
 
 stdout: cwl-workflows-rdf-description.ttl
 
