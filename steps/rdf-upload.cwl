@@ -14,7 +14,10 @@ arguments: ["-if", "$(inputs.file_to_load.path)"]
 inputs:
   file_to_load:
     type: File
-    format: edam:format_3256    # N-Triple, no nquads in EDAM
+    format: edam:format_2376    # RDF format
+    # format: 
+    # - edam:format_3256    # N-Triple, no nquads in EDAM
+    # - edam:formart_3255    # Turtle
   sparql_triplestore_url:
     type: string
     inputBinding:

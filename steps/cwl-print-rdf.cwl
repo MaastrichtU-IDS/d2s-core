@@ -7,19 +7,22 @@ requirements:
   # InlineJavascriptRequirement: {}
   InitialWorkDirRequirement:
     listing:    # Get the config dir as input
-      - $(inputs.config_dir)
+      - $(inputs.cwl_dir)
 
-hints:
-  DockerRequirement:
-    dockerPull: maastrichtuids/d2s-bash-exec:latest
-    dockerOutputDirectory: /data
-    # Link the output dir to /data in the Docker container
+# hints:
+#   DockerRequirement:
+#     dockerPull: maastrichtuids/d2s-bash-exec:latest
+#     dockerOutputDirectory: /data
 
-baseCommand: []
-arguments: ["$(inputs.config_dir.path)/download/download.sh", "input"]
+baseCommand: ["cwl-runner"]
+
+arguments: ["--print-rdf", "$(inputs.cwl_dir.path)/workflows/workflow-csv.cwl"]
+
+# baseCommand: []
+# arguments: ["cwltool", "--print-rdf", "$(inputs.cwl_dir.path)/workflows/workflow-csv.cwl"]
 
 inputs:
-  config_dir:
+  cwl_dir:
     type: Directory
   download_username:
     type: string?
@@ -32,28 +35,24 @@ inputs:
       position: 2
       prefix: --password
 
-stdout: logs-download-dataset.txt
+stdout: cwl-workflows-rdf-description.ttl
 
 outputs:
-  logs_download_dataset:
+  cwl_workflows_rdf_description_file:
     type: stdout
-    format: edam:format_1964    # Plain text
-  download_dir:
-    type: Directory
-    outputBinding:
-      glob: input
+    format: edam:format_3255    # Turtle
 
 $namespaces:
   s: "http://schema.org/"
   dct: "http://purl.org/dc/terms/"
   foaf: "http://xmlns.com/foaf/0.1/"
   edam: "http://edamontology.org/"
-  # Base: https://w3id.org/cwl/cwl#
 $schemas:
   - http://schema.org/version/latest/schema.rdf
   - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
   - http://xmlns.com/foaf/spec/index.rdf
   - http://edamontology.org/EDAM_1.18.owl
+# https://w3id.org/cwl/cwl#
 
 dct:creator:
   class: foaf:Person
