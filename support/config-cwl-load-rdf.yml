@@ -9,3 +9,5 @@ sparql_final_graph_uri: https://w3id.org/data2services/graph/biolink/stitch
 cwl_dir:
   class: Directory
   path: ..
+
+cwl_workflow_filename: workflow-load-rdf.cwl
