@@ -1,84 +1,67 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: CommandLineTool
-label: Execute SPARQL queries
-
-# requirements:
-#   InlineJavascriptRequirement: {}
-#   InitialWorkDirRequirement:
-#     listing:    # Get the config dir as input
-#       - $(inputs.config_dir)
+label: Download files to process
+doc: Docker container to automatically execute Bash script from files and URLs. See http://d2s.semanticscience.org/ for more details.
+requirements:
+  # InlineJavascriptRequirement: {}
+  InitialWorkDirRequirement:
+    listing:    # Get the config dir as input
+      - $(inputs.cwl_dir)
 
 hints:
   DockerRequirement:
-    dockerPull: maastrichtuids/d2s-sparql-operations:latest
+    dockerPull: maastrichtuids/d2s-bash-exec:latest
     dockerOutputDirectory: /data
     # Link the output dir to /data in the Docker container
 
 baseCommand: []
-arguments: []
+arguments: ["$(inputs.cwl_dir.path)/support/graphdb_create_test_repo.sh"]
 
 inputs:
-  sparql_queries_path:
-    type: string
+  cwl_dir:
+    type: Directory
+  sparql_triplestore_url:
+    type: string?
     inputBinding:
       position: 1
-      prefix: -f
-  sparql_triplestore_url:
-    type: string
-    inputBinding:
-      position: 2
       prefix: -ep
-  # TODO: remove?
-  # sparql_triplestore_repository:
-  #   type: string?
-  #   inputBinding:
-  #     position: 3
-  #     prefix: -rep
   sparql_username:
     type: string?
     inputBinding:
-      position: 4
+      position: 2
       prefix: -un
   sparql_password:
     type: string?
     inputBinding:
-      position: 5
+      position: 3
       prefix: -pw
-  sparql_input_graph_uri:
-    type: string?
-    default: "https://w3id.org/data2services/graph/autor2rml"
-    inputBinding:
-      position: 6
-      prefix: --var-input
-  sparql_output_graph_uri:
+  download_username:
     type: string?
     inputBinding:
-      position: 7
-      prefix: --var-output
-  sparql_service_url:
+      position: 1
+      prefix: --username
+  download_password:
     type: string?
     inputBinding:
-      position: 8
-      prefix: --var-service
+      position: 2
+      prefix: --password
   previous_step_output:
     type: File?
 
-
-stdout: logs-execute-sparql-queries.txt
+stdout: logs-create-graphdb-repo.txt
 
 outputs:
-  # TODO: fix var
-  logs_execute_sparql_query_:
+  logs_create_graphdb_repo:
     type: stdout
     format: edam:format_1964    # Plain text
-
 
 $namespaces:
   s: "http://schema.org/"
   dct: "http://purl.org/dc/terms/"
   foaf: "http://xmlns.com/foaf/0.1/"
   edam: "http://edamontology.org/"
+  # Base: https://w3id.org/cwl/cwl#
 $schemas:
   - http://schema.org/version/latest/schema.rdf
   - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
@@ -99,20 +82,34 @@ dct:contributor:
 
 dct:license: "https://opensource.org/licenses/MIT"
 s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
-s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-sparql-operations
+s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-bash-exec
+# s:dateCreated: "2019-09-27"
 
 edam:has_function:
-  - edam:operation_0224   # Query and retrieval
+  - edam:operation_2422   # Data retrieval
 
 edam:has_input: 
-  - edam:format_3790 # SPARQL
+  - edam:data_3786        # Query script
 
 edam:has_output:
-  - edam:format_2376    # RDF format
+  - edam:data_2526        # Text data
 
 edam:has_topic:
-  - edam:topic_0219   # Data submission, annotation and curation
-  - edam:topic_3366   # Data integration and warehousing
-  - edam:topic_3365   # Data architecture, analysis and design
+  - edam:topic_3077       # Data acquisition
 
-# TODO: get warning 'unrecognized extension field http://commonwl.org/cwltool#generation'
+### Annotation documentation
+# CWL doc: https://www.commonwl.org/user_guide/17-metadata/
+# https://github.com/common-workflow-language/common-workflow-language/blob/master/v1.0/v1.0/metadata.cwl
+# https://biotools.readthedocs.io/en/latest/curators_guide.html
+# EDAM ontology: https://www.ebi.ac.uk/ols/ontologies/edam
+
+# biotools:function:
+#   biotools:operation
+#   biotools:input:
+#     biotools:data
+#     biotools:format
+#   biotools:output:
+#     biotools:data
+#     biotools:format
+#   biotools:note
+#   biotools:cmd    # CommandLine

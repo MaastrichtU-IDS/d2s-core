@@ -33,6 +33,8 @@ inputs:
     inputBinding:
       position: 3
       prefix: -pw
+  previous_step_output:
+    type: File?
 
 stdout: logs-rdfupload.txt
 

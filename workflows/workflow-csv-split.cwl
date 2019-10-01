@@ -101,6 +101,10 @@ outputs:
     outputSource: step3-r2rml/logs_r2rml
     type: File
     label: "R2RML log file"
+  - id: logs_create_graphdb_repo
+    outputSource: step3-graphdb-create-repo/logs_create_graphdb_repo
+    type: File
+    label: "Log file for creating GraphDB repo"
   - id: logs_rdf_upload
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
@@ -131,7 +135,7 @@ outputs:
 
 steps:
   step1-d2s-download:
-    run: ../steps/d2s-bash-exec.cwl
+    run: ../steps/d2s-bash-download.cwl
     in:
       config_dir: config_dir
       download_username: download_username
@@ -152,6 +156,13 @@ steps:
       input_data_jdbc: input_data_jdbc
     out: [r2rml_nquads_file_output, logs_r2rml]
 
+  step3-graphdb-create-repo:
+    run: ../steps/graphdb-create-repo.cwl
+    in:
+      cwl_dir: cwl_dir
+      previous_step_output: step3-r2rml/logs_r2rml
+    out: [logs_create_graphdb_repo]
+
   step4-rdf-upload:
     run: ../steps/rdf-upload.cwl
     # run: ../steps/virtuoso-bulk-load.cwl
@@ -160,6 +171,7 @@ steps:
       sparql_triplestore_url: sparql_tmp_triplestore_url
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
+      previous_step_output: step3-graphdb-create-repo/logs_create_graphdb_repo
     out: [logs_rdf_upload]
 
   step5-insert-metadata:
