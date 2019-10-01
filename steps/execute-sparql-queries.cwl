@@ -67,6 +67,7 @@ inputs:
 stdout: logs-execute-sparql-queries.txt
 
 outputs:
+  # TODO: fix var
   logs_execute_sparql_query_:
     type: stdout
     format: edam:format_1964    # Plain text
