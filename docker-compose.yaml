@@ -19,6 +19,7 @@ services:
 
   drill:
     image: vemonet/apache-drill
+    restart: unless-stopped
     ports:
       - 8047:8047
       - 31010:31010
@@ -37,6 +38,7 @@ services:
       args:
         version: 8.10.1
     # build: ./support/graphdb
+    restart: unless-stopped
     volumes:
       - /data/red-kg/graphdb:/opt/graphdb/home
       - /data/red-kg/graphdb-import:/root/graphdb-import
@@ -48,6 +50,7 @@ services:
 
   postgres:
     image: postgres:11
+    restart: unless-stopped
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=db
@@ -57,6 +60,7 @@ services:
   # http://localhost:8889/bigdata/#splash
   # https://hub.docker.com/r/lyrasis/blazegraph
   blazegraph:
+    restart: unless-stopped
     image: lyrasis/blazegraph:2.1.5
     volumes:
       # - /data/red-kg/RWStore.properties:/RWStore.properties
