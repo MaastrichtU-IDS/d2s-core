@@ -3,23 +3,29 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Download files to process
 doc: Docker container to automatically execute Bash script from files and URLs. See http://d2s.semanticscience.org/ for more details.
-# requirements:
-#   # InlineJavascriptRequirement: {}
-#   InitialWorkDirRequirement:
-#     listing:    # Get the config dir as input
-#       - $(inputs.config_dir)
+requirements:
+  # InlineJavascriptRequirement: {}
+  InitialWorkDirRequirement:
+    listing:    # Get the config dir as input
+      - $(inputs.cwl_dir)
 
-hints:
-  DockerRequirement:
-    dockerPull: umids/d2s-bash-exec:latest
-    dockerOutputDirectory: /data
+
+# hints:
+#   DockerRequirement:
+#     dockerPull: umids/d2s-bash-exec:latest
+#     dockerOutputDirectory: /data
     # Link the output dir to /data in the Docker container
 
 baseCommand: [docker, run]
 
-arguments: ["-v", "/data/red-kg:/data", "-v", "$(inputs.file_to_load.dirname)", 
-"https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/develop/support/virtuoso/virtuoso_copy.sh", 
-"$(inputs.file_to_load.dirname)", "$(inputs.file_to_load.path)"]
+# arguments: ["$(inputs.cwl_dir.path)/support/graphdb_create_test_repo.sh"]
+
+arguments: ["-v", "/data/red-kg:/data/red-kg",
+"-v", "$(inputs.cwl_dir.path):$(inputs.cwl_dir.path)",
+"-v", "$(inputs.file_to_load.dirname):/tmp",
+"umids/d2s-bash-exec:latest",
+"$(inputs.cwl_dir.path)/support/virtuoso/virtuoso_copy.sh",
+"/tmp", "/tmp/rdf_output.nq"]
 
 # arguments: ["https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/develop/support/virtuoso/load.sh", "$(inputs.file_to_load.dirname)"]
 
@@ -28,6 +34,8 @@ inputs:
   #   type: string
   # sparql_password:
   #   type: string
+  cwl_dir:
+    type: Directory
   file_to_load:
     type: File
   previous_step_output:

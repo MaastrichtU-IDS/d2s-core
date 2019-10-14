@@ -152,6 +152,7 @@ steps:
     # run: ../steps/rdf-upload.cwl
     run: ../steps/virtuoso-load-copy.cwl
     in:
+      cwl_dir: cwl_dir
       file_to_load: step3-r2rml/r2rml_nquads_file_output
       # sparql_triplestore_url: sparql_tmp_triplestore_url
       # sparql_username: sparql_tmp_triplestore_username

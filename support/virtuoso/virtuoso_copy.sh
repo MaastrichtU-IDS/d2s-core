@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp $1 /data/
+cp $1 /data/red-kg/
