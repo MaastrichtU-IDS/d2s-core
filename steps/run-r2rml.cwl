@@ -5,7 +5,7 @@ label: Run R2RML
 
 hints:
   DockerRequirement:
-    dockerPull: maastrichtuids/r2rml:latest
+    dockerPull: umids/r2rml:latest
     dockerOutputDirectory: /data
 
 baseCommand: []

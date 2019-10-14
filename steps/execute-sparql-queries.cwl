@@ -11,7 +11,7 @@ label: Execute SPARQL queries
 
 hints:
   DockerRequirement:
-    dockerPull: maastrichtuids/d2s-sparql-operations:latest
+    dockerPull: umids/d2s-sparql-operations:latest
     dockerOutputDirectory: /data
     # Link the output dir to /data in the Docker container
 

@@ -10,7 +10,7 @@ requirements:
 
 # hints:
 #   DockerRequirement:
-#     dockerPull: maastrichtuids/d2s-bash-exec:latest
+#     dockerPull: umids/d2s-bash-exec:latest
 #     dockerOutputDirectory: /data
 
 baseCommand: ["cwl-runner"]

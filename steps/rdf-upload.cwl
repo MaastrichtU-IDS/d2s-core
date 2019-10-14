@@ -5,7 +5,7 @@ label: Upload RDF to SPARQL endpoint
 
 hints:
   DockerRequirement:
-    dockerPull: maastrichtuids/rdf-upload:latest
+    dockerPull: umids/rdf-upload:latest
     dockerOutputDirectory: /data
 
 baseCommand: []

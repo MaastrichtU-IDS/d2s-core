@@ -75,22 +75,22 @@ services:
 
   # Pull Data2Services images
   d2s-download:
-    image: maastrichtuids/d2s-download:latest
+    image: umids/d2s-download:latest
 
   d2s-sparql-operations:
-    image: maastrichtuids/d2s-sparql-operations:latest
+    image: umids/d2s-sparql-operations:latest
 
   autor2rml:
-    image: maastrichtuids/autor2rml:latest
+    image: umids/autor2rml:latest
 
   r2rml:
-    image: maastrichtuids/r2rml:latest
+    image: umids/r2rml:latest
 
   xml2rdf:
-    image: maastrichtuids/xml2rdf:latest
+    image: umids/xml2rdf:latest
 
   rdf-upload:
-    image: maastrichtuids/rdf-upload:latest
+    image: umids/rdf-upload:latest
 
   
 
@@ -113,7 +113,7 @@ networks:
 #docker exec -it docker-compose_virtuoso_1 isql-v -U dba -P password exec="RDF_GLOBAL_RESET ();"
 
 # Try to load with RdfUpload
-# docker run -it --rm --net docker-compose_d2s-network -v /data/red-kg/output:/data maastrichtuids/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
+# docker run -it --rm --net docker-compose_d2s-network -v /data/red-kg/output:/data umids/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
 
 # sparql-operations works though
-# docker run -it --net docker-compose_d2s-network --rm maastrichtuids/d2s-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"
+# docker run -it --net docker-compose_d2s-network --rm umids/d2s-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"

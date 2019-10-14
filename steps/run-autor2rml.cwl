@@ -7,7 +7,7 @@ doc: |
 
 hints:
   DockerRequirement:
-    dockerPull: maastrichtuids/autor2rml:latest
+    dockerPull: umids/autor2rml:latest
     dockerOutputDirectory: /data
 
 baseCommand: []

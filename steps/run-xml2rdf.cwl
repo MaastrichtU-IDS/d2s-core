@@ -5,7 +5,7 @@ label: Run xml2rdf
 
 hints:
   DockerRequirement:
-    dockerPull: maastrichtuids/xml2rdf:latest
+    dockerPull: umids/xml2rdf:latest
     dockerOutputDirectory: /data
 
 baseCommand: []

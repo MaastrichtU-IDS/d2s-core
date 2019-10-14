@@ -11,7 +11,7 @@ requirements:
 
 hints:
   DockerRequirement:
-    dockerPull: maastrichtuids/d2s-bash-exec:latest
+    dockerPull: umids/d2s-bash-exec:latest
     dockerOutputDirectory: /data
     # Link the output dir to /data in the Docker container
 

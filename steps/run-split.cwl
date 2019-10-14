@@ -5,7 +5,7 @@ label: Split RDF statements
 
 hints:
   DockerRequirement:
-    dockerPull: maastrichtuids/d2s-sparql-operations:latest
+    dockerPull: umids/d2s-sparql-operations:latest
     dockerOutputDirectory: /data
 
 baseCommand: []
