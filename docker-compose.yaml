@@ -21,8 +21,8 @@ services:
     image: vemonet/apache-drill
     restart: unless-stopped
     ports:
-      - 8047:8047
-      - 31010:31010
+      - 8048:8047
+      - 31011:31010
     tty: true
     volumes:
       - /data/red-kg:/data:ro
