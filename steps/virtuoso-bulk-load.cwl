@@ -2,35 +2,66 @@
 cwlVersion: v1.0
 class: CommandLineTool
 label: Bulk load RDF to Virtuoso
-requirements:
-  InlineJavascriptRequirement: {}
 
 baseCommand: [docker, exec]
+
+# arguments: [ "-i", "virtuoso","bash", "-c", "cd /data && ./load.sh $(inputs.nquads_file.dirname) rdf_output.nq http://bio2rdf.org vload.log $(inputs.triple_store_password)"]
+
+# arguments: [ "-i", "d2s-cwl-workflows_virtuoso_1","bash", "-c", "/tmp/load.sh $(inputs.file_to_load.dirname) rdf_output.nq http://w3id.org/data2services vload.log $(inputs.sparql_password)"]
+
+arguments: [ "-i", "d2s-cwl-workflows_virtuoso_1","bash", "-c", "/usr/local/virtuoso-opensource/var/lib/virtuoso/db/load.sh $(inputs.file_to_load.dirname) rdf_output.nq http://w3id.org/data2services vload.log $(inputs.sparql_password)"]
+
+
+inputs:
+  
+  sparql_username:
+    type: string
+  sparql_password:
+    type: string
+  file_to_load:
+    type: File
+  previous_step_output:
+    type: File?
+
+
+stdout: logs-virtuoso-bulkload.txt
+
+outputs:
+  logs_rdf_upload:
+    type: stdout
+    format: edam:format_1964    # Plain text
+
+
+
+
+
+##########################
+
+# requirements:
+#   InlineJavascriptRequirement: {}
 
 # arguments: [ "d2s-cwl-workflows_virtuoso_1", "isql-v", "-U" , "dba", "-P", "password",
 # "$(exec=\"ld_dir('/usr/local/virtuoso-opensource/var/lib/virtuoso/db/output','*.nq','http://test/');rdf_loader_run();\")" ]
 
-arguments:
-  - valueFrom: "d2s-cwl-workflows_virtuoso_1"
-  - valueFrom: "isql-v"
-  - prefix: -U
-    valueFrom: "dba"
-  - prefix: -P
-    valueFrom: "password"
-  - prefix: -C
-    valueFrom: |
-      ${
-        var r = "exec=\"ld_dir('/usr/local/virtuoso-opensource/var/lib/virtuoso/db/output','*.nq','http://test/');rdf_loader_run();\")";
-        return r;
-      }
+
+
+# arguments:
+#   - valueFrom: "d2s-cwl-workflows_virtuoso_1"
+#   - valueFrom: "isql-v"
+#   - prefix: -U
+#     valueFrom: "dba"
+#   - prefix: -P
+#     valueFrom: "password"
+#   - prefix: -C
+#     valueFrom: |
+#       ${
+#         var r = "exec=\"ld_dir('/usr/local/virtuoso-opensource/var/lib/virtuoso/db/output','*.nq','http://test/');rdf_loader_run();\")";
+#         return r;
+#       }
 
 # docker exec -it docker-compose_virtuoso_1 isql-v -U dba -P password exec="ld_dir('/usr/local/virtuoso-opensource/var/lib/virtuoso/db/output', '*.nq', 'http://test/'); rdf_loader_run();"
 
 # https://www.commonwl.org/user_guide/13-expressions/index.html
-inputs:
-  
-  file_to_load:
-    type: File
  
   # virtuoso_loader:
   #   type: string?
@@ -50,12 +81,6 @@ inputs:
   #     position: 2
   #     prefix: -rep
 
-stdout: logs-virtuoso-bulkload.txt
-
-outputs:
-  logs_rdf_upload:
-    type: stdout
-    format: edam:format_1964    # Plain text
 
 $namespaces:
   s: "http://schema.org/"

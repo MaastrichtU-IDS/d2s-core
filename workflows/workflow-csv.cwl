@@ -149,11 +149,11 @@ steps:
     out: [logs_create_graphdb_repo]
 
   step4-rdf-upload:
-    run: ../steps/rdf-upload.cwl
-    # run: ../steps/virtuoso-bulk-load.cwl
+    # run: ../steps/rdf-upload.cwl
+    run: ../steps/virtuoso-bulk-load.cwl
     in:
       file_to_load: step3-r2rml/r2rml_nquads_file_output
-      sparql_triplestore_url: sparql_tmp_triplestore_url
+      # sparql_triplestore_url: sparql_tmp_triplestore_url
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
       previous_step_output: step3-graphdb-create-repo/logs_create_graphdb_repo
