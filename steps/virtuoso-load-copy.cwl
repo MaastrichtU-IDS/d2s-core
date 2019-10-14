@@ -25,7 +25,7 @@ arguments: ["-v", "/data/red-kg:/data/red-kg",
 "-v", "$(inputs.file_to_load.dirname):/tmp",
 "umids/d2s-bash-exec:latest",
 "$(inputs.cwl_dir.path)/support/virtuoso/virtuoso_copy.sh",
-"/tmp", "/tmp/rdf_output.nq"]
+"/tmp", "$(inputs.cwl_dir.path)/support/virtuoso/load.sh"]
 
 # arguments: ["https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/develop/support/virtuoso/load.sh", "$(inputs.file_to_load.dirname)"]
 
