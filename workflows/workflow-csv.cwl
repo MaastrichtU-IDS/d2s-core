@@ -148,6 +148,17 @@ steps:
       previous_step_output: step3-r2rml/logs_r2rml
     out: [logs_create_graphdb_repo]
 
+  step4-virtuoso-copy:
+    # run: ../steps/rdf-upload.cwl
+    run: ../steps/virtuoso-load-copy.cwl
+    in:
+      file_to_load: step3-r2rml/r2rml_nquads_file_output
+      # sparql_triplestore_url: sparql_tmp_triplestore_url
+      # sparql_username: sparql_tmp_triplestore_username
+      # sparql_password: sparql_tmp_triplestore_password
+      previous_step_output: step3-graphdb-create-repo/logs_create_graphdb_repo
+    out: [logs_virtuoso_copy]
+
   step4-rdf-upload:
     # run: ../steps/rdf-upload.cwl
     run: ../steps/virtuoso-bulk-load.cwl
@@ -156,7 +167,8 @@ steps:
       # sparql_triplestore_url: sparql_tmp_triplestore_url
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
-      previous_step_output: step3-graphdb-create-repo/logs_create_graphdb_repo
+      # previous_step_output: step3-graphdb-create-repo/logs_create_graphdb_repo
+      previous_step_output: step4-virtuoso-copy/logs_virtuoso_copy
     out: [logs_rdf_upload]
 
   step5-insert-metadata:
