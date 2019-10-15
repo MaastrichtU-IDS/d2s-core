@@ -78,6 +78,10 @@ outputs:
     outputSource: step2-xml2rdf/logs_xml2rdf
     type: File
     label: "xml2rdf log file"
+  - id: logs_virtuoso_copy
+    outputSource: step4-virtuoso-copy/logs_virtuoso_copy
+    type: File
+    label: "Virtuoso copy RDF output log file"
   - id: logs_rdf_upload
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
