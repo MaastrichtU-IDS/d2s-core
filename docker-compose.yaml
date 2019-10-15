@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     volumes:
       - /data/d2s-kg:/data
-      - /tmp/red-kg:/tmp
+      - /tmp/d2s-kg:/tmp
     ports:
       - 8890:8890
       - 1111:1111
