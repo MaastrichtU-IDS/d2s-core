@@ -1,7 +1,7 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: CommandLineTool
-label: Download files to process
+label: Copy files to load to Virtuoso
 doc: Docker container to automatically execute Bash script from files and URLs. See http://d2s.semanticscience.org/ for more details.
 requirements:
   # InlineJavascriptRequirement: {}
@@ -9,16 +9,13 @@ requirements:
     listing:    # Get the config dir as input
       - $(inputs.cwl_dir)
 
-
 # hints:
 #   DockerRequirement:
 #     dockerPull: umids/d2s-bash-exec:latest
 #     dockerOutputDirectory: /data
-    # Link the output dir to /data in the Docker container
+# Link the output dir to /data in the Docker container
 
 baseCommand: [docker, run]
-
-# arguments: ["$(inputs.cwl_dir.path)/support/graphdb_create_test_repo.sh"]
 
 arguments: ["-v", "/data/red-kg:/data/red-kg",
 "-v", "$(inputs.cwl_dir.path):$(inputs.cwl_dir.path)",
@@ -27,13 +24,9 @@ arguments: ["-v", "/data/red-kg:/data/red-kg",
 "$(inputs.cwl_dir.path)/support/virtuoso/virtuoso_copy.sh",
 "/tmp", "$(inputs.cwl_dir.path)/support/virtuoso/load.sh"]
 
-# arguments: ["https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/develop/support/virtuoso/load.sh", "$(inputs.file_to_load.dirname)"]
+# https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/develop/support/virtuoso/load.sh
 
 inputs:
-  # sparql_username:
-  #   type: string
-  # sparql_password:
-  #   type: string
   cwl_dir:
     type: Directory
   file_to_load:

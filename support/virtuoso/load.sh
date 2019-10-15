@@ -7,6 +7,11 @@
 
 # Get input arguments
 args=("$@")
+
+isql-v -U dba -P ${args[4]} exec="grant execute on DB.DBA.SPARQL_INSERT_DICT_CONTENT to \"SPARQL\";"
+isql-v -U dba -P ${args[4]} exec="grant execute on DB.DBA.SPARQL_DELETE_DICT_CONTENT to \"SPARQL\";"
+isql-v -U dba -P ${args[4]} exec="grant execute on DB.DBA.L_O_LOOK to \"SPARQL\";"
+
 if [ $# -ne 5 ]; then
     echo "Wrong number of arguments. Correct usage: \"vload [virtuososo_allowed_directory] [data_file] [graph_uri] [log_file] [virtuoso_password]\""
 else
