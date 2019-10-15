@@ -17,7 +17,7 @@ requirements:
 
 baseCommand: [docker, run]
 
-arguments: ["-v", "/data/red-kg:/data/red-kg",
+arguments: ["-v", "/data/d2s-kg:/data/d2s-kg",
 "-v", "$(inputs.cwl_dir.path):$(inputs.cwl_dir.path)",
 "-v", "$(inputs.file_to_load.dirname):/tmp",
 "umids/d2s-bash-exec:latest",
