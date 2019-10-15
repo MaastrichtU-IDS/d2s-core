@@ -192,14 +192,26 @@ steps:
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [cwl_workflow_rdf_description_file]
 
+  step6-cwl-virtuoso-copy:
+    # run: ../steps/rdf-upload.cwl
+    run: ../steps/virtuoso-load-copy.cwl
+    in:
+      cwl_dir: cwl_dir
+      file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
+      # sparql_triplestore_url: sparql_tmp_triplestore_url
+      # sparql_username: sparql_tmp_triplestore_username
+      # sparql_password: sparql_tmp_triplestore_password
+    out: [logs_virtuoso_copy]
+
   step6-upload-cwl-rdf:
-    run: ../steps/rdf-upload.cwl
-    # run: ../steps/virtuoso-bulk-load.cwl
+    # run: ../steps/rdf-upload.cwl
+    run: ../steps/virtuoso-bulk-load.cwl
     in:
       file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
+      previous_step_output: step6-cwl-virtuoso-copy/logs_virtuoso_copy
     out: [logs_rdf_upload]
 
   step6-execute-transform-queries:
