@@ -1,7 +1,7 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: Workflow
-label: Convert CSV/TSV files to a target RDF
+label: Convert CSV/TSV files to a target RDF and split statements
 
 inputs:
   - id: config_dir
@@ -22,7 +22,7 @@ inputs:
   - id: input_data_jdbc
     label: "JDBC URL for database connexion"
     type: string
-  # tmp RDF4J server SPARQL endpoint to load generic RDF
+  # Tmp RDF4J server SPARQL endpoint to load generic RDF
   - id: sparql_tmp_triplestore_url
     label: "URL of tmp triplestore"
     type: string
@@ -58,6 +58,19 @@ inputs:
     label: "Path to queries to compute HCLS stats"
     type: string
     default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
+  # Split params
+  - id: split_property
+    label: "URI of property to split"
+    type: string
+  - id: split_class
+    label: "URI of class to split"
+    type: string
+  - id: split_delimiter
+    label: "Split delimiter"
+    type: string
+  - id: split_quote
+    label: "Remove specified quotes"
+    type: string
 
 outputs:
   - id: download_dir
@@ -88,6 +101,10 @@ outputs:
     outputSource: step3-r2rml/logs_r2rml
     type: File
     label: "R2RML log file"
+  - id: logs_create_graphdb_repo
+    outputSource: step3-graphdb-create-repo/logs_create_graphdb_repo
+    type: File
+    label: "Log file for creating GraphDB repo"
   - id: logs_rdf_upload
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
@@ -112,7 +129,9 @@ outputs:
     outputSource: step7-compute-hcls-stats/logs_execute_sparql_query_
     type: File
     label: "SPARQL HCLS statistics log file"
-
+  - id: logs_split
+    outputSource: step7-split-property/logs_split
+    type: File
 
 steps:
   step1-d2s-download:
@@ -137,20 +156,22 @@ steps:
       input_data_jdbc: input_data_jdbc
     out: [r2rml_nquads_file_output, logs_r2rml]
 
-  step4-virtuoso-copy:
-    run: ../steps/virtuoso-load-copy.cwl
+  step3-graphdb-create-repo:
+    run: ../steps/graphdb-create-repo.cwl
     in:
       cwl_dir: cwl_dir
-      file_to_load: step3-r2rml/r2rml_nquads_file_output
-    out: [logs_virtuoso_copy]
+      previous_step_output: step3-r2rml/logs_r2rml
+    out: [logs_create_graphdb_repo]
 
   step4-rdf-upload:
-    run: ../steps/virtuoso-bulk-load.cwl
+    run: ../steps/rdf-upload.cwl
+    # run: ../steps/virtuoso-bulk-load.cwl
     in:
       file_to_load: step3-r2rml/r2rml_nquads_file_output
+      sparql_triplestore_url: sparql_tmp_triplestore_url
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
-      previous_step_output: step4-virtuoso-copy/logs_virtuoso_copy
+      previous_step_output: step3-graphdb-create-repo/logs_create_graphdb_repo
     out: [logs_rdf_upload]
 
   step5-insert-metadata:
@@ -173,21 +194,14 @@ steps:
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [cwl_workflow_rdf_description_file]
 
-  step6-cwl-virtuoso-copy:
-    run: ../steps/virtuoso-load-copy.cwl
-    in:
-      cwl_dir: cwl_dir
-      file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
-    out: [logs_virtuoso_copy]
-
   step6-upload-cwl-rdf:
-    run: ../steps/virtuoso-bulk-load.cwl
+    run: ../steps/rdf-upload.cwl
+    # run: ../steps/virtuoso-bulk-load.cwl
     in:
       file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
-      previous_step_output: step6-cwl-virtuoso-copy/logs_virtuoso_copy
     out: [logs_rdf_upload]
 
   step6-execute-transform-queries:
@@ -203,6 +217,19 @@ steps:
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [logs_execute_sparql_query_]
 
+  step7-split-property:
+    run: ../steps/run-split.cwl
+    in:
+      sparql_triplestore_url: sparql_tmp_triplestore_url
+      sparql_username: sparql_tmp_triplestore_username
+      sparql_password: sparql_tmp_triplestore_password
+      split_delimiter: split_delimiter
+      split_quote: split_quote
+      split_class: split_class
+      split_property: split_property
+      previous_step_output: step6-execute-transform-queries/logs_execute_sparql_query_
+    out: [logs_split]
+
   step7-compute-hcls-stats:
     run: ../steps/execute-sparql-queries.cwl
     in: # No sparql_queries_path, HCLS stats is the default
@@ -211,9 +238,8 @@ steps:
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
       sparql_input_graph_uri: sparql_final_graph_uri
-      previous_step_output: step6-execute-transform-queries/logs_execute_sparql_query_
+      previous_step_output: step7-split-property/logs_split
     out: [logs_execute_sparql_query_]
-
 
 $namespaces:
   s: "http://schema.org/"
@@ -245,6 +271,7 @@ s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-cwl-workflows
 edam:has_function:
   - edam:operation_1812   # Parsing
   - edam:operation_2429   # Mapping
+  - edam:operation_3359   # Splitting
 
 edam:has_input: 
   - edam:data_3786      # Query script

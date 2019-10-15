@@ -101,10 +101,6 @@ outputs:
     outputSource: step3-r2rml/logs_r2rml
     type: File
     label: "R2RML log file"
-  - id: logs_create_graphdb_repo
-    outputSource: step3-graphdb-create-repo/logs_create_graphdb_repo
-    type: File
-    label: "Log file for creating GraphDB repo"
   - id: logs_rdf_upload
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
@@ -156,22 +152,20 @@ steps:
       input_data_jdbc: input_data_jdbc
     out: [r2rml_nquads_file_output, logs_r2rml]
 
-  step3-graphdb-create-repo:
-    run: ../steps/graphdb-create-repo.cwl
+  step4-virtuoso-copy:
+    run: ../steps/virtuoso-load-copy.cwl
     in:
       cwl_dir: cwl_dir
-      previous_step_output: step3-r2rml/logs_r2rml
-    out: [logs_create_graphdb_repo]
+      file_to_load: step3-r2rml/r2rml_nquads_file_output
+    out: [logs_virtuoso_copy]
 
   step4-rdf-upload:
-    run: ../steps/rdf-upload.cwl
-    # run: ../steps/virtuoso-bulk-load.cwl
+    run: ../steps/virtuoso-bulk-load.cwl
     in:
       file_to_load: step3-r2rml/r2rml_nquads_file_output
-      sparql_triplestore_url: sparql_tmp_triplestore_url
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
-      previous_step_output: step3-graphdb-create-repo/logs_create_graphdb_repo
+      previous_step_output: step4-virtuoso-copy/logs_virtuoso_copy
     out: [logs_rdf_upload]
 
   step5-insert-metadata:
@@ -194,14 +188,21 @@ steps:
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [cwl_workflow_rdf_description_file]
 
+  step6-cwl-virtuoso-copy:
+    run: ../steps/virtuoso-load-copy.cwl
+    in:
+      cwl_dir: cwl_dir
+      file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
+    out: [logs_virtuoso_copy]
+
   step6-upload-cwl-rdf:
-    run: ../steps/rdf-upload.cwl
-    # run: ../steps/virtuoso-bulk-load.cwl
+    run: ../steps/virtuoso-bulk-load.cwl
     in:
       file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
+      previous_step_output: step6-cwl-virtuoso-copy/logs_virtuoso_copy
     out: [logs_rdf_upload]
 
   step6-execute-transform-queries:
