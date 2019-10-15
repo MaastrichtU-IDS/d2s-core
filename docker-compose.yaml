@@ -17,7 +17,8 @@ services:
       - DEFAULT_GRAPH=https://w3id.org/data2services/graph
       - VIRT_Parameters_DirsAllowed=., /usr/local/virtuoso-opensource/share/virtuoso/vad, /private
     networks:
-      - d2s-network
+      - network
+
 
   drill:
     image: vemonet/apache-drill
@@ -30,7 +31,7 @@ services:
       - /data/d2s-kg:/data:ro
       # - /data/d2s-kg:/data:ro
     networks:
-      - d2s-network
+      - network
 
 
   graphdb:
@@ -47,7 +48,7 @@ services:
     ports:
       - 7200:7200
     networks:
-      - d2s-network
+      - network
 
 
   postgres:
@@ -57,7 +58,8 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=db
     networks:
-      - d2s-network
+      - network
+
 
   # http://localhost:8889/bigdata/#splash
   # https://hub.docker.com/r/lyrasis/blazegraph
@@ -73,7 +75,8 @@ services:
     #   - BLAZEGRAPH_UID=$BLAZEGRAPH_UID
     #   - BLAZEGRAPH_GID=$BLAZEGRAPH_GID
     networks:
-      - d2s-network
+      - network
+
 
   # Pull Data2Services images
   d2s-download:
@@ -97,7 +100,7 @@ services:
   
 
 networks:
-  d2s-network:
+  network:
     driver: bridge
 
 
@@ -115,7 +118,7 @@ networks:
 #docker exec -it docker-compose_virtuoso_1 isql-v -U dba -P password exec="RDF_GLOBAL_RESET ();"
 
 # Try to load with RdfUpload
-# docker run -it --rm --net docker-compose_d2s-network -v /data/d2s-kg/output:/data umids/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
+# docker run -it --rm --net docker-compose_network -v /data/d2s-kg/output:/data umids/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
 
 # sparql-operations works though
-# docker run -it --net docker-compose_d2s-network --rm umids/d2s-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"
+# docker run -it --net docker-compose_network --rm umids/d2s-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"
