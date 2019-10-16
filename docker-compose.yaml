@@ -6,8 +6,8 @@ services:
     image: tenforce/virtuoso
     restart: unless-stopped
     volumes:
-      - /data/d2s-kg:/data
-      - /tmp/d2s-kg:/tmp
+      - /data/d2s-workspace:/data
+      - /tmp/d2s-workspace:/tmp
     ports:
       - 8890:8890
       - 1111:1111
@@ -28,8 +28,8 @@ services:
       - 31011:31010
     tty: true
     volumes:
-      - /data/d2s-kg:/data:ro
-      # - /data/d2s-kg:/data:ro
+      - /data/d2s-workspace:/data:ro
+      # - /data/d2s-workspace:/data:ro
     networks:
       - network
 
@@ -43,8 +43,8 @@ services:
     # build: ./support/graphdb
     restart: unless-stopped
     volumes:
-      - /data/d2s-kg/graphdb:/opt/graphdb/home
-      - /data/d2s-kg/graphdb-import:/root/graphdb-import
+      - /data/d2s-workspace/graphdb:/opt/graphdb/home
+      - /data/d2s-workspace/graphdb-import:/root/graphdb-import
     ports:
       - 7200:7200
     networks:
@@ -67,8 +67,8 @@ services:
     restart: unless-stopped
     image: lyrasis/blazegraph:2.1.5
     volumes:
-      # - /data/d2s-kg/RWStore.properties:/RWStore.properties
-      - /data/d2s-kg:/data
+      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
+      - /data/d2s-workspace:/data
     ports:
       - 8889:8080
     # environment:
@@ -118,7 +118,7 @@ networks:
 #docker exec -it docker-compose_virtuoso_1 isql-v -U dba -P password exec="RDF_GLOBAL_RESET ();"
 
 # Try to load with RdfUpload
-# docker run -it --rm --net docker-compose_network -v /data/d2s-kg/output:/data umids/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
+# docker run -it --rm --net docker-compose_network -v /data/d2s-workspace/output:/data umids/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
 
 # sparql-operations works though
 # docker run -it --net docker-compose_network --rm umids/d2s-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"
