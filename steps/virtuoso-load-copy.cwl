@@ -19,7 +19,7 @@ baseCommand: [docker, run]
 
 arguments: ["-v", "/data/d2s-workspace:/data/d2s-workspace",
 "-v", "$(inputs.cwl_dir.path):$(inputs.cwl_dir.path)",
-"-v", "$(inputs.file_to_load.dirname):/tmp",
+"-v", "$(inputs.file_to_load.dirname):/tmp",    # Share dir containing file to load to /tmp
 "umids/d2s-bash-exec:latest",
 "$(inputs.cwl_dir.path)/support/virtuoso/virtuoso_copy.sh",
 "/tmp", "$(inputs.cwl_dir.path)/support/virtuoso/load.sh"]

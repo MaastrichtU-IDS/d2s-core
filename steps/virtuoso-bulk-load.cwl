@@ -9,11 +9,10 @@ baseCommand: [docker, exec]
 
 # arguments: [ "-i", "d2s-cwl-workflows_virtuoso_1","bash", "-c", "/tmp/load.sh $(inputs.file_to_load.dirname) rdf_output.nq http://w3id.org/data2services vload.log $(inputs.sparql_password)"]
 
-arguments: [ "-i", "d2s-cwl-workflows_virtuoso_1","bash", "-c", "/usr/local/virtuoso-opensource/var/lib/virtuoso/db/load.sh /usr/local/virtuoso-opensource/var/lib/virtuoso/db/ $(inputs.file_to_load.basename) http://w3id.org/data2services vload.log $(inputs.sparql_password)"]
+arguments: [ "-i", "d2s-cwl-workflows_virtuoso_1", "bash", "-c", "/usr/local/virtuoso-opensource/var/lib/virtuoso/db/load.sh /usr/local/virtuoso-opensource/var/lib/virtuoso/db $(inputs.file_to_load.basename) https://w3id.org/data2services $(inputs.file_to_load.basename)_vload.log $(inputs.sparql_password)" ]
 
 
 inputs:
-  
   sparql_username:
     type: string
   sparql_password:
@@ -30,8 +29,6 @@ outputs:
   logs_rdf_upload:
     type: stdout
     format: edam:format_1964    # Plain text
-
-
 
 
 

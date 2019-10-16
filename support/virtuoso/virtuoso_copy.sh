@@ -2,7 +2,7 @@
 
 # Copy the RDF output file from xml2rdf or r2rml to the shared dir
 # cp rdf_output.nq /data/d2s-workspace/
-echo "GET DIRECTORYY"
+echo "Virtuoso copy directory content:"
 ls
 # cp *.(nq|ttl|rdf|nt) "/data/d2s-workspace/" # doesn't work in a script...
 # virtuoso_copy.sh: line 7: syntax error near unexpected token `('
