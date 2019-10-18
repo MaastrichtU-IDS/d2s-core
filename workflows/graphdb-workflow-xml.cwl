@@ -26,6 +26,9 @@ inputs:
   - id: sparql_tmp_service_url
     label: "Service URL of tmp triplestore"
     type: string
+  - id: sparql_tmp_graph_uri
+    label: "URI of tmp graph"
+    type: string
   - id: sparql_tmp_triplestore_username
     label: "Username for tmp triplestore"
     type: string?
@@ -180,7 +183,7 @@ steps:
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
-      # sparql_input_graph_uri: sparql_tmp_graph_uri
+      sparql_input_graph_uri: sparql_tmp_graph_uri
       sparql_output_graph_uri: sparql_final_graph_uri
       sparql_service_url: sparql_tmp_service_url
       previous_step_output: step4-rdf-upload/logs_rdf_upload
