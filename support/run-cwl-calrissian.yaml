@@ -12,9 +12,9 @@ spec:
         command: ["calrissian"]
         args:
           - "--stdout"
-          - "/calrissian/output-data/revsort-output.json"
+          - "/calrissian/output-data/output.json"
           - "--stderr"
-          - "/calrissian/output-data/revsort-stderr.log"
+          - "/calrissian/output-data/stderr.log"
           - "--max-ram"
           - "16G"
           - "--max-cores"
@@ -24,7 +24,7 @@ spec:
           - "--outdir"
           - "/calrissian/output-data/"
           - "--usage-report"
-          - "/calrissian/output-data/revsort-usage.json"
+          - "/calrissian/output-data/usage.json"
           - "/calrissian/d2s-transform-template/d2s-cwl-workflows/workflows/graphdb-workflow-xml.cwl"
           - "/calrissian/d2s-transform-template/datasets/drugbank/config-transform-graphdb-xml-drugbank.yml"
         volumeMounts:
