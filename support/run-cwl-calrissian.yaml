@@ -30,6 +30,7 @@ spec:
         volumeMounts:
         - mountPath: /calrissian
           name: pv-test-vincent
+          subPath: calrissian
         env:
         - name: CALRISSIAN_POD_NAME
           valueFrom:
