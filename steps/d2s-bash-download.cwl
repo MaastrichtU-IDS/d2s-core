@@ -41,8 +41,8 @@ outputs:
   download_dir:
     type: Directory
     outputBinding:
-      glob: .
-      # glob: input
+      glob: input
+      # glob: .
 
 $namespaces:
   s: "http://schema.org/"
