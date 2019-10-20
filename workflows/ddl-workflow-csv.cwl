@@ -4,9 +4,6 @@ class: Workflow
 label: Convert CSV/TSV files to a target RDF
 
 inputs:
-  - id: input_dir
-    label: "Directory with downloaded input files"
-    type: Directory
   - id: config_dir
     label: "CWL config directory"
     type: Directory
@@ -66,14 +63,14 @@ inputs:
     default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
 
 outputs:
-  # - id: download_dir
-  #   outputSource: step1-d2s-download/download_dir
-  #   type: Directory
-  #   label: "Downloaded files"
-  # - id: logs_download_dataset
-  #   outputSource: step1-d2s-download/logs_download_dataset
-  #   type: File
-  #   label: "Download script log file"
+  - id: download_dir
+    outputSource: step1-d2s-download/download_dir
+    type: Directory
+    label: "Downloaded files"
+  - id: logs_download_dataset
+    outputSource: step1-d2s-download/logs_download_dataset
+    type: File
+    label: "Download script log file"
   - id: logs_autor2rml
     outputSource: step2-autor2rml/logs_autor2rml
     type: File
@@ -125,18 +122,18 @@ outputs:
 
 
 steps:
-  # step1-d2s-download:
-  #   run: ../steps/d2s-bash-download.cwl
-  #   in:
-  #     config_dir: config_dir
-  #     download_username: download_username
-  #     download_password: download_password
-  #   out: [download_dir, logs_download_dataset]
+  step1-d2s-download:
+    run: ../steps/d2s-bash-download.cwl
+    in:
+      config_dir: config_dir
+      download_username: download_username
+      download_password: download_password
+    out: [download_dir, logs_download_dataset]
 
   step2-autor2rml:
     run: ../steps/run-autor2rml.cwl
     in:
-      download_dir: input_dir
+      download_dir: step1-d2s-download/download_dir
       input_data_jdbc: input_data_jdbc
     out: [r2rml_trig_file_output, sparql_mapping_templates, logs_autor2rml]
 
