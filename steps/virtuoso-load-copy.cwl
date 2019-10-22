@@ -15,14 +15,18 @@ requirements:
 #     dockerOutputDirectory: /data
 # Link the output dir to /data in the Docker container
 
-baseCommand: [docker, run]
+# baseCommand: [docker, run]
+baseCommand: [docker, cp]
 
-arguments: ["-v", "/data/d2s-workspace/virtuoso:/data/d2s-workspace/virtuoso",
-"-v", "$(inputs.cwl_dir.path):$(inputs.cwl_dir.path)",
-"-v", "$(inputs.file_to_load.dirname):/tmp",    # Share dir containing file to load to /tmp
-"umids/d2s-bash-exec:latest",
-"$(inputs.cwl_dir.path)/support/virtuoso/virtuoso_copy.sh",
-"/tmp", "$(inputs.cwl_dir.path)/support/virtuoso/load.sh"]
+arguments: ["$(inputs.file_to_load)",
+"d2s-cwl-workflows_virtuoso_1:/usr/local/virtuoso-opensource/var/lib/virtuoso/db/"]
+
+# arguments: ["-v", "/data/d2s-workspace/virtuoso:/data/d2s-workspace/virtuoso",
+# "-v", "$(inputs.cwl_dir.path):$(inputs.cwl_dir.path)",
+# "-v", "$(inputs.file_to_load.dirname):/tmp",    # Share dir containing file to load to /tmp
+# "umids/d2s-bash-exec:latest",
+# "$(inputs.cwl_dir.path)/support/virtuoso/virtuoso_copy.sh",
+# "/tmp", "$(inputs.cwl_dir.path)/support/virtuoso/load.sh"]
 
 # https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/develop/support/virtuoso/load.sh
 
