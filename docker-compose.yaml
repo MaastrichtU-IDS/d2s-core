@@ -6,7 +6,7 @@ services:
     image: tenforce/virtuoso
     restart: unless-stopped
     volumes:
-      - /data/d2s-workspace:/data
+      - /data/d2s-workspace/virtuoso:/data
       - /tmp/d2s-workspace:/tmp
     ports:
       - 8890:8890

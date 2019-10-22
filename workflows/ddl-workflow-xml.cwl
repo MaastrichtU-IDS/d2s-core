@@ -3,6 +3,8 @@ cwlVersion: v1.0
 class: Workflow
 label: Convert XML files to a target RDF
 
+# TODO: download doesn't work anymore
+
 inputs:
   - id: config_dir
     label: "CWL config directory (config.yml)"
