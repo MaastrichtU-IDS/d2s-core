@@ -1,12 +1,12 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: CommandLineTool
-label: Execute SPARQL queries
-requirements:
-  InlineJavascriptRequirement: {} # TODO: required?
-  InitialWorkDirRequirement:
-    listing:    # Get the config dir as input
-      - $(inputs.config_dir)
+label: Execute SPARQL queries via URL
+# requirements:
+#   InlineJavascriptRequirement: {} # TODO: required?
+#   InitialWorkDirRequirement:
+#     listing:    # Get the config dir as input
+#       - $(inputs.config_dir)
 
 # requirements:
 #   InlineJavascriptRequirement: {}
@@ -21,11 +21,9 @@ hints:
     # Link the output dir to /data in the Docker container
 
 baseCommand: []
-arguments: ["-f", "$(inputs.config_dir.path)/$(inputs.sparql_queries_path)"]
+arguments: ["-f", "$(inputs.sparql_queries_path)"]
 
 inputs:
-  config_dir:
-    type: Directory
   sparql_queries_path:
     type: string
     # inputBinding:
