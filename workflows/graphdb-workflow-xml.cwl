@@ -148,6 +148,7 @@ steps:
   step5-insert-metadata:
     run: ../steps/execute-sparql-queries.cwl
     in:
+      config_dir: config_dir
       sparql_queries_path: sparql_insert_metadata_path
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
@@ -179,6 +180,7 @@ steps:
   step6-execute-transform-queries:
     run: ../steps/execute-sparql-queries.cwl
     in:
+      config_dir: config_dir
       sparql_queries_path: sparql_transform_queries_path
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
@@ -190,7 +192,7 @@ steps:
     out: [logs_execute_sparql_query_]
 
   step7-compute-hcls-stats:
-    run: ../steps/execute-sparql-queries.cwl
+    run: ../steps/execute-sparql-queries-url.cwl
     in: # No sparql_queries_path, HCLS stats is the default
       sparql_queries_path: sparql_compute_hcls_path
       sparql_triplestore_url: sparql_final_triplestore_url
