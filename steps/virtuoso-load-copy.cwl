@@ -18,7 +18,7 @@ requirements:
 # baseCommand: [docker, run]
 baseCommand: [docker, cp]
 
-arguments: ["$(inputs.file_to_load)",
+arguments: ["-aL", "$(inputs.file_to_load)",
 "d2s-cwl-workflows_virtuoso_1:/usr/local/virtuoso-opensource/var/lib/virtuoso/db/"]
 
 # arguments: ["-v", "/data/d2s-workspace/virtuoso:/data/d2s-workspace/virtuoso",
