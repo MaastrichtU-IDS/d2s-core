@@ -42,6 +42,9 @@ inputs:
   - id: sparql_final_triplestore_url
     label: "URL of final triplestore"
     type: string
+  - id: virtuoso_container_id
+    label: "ID of the virtuoso Docker container"
+    type: string
   - id: sparql_final_triplestore_username
     label: "Username for final triplestore"
     type: string?
@@ -126,6 +129,7 @@ steps:
     run: ../steps/virtuoso-load-copy.cwl
     in:
       cwl_dir: cwl_dir
+      virtuoso_container_id: virtuoso_container_id
       file_to_load: step2-xml2rdf/xml2rdf_nquads_file_output
     out: [logs_virtuoso_copy]
 
@@ -133,6 +137,7 @@ steps:
     run: ../steps/virtuoso-bulk-load.cwl
     in:
       file_to_load: step2-xml2rdf/xml2rdf_nquads_file_output
+      virtuoso_container_id: virtuoso_container_id
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
       previous_step_output: step4-virtuoso-copy/logs_virtuoso_copy
@@ -164,6 +169,7 @@ steps:
     run: ../steps/virtuoso-load-copy.cwl
     in:
       cwl_dir: cwl_dir
+      virtuoso_container_id: virtuoso_container_id
       file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
     out: [logs_virtuoso_copy]
 
@@ -172,6 +178,7 @@ steps:
     in:
       file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
       # sparql_triplestore_url: sparql_final_triplestore_url
+      virtuoso_container_id: virtuoso_container_id
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
       previous_step_output: step6-cwl-virtuoso-copy/logs_virtuoso_copy
