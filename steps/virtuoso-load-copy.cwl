@@ -19,7 +19,7 @@ requirements:
 baseCommand: [docker, cp]
 
 arguments: ["-aL", "$(inputs.file_to_load)",
-"d2s-cwl-workflows_virtuoso_1:/usr/local/virtuoso-opensource/var/lib/virtuoso/db/"]
+"$(inputs.virtuoso_container_id):/usr/local/virtuoso-opensource/var/lib/virtuoso/db/"]
 
 # arguments: ["-v", "/data/d2s-workspace/virtuoso:/data/d2s-workspace/virtuoso",
 # "-v", "$(inputs.cwl_dir.path):$(inputs.cwl_dir.path)",
@@ -33,6 +33,8 @@ arguments: ["-aL", "$(inputs.file_to_load)",
 inputs:
   cwl_dir:
     type: Directory
+  virtuoso_container_id:
+    type: string
   file_to_load:
     type: File
   previous_step_output:

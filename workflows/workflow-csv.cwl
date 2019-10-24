@@ -151,6 +151,7 @@ steps:
     run: ../steps/virtuoso-load-copy.cwl
     in:
       cwl_dir: cwl_dir
+      virtuoso_container_id: virtuoso_container_id
       file_to_load: step3-r2rml/r2rml_nquads_file_output
     out: [logs_virtuoso_copy]
 
@@ -158,6 +159,7 @@ steps:
     run: ../steps/virtuoso-bulk-load.cwl
     in:
       file_to_load: step3-r2rml/r2rml_nquads_file_output
+      virtuoso_container_id: virtuoso_container_id
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
       previous_step_output: step4-virtuoso-copy/logs_virtuoso_copy
