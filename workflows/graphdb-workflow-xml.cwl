@@ -4,6 +4,9 @@ class: Workflow
 label: Convert XML files to a target RDF
 
 inputs:
+  - id: input_dir
+    label: "Directory with downloaded input files"
+    type: Directory
   - id: config_dir
     label: "CWL config directory (config.yml)"
     type: Directory
@@ -61,14 +64,14 @@ inputs:
 
 
 outputs:
-  - id: download_dir
-    outputSource: step1-d2s-download/download_dir
-    type: Directory
-    label: "Downloaded files"
-  - id: logs_download_dataset
-    outputSource: step1-d2s-download/logs_download_dataset
-    type: File
-    label: "Download script log file"
+  # - id: download_dir
+  #   outputSource: step1-d2s-download/download_dir
+  #   type: Directory
+  #   label: "Downloaded files"
+  # - id: logs_download_dataset
+  #   outputSource: step1-d2s-download/logs_download_dataset
+  #   type: File
+  #   label: "Download script log file"
   - id: sparql_mapping_templates
     outputSource: step2-xml2rdf/sparql_mapping_templates
     type: Directory
@@ -112,18 +115,18 @@ outputs:
 
 
 steps:
-  step1-d2s-download:
-    run: ../steps/d2s-bash-download.cwl
-    in:
-      config_dir: config_dir
-      download_username: download_username
-      download_password: download_password
-    out: [download_dir, logs_download_dataset]
+  # step1-d2s-download:
+  #   run: ../steps/d2s-bash-download.cwl
+  #   in:
+  #     config_dir: config_dir
+  #     download_username: download_username
+  #     download_password: download_password
+  #   out: [download_dir, logs_download_dataset]
 
   step2-xml2rdf:
     run: ../steps/run-xml2rdf.cwl
     in:
-      download_dir: step1-d2s-download/download_dir
+      download_dir: input_dir
     out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
     # out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
 
