@@ -26,8 +26,11 @@ inputs:
     label: "JDBC URL for database connexion"
     type: string
   # tmp RDF4J server SPARQL endpoint to load generic RDF
-  - id: sparql_tmp_triplestore_url
+  - id: sparql_tmp_triplestore_url  # TODO: remove?
     label: "URL of tmp triplestore"
+    type: string
+  - id: virtuoso_container_id
+    label: "ID of the virtuoso Docker container"
     type: string
   - id: sparql_tmp_service_url
     label: "Service URL of tmp triplestore"
