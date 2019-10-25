@@ -12,23 +12,23 @@ spec:
         command: ["calrissian"]
         args:
           - "--stdout"
-          - "/calrissian/output-data/output.json"
+          - "/data/output-data/output.json"
           - "--stderr"
-          - "/calrissian/output-data/stderr.log"
+          - "/data/output-data/stderr.log"
           - "--max-ram"
           - "16G"
           - "--max-cores"
           - "8"
           - "--tmp-outdir-prefix"
-          - "/calrissian/tmpout/"
+          - "/data/tmpout/"
           - "--outdir"
-          - "/calrissian/output-data/"
+          - "/data/output-data/"
           - "--usage-report"
-          - "/calrissian/output-data/usage.json"
-          - "/calrissian/d2s-transform-template/d2s-cwl-workflows/workflows/graphdb-workflow-xml.cwl"
-          - "/calrissian/d2s-transform-template/datasets/drugbank/config-transform-graphdb-xml-drugbank.yml"
+          - "/data/output-data/usage.json"
+          - "/data/d2s-transform-template/d2s-cwl-workflows/workflows/graphdb-workflow-xml.cwl"
+          - "/data/d2s-transform-template/datasets/drugbank/config-transform-graphdb-xml-drugbank.yml"
         volumeMounts:
-        - mountPath: /calrissian
+        - mountPath: /data
           name: pv-test-vincent
           subPath: calrissian
         env:
