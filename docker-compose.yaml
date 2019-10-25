@@ -9,9 +9,10 @@ services:
       - /data/d2s-workspace/virtuoso:/data
       - /tmp/d2s-workspace:/tmp
     ports:
-      - 8890:8890
+      - 8891:8890
       - 1111:1111
     environment:
+      - VIRTUAL_HOST=d2s-virtuoso.137.120.31.101.nip.io # for IDS node1
       - DBA_PASSWORD=dba
       - SPARQL_UPDATE=true
       - DEFAULT_GRAPH=https://w3id.org/data2services/graph
