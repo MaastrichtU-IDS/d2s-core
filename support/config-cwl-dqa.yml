@@ -1,10 +1,12 @@
 
 # Final RDF4J server SPARQL endpoint to load the BioLink RDF
-triplestore_url: http://graphdb.dumontierlab.com/repositories/test/statements
+triplestore_url: http://graphdb.dumontierlab.com/repositories/test
+# triplestore_url: http://graphdb.dumontierlab.com/repositories/test/statements
+
 triplestore_username: dba
 triplestore_password: password
 
-graph_uri: https://w3id.org/data2services/graph/biolink/stitch
+graph_uri: https://w3id.org/d2s/graph/dqa
 
 cwl_dir:
   class: Directory
