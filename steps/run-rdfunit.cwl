@@ -5,10 +5,13 @@ label: Run RDFUnit
 
 hints:
   DockerRequirement:
-    dockerPull: aksw/rdfunit:latest
+    dockerPull: umids/rdfunit:latest
     dockerOutputDirectory: /data
 
+# Official image has issue due to using relative path as Dockerfile entrypoint
+# dockerPull: aksw/rdfunit:latest
 
+# Test it:
 # docker run --rm -i -v /data/dqa-workspace/:/data aksw/rdfunit:latest -d "http://sparql.wikipathways.org/" -f /data/ -s "https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#" -o ttl
 
 baseCommand: []
