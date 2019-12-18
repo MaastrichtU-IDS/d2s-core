@@ -22,16 +22,13 @@ inputs:
     type: string
     default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
 
-
 outputs:
   - id: sparql_hcls_statistics_logs
     outputSource: step1-compute-hcls-stats/logs_execute_sparql_query_
     type: File
     label: "SPARQL HCLS statistics log file"
 
-
 steps:
-
   step1-compute-hcls-stats:
     run: ../steps/execute-sparql-queries-url.cwl
     in: # No sparql_queries_path, HCLS stats is the default
@@ -43,6 +40,7 @@ steps:
     out: [logs_execute_sparql_query_]
 
 
+## Workflow metadata
 $namespaces:
   s: "http://schema.org/"
   dct: "http://purl.org/dc/terms/"

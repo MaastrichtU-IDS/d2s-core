@@ -8,8 +8,3 @@ triplestore_password: password
 
 graph_uri:  https://w3id.org/data2services/graph/biolink/hgnc
 
-# cwl_dir:
-#   class: Directory
-#   path: ..
-
-# cwl_workflow_filename: workflow-load-rdf.cwl
