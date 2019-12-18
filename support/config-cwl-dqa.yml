@@ -1,7 +1,7 @@
 
 # Final RDF4J server SPARQL endpoint to load the BioLink RDF
-triplestore_url: http://graphdb.dumontierlab.com/repositories/test
-# triplestore_url: http://graphdb.dumontierlab.com/repositories/test/statements
+# triplestore_url: http://graphdb.dumontierlab.com/repositories/test-dqa
+triplestore_url: http://graphdb.dumontierlab.com/repositories/test-dqa/statements
 
 triplestore_username: import_user
 triplestore_password: password
