@@ -3,13 +3,13 @@
 triplestore_url: http://graphdb.dumontierlab.com/repositories/test
 # triplestore_url: http://graphdb.dumontierlab.com/repositories/test/statements
 
-triplestore_username: dba
+triplestore_username: import_user
 triplestore_password: password
 
-graph_uri: https://w3id.org/d2s/graph/dqa
+graph_uri:  https://w3id.org/data2services/graph/biolink/hgnc
 
-cwl_dir:
-  class: Directory
-  path: ..
+# cwl_dir:
+#   class: Directory
+#   path: ..
 
-cwl_workflow_filename: workflow-load-rdf.cwl
+# cwl_workflow_filename: workflow-load-rdf.cwl

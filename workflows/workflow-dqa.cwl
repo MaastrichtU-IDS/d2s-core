@@ -25,7 +25,7 @@ inputs:
 
 outputs:
   - id: sparql_hcls_statistics_logs
-    outputSource: step7-compute-hcls-stats/logs_execute_sparql_query_
+    outputSource: step1-compute-hcls-stats/logs_execute_sparql_query_
     type: File
     label: "SPARQL HCLS statistics log file"
 
