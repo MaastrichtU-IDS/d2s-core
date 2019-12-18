@@ -27,6 +27,14 @@ outputs:
     outputSource: step1-compute-hcls-stats/logs_execute_sparql_query_
     type: File
     label: "SPARQL HCLS statistics log file"
+  - id: rdfunit_rdf_output
+    outputSource: step2-run-rdfunit/rdfunit_rdf_output
+    type: Directory
+    label: "RDFUnit results as RDF"
+  - id: rdfunit_logs
+    outputSource: step2-run-rdfunit/rdfunit_logs
+    type: File
+    label: "RDFUnit log file"
 
 steps:
   step1-compute-hcls-stats:
@@ -38,6 +46,13 @@ steps:
       sparql_password: triplestore_password
       sparql_input_graph_uri: graph_uri
     out: [logs_execute_sparql_query_]
+
+  step2-run-rdfunit:
+    run: ../steps/run-rdfunit.cwl
+    in: # No sparql_queries_path, HCLS stats is the default
+      rdfunit_schema: sparql_compute_hcls_path
+      sparql_triplestore_url: triplestore_url
+    out: [rdfunit_rdf_output, rdfunit_logs]
 
 
 ## Workflow metadata
