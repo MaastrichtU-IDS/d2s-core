@@ -19,7 +19,9 @@ baseCommand: []
 # "-f", "/data/", "-s", "$(inputs.rdfunit_schema)", "-o", "ttl"]
 
 arguments: ["-d", "http://sparql.wikipathways.org/",
-"-f", "/data/", "-s", "https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#", "-o", "ttl"]
+"-f", "/data/", 
+"-s", "https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#", 
+"-o", "ttl"]
 
 inputs:
   sparql_triplestore_url:
@@ -32,6 +34,11 @@ inputs:
 stdout: logs-rdfunit.txt
 
 outputs:
+  # rdfunit_rdf_output:
+  #   type: File
+  #   format: edam:format_3256    # N-Triple, no nquads in EDAM
+  #   outputBinding:
+  #     glob: "results/*.ttl"
   rdfunit_rdf_output:
     type: Directory
     outputBinding:
