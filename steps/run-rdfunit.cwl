@@ -18,8 +18,8 @@ baseCommand: []
 # arguments: ["-d", "$(inputs.sparql_triplestore_url)",
 # "-f", "/data/", "-s", "$(inputs.rdfunit_schema)", "-o", "ttl"]
 
-arguments: ["-d", "http://sparql.wikipathways.org/",
-"-f", "/data/", 
+arguments: ["-d", "http://sparql.wikipathways.org/sparql",
+"-f", "/data", 
 "-s", "https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#", 
 "-o", "ttl"]
 
