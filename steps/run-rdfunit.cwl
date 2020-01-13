@@ -15,30 +15,20 @@ hints:
 # docker run --rm -i -v /data/dqa-workspace/:/data aksw/rdfunit:latest -d "http://sparql.wikipathways.org/" -f /data/ -s "https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#" -o ttl
 
 baseCommand: []
-# arguments: ["-d", "$(inputs.sparql_triplestore_url)",
-# "-f", "/data/", "-s", "$(inputs.rdfunit_schema)", "-o", "ttl"]
+arguments: ["-d", "$(inputs.sparql_triplestore_url)",
+"-f", "/data/", "-s", "$(inputs.rdfunit_schema)", "-o", "ttl"]
 
-arguments: ["-d", "http://sparql.wikipathways.org/sparql",
-"-f", "/data/", 
-"-s", "https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#", 
-"-o", "ttl"]
 
 inputs:
   sparql_triplestore_url:
     type: string
   rdfunit_schema:
     type: string
-    # -sch https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp# \
 
 
 stdout: logs-rdfunit.txt
 
 outputs:
-  # rdfunit_rdf_output:
-  #   type: File
-  #   format: edam:format_3256    # N-Triple, no nquads in EDAM
-  #   outputBinding:
-  #     glob: "results/*.ttl"
   rdfunit_rdf_output:
     type: Directory
     outputBinding:
@@ -81,17 +71,16 @@ dct:license: "https://opensource.org/licenses/MIT"
 s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
 s:codeRepository: https://github.com/MaastrichtU-IDS/xml2rdf
 
+# TODO: update edam ontology qualifiers
 edam:has_function:
   - edam:operation_2429   # Mapping
   - edam:operation_1812   # Parsing
 
 edam:has_input: 
-  - edam:format_2332    # XML
+  - edam:format_3790 # SPARQL
 
 edam:has_output:
   - edam:format_3256    # N-Triples, no nquads
-  - edam:data_3509    # Ontology mapping
 
 edam:has_topic:
   - edam:topic_0102   # Mapping
-  - edam:topic_3345   # Data identity and mapping
