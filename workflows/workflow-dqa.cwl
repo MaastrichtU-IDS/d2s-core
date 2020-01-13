@@ -53,7 +53,7 @@ steps:
   step2-run-rdfunit:
     run: ../steps/run-rdfunit.cwl
     in: # No sparql_queries_path, HCLS stats is the default
-      rdfunit_schema: sparql_compute_hcls_path
+      rdfunit_schema: rdfunit_schema
       sparql_triplestore_url: triplestore_url
     out: [rdfunit_rdf_output, rdfunit_logs]
 
