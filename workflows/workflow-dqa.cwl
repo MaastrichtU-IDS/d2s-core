@@ -41,18 +41,18 @@ outputs:
     outputSource: step2-run-rdfunit/rdfunit_logs
     type: File
     label: "RDFUnit log file"
-  # - id: fairsharing_metrics_rdf_output
-  #   outputSource: step3-run-fairsharing-metrics/fairsharing_metrics_rdf_output
-  #   type: File
-  #   label: "FairSharing metrics file as RDF"
-  # - id: fairsharing_metrics_logs
-  #   outputSource: step3-run-fairsharing-metrics/fairsharing_metrics_logs
-  #   type: File
-  #   label: "FairSharing metrics log file"
-  - id: upload_rdfunit_logs
-    outputSource: step4-upload-rdfunit/logs_rdf_upload
+  - id: fairsharing_metrics_rdf_output
+    outputSource: step3-run-fairsharing-metrics/fairsharing_metrics_rdf_output
     type: File
-    label: "RDFUnit log file"
+    label: "FairSharing metrics file as RDF"
+  - id: fairsharing_metrics_logs
+    outputSource: step3-run-fairsharing-metrics/fairsharing_metrics_logs
+    type: File
+    label: "FairSharing metrics log file"
+  # - id: upload_rdfunit_logs
+  #   outputSource: step4-upload-rdfunit/logs_rdf_upload
+  #   type: File
+  #   label: "RDFUnit log file"
 
 steps:
   # step1-compute-hcls-stats:
@@ -73,23 +73,23 @@ steps:
     out: [rdfunit_rdf_output, rdfunit_logs]
 
 
-  # step3-run-fairsharing-metrics:
-  #   run: ../steps/run-fairsharing-metrics.cwl
-  #   in:
-  #     fairsharing_metrics_url: fairsharing_metrics_url
-  #   out: [fairsharing_metrics_rdf_output, fairsharing_metrics_logs]
-
-
-  step4-upload-rdfunit:
-    run: ../steps/rdf-upload.cwl
-    # run: ../steps/virtuoso-bulk-load.cwl
+  step3-run-fairsharing-metrics:
+    run: ../steps/run-fairsharing-metrics.cwl
     in:
-      file_to_load: step2-run-rdfunit/rdfunit_rdf_output
-      sparql_triplestore_url: sparql_final_triplestore_url
-      sparql_username: sparql_final_triplestore_username
-      sparql_password: sparql_final_triplestore_password
-      output_graph_uri: output_graph_uri
-    out: [logs_rdf_upload]
+      fairsharing_metrics_url: fairsharing_metrics_url
+    out: [fairsharing_metrics_rdf_output, fairsharing_metrics_logs]
+
+
+  # step4-upload-rdfunit:
+  #   run: ../steps/rdf-upload.cwl
+  #   # run: ../steps/virtuoso-bulk-load.cwl
+  #   in:
+  #     file_to_load: step2-run-rdfunit/rdfunit_rdf_output
+  #     sparql_triplestore_url: sparql_final_triplestore_url
+  #     sparql_username: sparql_final_triplestore_username
+  #     sparql_password: sparql_final_triplestore_password
+  #     output_graph_uri: output_graph_uri
+  #   out: [logs_rdf_upload]
 
 
 

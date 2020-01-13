@@ -19,7 +19,7 @@ inputs:
 stdout: logs-fairsharing-metrics.txt
 
 outputs:
-  rdfunit_rdf_output:
+  fairsharing_metrics_rdf_output:
     type: File
     outputBinding:
       glob: fairsharing.nt

@@ -5,9 +5,12 @@
 
 # To test RDFUnit
 triplestore_url: http://sparql.wikipathways.org/sparql
-rdfunit_schema: https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#
 
 triplestore_username: import_user
 triplestore_password: password
 
 output_graph_uri:  https://w3id.org/d2s/graph/dqa
+
+rdfunit_schema: https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#
+
+fairsharing_metrics_url: https://fairsharing.org/biodbcore-000015
