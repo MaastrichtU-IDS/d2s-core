@@ -10,4 +10,4 @@ rdfunit_schema: https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.w
 triplestore_username: import_user
 triplestore_password: password
 
-graph_uri:  https://w3id.org/data2services/graph/biolink/hgnc
+output_graph_uri:  https://w3id.org/d2s/graph/dqa

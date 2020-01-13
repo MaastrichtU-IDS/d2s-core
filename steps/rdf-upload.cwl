@@ -33,6 +33,11 @@ inputs:
     inputBinding:
       position: 3
       prefix: -pw
+  output_graph_uri:
+    type: string?
+    inputBinding:
+      position: 4
+      prefix: -g
   previous_step_output:
     type: File?
 
@@ -42,6 +47,8 @@ outputs:
   logs_rdf_upload:
     type: stdout
     format: edam:format_1964    # Plain text
+
+
 
 $namespaces:
   s: "http://schema.org/"

@@ -16,7 +16,7 @@ hints:
 
 baseCommand: []
 arguments: ["-d", "$(inputs.sparql_triplestore_url)",
-"-f", "/data/", "-s", "$(inputs.rdfunit_schema)", "-o", "ttl"]
+"-f", "/data/", "-s", "$(inputs.rdfunit_schema)", "-o", "nt"]
 
 
 inputs:

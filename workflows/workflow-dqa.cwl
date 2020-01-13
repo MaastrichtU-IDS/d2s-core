@@ -14,7 +14,7 @@ inputs:
   - id: triplestore_password
     label: "Password for the triplestore"
     type: string?
-  - id: graph_uri
+  - id: output_graph_uri
     label: "Graph URI of inserted RDF"
     type: string
   - id: sparql_compute_hcls_path
@@ -38,6 +38,10 @@ outputs:
     outputSource: step2-run-rdfunit/rdfunit_logs
     type: File
     label: "RDFUnit log file"
+  - id: upload_rdfunit_logs
+    outputSource: step4-upload-rdfunit/logs_rdf_upload
+    type: File
+    label: "RDFUnit log file"
 
 steps:
   # step1-compute-hcls-stats:
@@ -57,6 +61,19 @@ steps:
       sparql_triplestore_url: triplestore_url
     out: [rdfunit_rdf_output, rdfunit_logs]
 
+
+  
+  step4-upload-rdfunit:
+    run: ../steps/rdf-upload.cwl
+    # run: ../steps/virtuoso-bulk-load.cwl
+    in:
+      file_to_load: step2-run-rdfunit/rdfunit_rdf_output
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      output_graph_uri: output_graph_uri
+      # TODO: Add Graph URI?
+    out: [logs_rdf_upload]
 
 
 
