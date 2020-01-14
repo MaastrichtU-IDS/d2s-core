@@ -7,7 +7,7 @@ doc: Copy files to a volume shared with the Blazegraph container, then send requ
 
 baseCommand: [docker, run]
 
-arguments: ["-v", "/data/d2s-workspace/blazegraph:/data/d2s-workspace/blazegraph",
+arguments: ["-v", "/data/d2s-workspace/blazegraph-load:/data/d2s-workspace/blazegraph-load",
 "umids/d2s-bash-exec:latest",
 # Bash script to copy files in shared volume and send curl:
 "https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-scripts-repository/master/resources/blazegraph/blazegraph-bulk-load.sh",
