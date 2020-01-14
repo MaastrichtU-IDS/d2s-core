@@ -6,7 +6,7 @@ label: Data Quality Assessment pipeline
 inputs:
   # Final RDF4J server SPARQL endpoint to load the BioLink RDF
   - id: triplestore_url
-    label: "URL of the triplestore SPARQL endpoint"
+    label: "URL of the triplestore SPARQL endpoint to upload RDF to"
     type: string
   - id: triplestore_username
     label: "Username for the triplestore"
@@ -21,6 +21,9 @@ inputs:
     label: "Path to queries to compute HCLS stats"
     type: string
     default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
+  - id: analyzed_sparql_endpoint
+    label: "URL of the SPARQL endpoint analyzed"
+    type: string
   - id: rdfunit_schema
     label: "Path to the schema used by RDFUnit"
     type: string
@@ -49,10 +52,14 @@ outputs:
     outputSource: step3-run-fairsharing-metrics/fairsharing_metrics_logs
     type: File
     label: "FairSharing metrics log file"
-  # - id: upload_rdfunit_logs
-  #   outputSource: step4-upload-rdfunit/logs_rdf_upload
-  #   type: File
-  #   label: "RDFUnit log file"
+  - id: upload_rdfunit_logs
+    outputSource: step4-upload-rdfunit/logs_rdf_upload
+    type: File
+    label: "Upload RDFUnit log file"
+  - id: upload_fairsharing_metrics_logs
+    outputSource: step4-upload-fairsharing-metrics/logs_rdf_upload
+    type: File
+    label: "Upload FairSharing log file"
 
 steps:
   # step1-compute-hcls-stats:
@@ -69,7 +76,7 @@ steps:
     run: ../steps/run-rdfunit.cwl
     in:
       rdfunit_schema: rdfunit_schema
-      sparql_triplestore_url: triplestore_url
+      sparql_triplestore_url: analyzed_sparql_endpoint
     out: [rdfunit_rdf_output, rdfunit_logs]
 
 
@@ -80,17 +87,28 @@ steps:
     out: [fairsharing_metrics_rdf_output, fairsharing_metrics_logs]
 
 
-  # step4-upload-rdfunit:
-  #   run: ../steps/rdf-upload.cwl
-  #   # run: ../steps/virtuoso-bulk-load.cwl
-  #   in:
-  #     file_to_load: step2-run-rdfunit/rdfunit_rdf_output
-  #     sparql_triplestore_url: sparql_final_triplestore_url
-  #     sparql_username: sparql_final_triplestore_username
-  #     sparql_password: sparql_final_triplestore_password
-  #     output_graph_uri: output_graph_uri
-  #   out: [logs_rdf_upload]
+  step4-upload-rdfunit:
+    run: ../steps/rdf-upload-directory.cwl
+    # run: ../steps/virtuoso-bulk-load.cwl
+    in:
+      dir_to_load: step2-run-rdfunit/rdfunit_rdf_output
+      sparql_triplestore_url: triplestore_url
+      sparql_username: triplestore_username
+      sparql_password: triplestore_password
+      output_graph_uri: output_graph_uri
+    out: [logs_rdf_upload]
 
+
+  step4-upload-fairsharing-metrics:
+    run: ../steps/rdf-upload.cwl
+    # run: ../steps/virtuoso-bulk-load.cwl
+    in:
+      file_to_load: step3-run-fairsharing-metrics/fairsharing_metrics_rdf_output
+      sparql_triplestore_url: triplestore_url
+      sparql_username: triplestore_username
+      sparql_password: triplestore_password
+      output_graph_uri: output_graph_uri
+    out: [logs_rdf_upload]
 
 
 

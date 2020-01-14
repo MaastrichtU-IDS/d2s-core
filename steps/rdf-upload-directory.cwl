@@ -9,15 +9,11 @@ hints:
     dockerOutputDirectory: /data
 
 baseCommand: []
-arguments: ["-if", "$(inputs.file_to_load.path)"]
+arguments: ["-if", "$(inputs.dir_to_load.path)"]
 
 inputs:
-  file_to_load:
-    type: File
-    # Adding the format makes CWL check if it is the right one, which can be an issue
-    # format: edam:format_2376    # RDF format
-    # - edam:format_3256    # N-Triple, no nquads in EDAM
-    # - edam:formart_3255    # Turtle
+  dir_to_load:
+    type: Directory
   sparql_triplestore_url:
     type: string
     inputBinding:
@@ -41,7 +37,7 @@ inputs:
   previous_step_output:
     type: File?
 
-stdout: logs-rdfupload.txt
+stdout: logs-rdfupload-dir.txt
 
 outputs:
   logs_rdf_upload:
