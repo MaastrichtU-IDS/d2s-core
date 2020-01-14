@@ -75,13 +75,14 @@ services:
     restart: unless-stopped
     image: lyrasis/blazegraph:2.1.5
     volumes:
-      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
       - /data/d2s-workspace:/data
+      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
     ports:
       - 8889:8080
-    # environment:
-    #   - BLAZEGRAPH_UID=$BLAZEGRAPH_UID
-    #   - BLAZEGRAPH_GID=$BLAZEGRAPH_GID
+    environment:
+      # Work for Ubuntu ($UID=1000 and nothing in $GROUPS)
+      - BLAZEGRAPH_UID=$UID
+      - BLAZEGRAPH_GID=$GROUPS
     networks:
       - network
 
