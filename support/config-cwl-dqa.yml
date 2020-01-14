@@ -3,8 +3,10 @@
 # triplestore_url: http://graphdb.dumontierlab.com/repositories/test-dqa
 # triplestore_url: http://graphdb.dumontierlab.com/repositories/test-dqa/statements
 
-# To test RDFUnit
+# To test different triplestores
 triplestore_url: http://graphdb:7200/repositories/test/statements
+# triplestore_url: http://blazegraph:8080/bigdata/sparql
+# triplestore_url: http://virtuoso:8890/sparql
 
 triplestore_username: import_user
 triplestore_password: password
