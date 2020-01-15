@@ -13,8 +13,15 @@ triplestore_password: password
 
 output_graph_uri:  https://w3id.org/d2s/graph/dqa
 
-analyzed_sparql_endpoint: http://sparql.wikipathways.org/sparql
+# analyzed_sparql_endpoint: http://sparql.wikipathways.org/sparql
+analyzed_sparql_endpoint: http://graphdb.dumontierlab.com/repositories/test-dqa
+analyzed_graph_uri: https://w3id.org/data2services/graph/biolink/hgnc
+
 
 rdfunit_schema: https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#
+# Don't work:
+# rdfunit_schema: https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.owl
 
-fairsharing_metrics_url: https://fairsharing.org/biodbcore-000015
+
+fairsharing_metrics_url: https://fairsharing.org/biodbcore-000015 # WikiPathways
+# fairsharing_metrics_url: https://fairsharing.org/FAIRsharing.29we0s # HGNC (don't work)

@@ -18,11 +18,14 @@ inputs:
     label: "Graph URI of inserted RDF"
     type: string
   - id: sparql_compute_hcls_path
-    label: "Path to queries to compute HCLS stats"
+    label: "URL of queries to compute HCLS stats"
     type: string
-    default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
+    default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-remote
   - id: analyzed_sparql_endpoint
     label: "URL of the SPARQL endpoint analyzed"
+    type: string
+  - id: analyzed_graph_uri
+    label: "URI of analyzed graph"
     type: string
   - id: rdfunit_schema
     label: "Path to the schema used by RDFUnit"
@@ -32,10 +35,10 @@ inputs:
     type: string
 
 outputs:
-  # - id: sparql_hcls_statistics_logs
-  #   outputSource: step1-compute-hcls-stats/logs_execute_sparql_query_
-  #   type: File
-  #   label: "SPARQL HCLS statistics log file"
+  - id: sparql_hcls_statistics_logs
+    outputSource: step1-compute-hcls-stats/logs_execute_sparql_query_
+    type: File
+    label: "SPARQL HCLS statistics log file"
   - id: rdfunit_rdf_output
     outputSource: step2-run-rdfunit/rdfunit_rdf_output
     type: Directory
@@ -62,15 +65,17 @@ outputs:
     label: "Upload FairSharing log file"
 
 steps:
-  # step1-compute-hcls-stats:
-  #   run: ../steps/execute-sparql-queries-url.cwl
-  #   in: # No sparql_queries_path, HCLS stats is the default
-  #     sparql_queries_path: sparql_compute_hcls_path
-  #     sparql_triplestore_url: triplestore_url
-  #     sparql_username: triplestore_username
-  #     sparql_password: triplestore_password
-  #     sparql_input_graph_uri: graph_uri
-  #   out: [logs_execute_sparql_query_]
+  step1-compute-hcls-stats:
+    run: ../steps/execute-sparql-queries-url.cwl
+    in: # No sparql_queries_path, HCLS stats is the default
+      sparql_queries_path: sparql_compute_hcls_path
+      sparql_triplestore_url: triplestore_url
+      sparql_username: triplestore_username
+      sparql_password: triplestore_password
+      sparql_input_graph_uri: analyzed_graph_uri
+      sparql_output_graph_uri: output_graph_uri
+      sparql_service_url: analyzed_sparql_endpoint
+    out: [logs_execute_sparql_query_]
 
   step2-run-rdfunit:
     run: ../steps/run-rdfunit.cwl
