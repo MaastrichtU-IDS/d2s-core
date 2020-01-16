@@ -23,5 +23,5 @@ rdfunit_schema: https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.w
 # rdfunit_schema: https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.owl
 
 
-fairsharing_metrics_url: https://fairsharing.org/biodbcore-000015 # WikiPathways
+fairsharing_metrics_url: https://fairsharing.org/biodbcore-000015 # ChEMBL
 # fairsharing_metrics_url: https://fairsharing.org/FAIRsharing.29we0s # HGNC (don't work)
