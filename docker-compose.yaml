@@ -86,6 +86,28 @@ services:
     networks:
       - network
 
+  comunica:
+    restart: unless-stopped
+    image: umids/comunica-sparql-widget:latest
+    # volumes:
+    #   - /data/d2s-workspace:/data
+      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
+    ports:
+      - 8884:80
+    networks:
+      - network
+
+  into-the-graph:
+    restart: unless-stopped
+    image: umids/into-the-graph:latest
+    # volumes:
+    #   - /data/d2s-workspace:/data
+      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
+    ports:
+      - 8882:8080
+    networks:
+      - network
+
 
   # Pull Data2Services images
   d2s-download:
