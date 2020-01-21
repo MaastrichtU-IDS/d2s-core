@@ -9,7 +9,7 @@ services:
       - /data/d2s-workspace/virtuoso:/data
       - /tmp/d2s-workspace:/tmp
     ports:
-      - 8891:8890
+      - 8890:8890
       - 1111:1111
     environment:
       - VIRTUAL_HOST=d2s-virtuoso.137.120.31.101.nip.io # for IDS node1
@@ -108,6 +108,27 @@ services:
     networks:
       - network
 
+  browse-local-virtuoso:
+    restart: unless-stopped
+    image: umids/into-the-graph:local-virtuoso
+    # volumes:
+    #   - /data/d2s-workspace:/data
+      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
+    ports:
+      - 8883:8080
+    networks:
+      - network
+
+  browse-local-graphdb:
+    restart: unless-stopped
+    image: umids/into-the-graph:local-graphdb
+    # volumes:
+    #   - /data/d2s-workspace:/data
+      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
+    ports:
+      - 8883:8080
+    networks:
+      - network
 
   # Pull Data2Services images
   d2s-download:
