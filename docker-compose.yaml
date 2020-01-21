@@ -115,7 +115,7 @@ services:
     #   - /data/d2s-workspace:/data
       # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
     ports:
-      - 8883:8080
+      - 8891:80
     networks:
       - network
 
@@ -126,7 +126,7 @@ services:
     #   - /data/d2s-workspace:/data
       # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
     ports:
-      - 8883:8080
+      - 7201:80
     networks:
       - network
 
