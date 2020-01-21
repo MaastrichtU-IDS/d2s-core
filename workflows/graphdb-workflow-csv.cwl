@@ -61,6 +61,10 @@ inputs:
     label: "Path to queries to compute HCLS stats"
     type: string
     default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
+  - id: hcls_metadata_graph_uri
+    label: "URI of the HCLS metadata graph"
+    type: string
+    default: https://w3id.org/d2s/metadata
 
 outputs:
   - id: download_dir

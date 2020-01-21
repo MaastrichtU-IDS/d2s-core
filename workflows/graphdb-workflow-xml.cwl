@@ -61,7 +61,10 @@ inputs:
     label: "Path to queries to compute HCLS stats"
     type: string
     default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
-
+  - id: hcls_metadata_graph_uri
+    label: "URI of the HCLS metadata graph"
+    type: string
+    default: https://w3id.org/d2s/metadata
 
 outputs:
   # - id: download_dir
@@ -202,6 +205,7 @@ steps:
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
       sparql_input_graph_uri: sparql_final_graph_uri
+      sparql_output_graph_uri: hcls_metadata_graph_uri
       previous_step_output: step6-execute-transform-queries/logs_execute_sparql_query_
     out: [logs_execute_sparql_query_]
 
