@@ -78,7 +78,7 @@ services:
       - /data/d2s-workspace:/data
       # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
     ports:
-      - 8889:8080
+      - 8082:8080
     environment:
       # Work for Ubuntu ($UID=1000 and nothing in $GROUPS)
       - BLAZEGRAPH_UID=$UID
@@ -100,20 +100,14 @@ services:
   into-the-graph:
     restart: unless-stopped
     image: umids/into-the-graph:latest
-    # volumes:
-    #   - /data/d2s-workspace:/data
-      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
     ports:
-      - 8882:8080
+      - 8079:80
     networks:
       - network
 
   browse-local-virtuoso:
     restart: unless-stopped
     image: umids/into-the-graph:local-virtuoso
-    # volumes:
-    #   - /data/d2s-workspace:/data
-      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
     ports:
       - 8891:80
     networks:
@@ -122,11 +116,16 @@ services:
   browse-local-graphdb:
     restart: unless-stopped
     image: umids/into-the-graph:local-graphdb
-    # volumes:
-    #   - /data/d2s-workspace:/data
-      # - /data/d2s-workspace/RWStore.properties:/RWStore.properties
     ports:
       - 7201:80
+    networks:
+      - network
+
+  browse-local-blazegraph:
+    restart: unless-stopped
+    image: umids/into-the-graph:local-blazegraph
+    ports:
+      - 8083:80
     networks:
       - network
 
