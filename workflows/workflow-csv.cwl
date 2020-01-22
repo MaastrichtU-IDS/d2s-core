@@ -203,13 +203,15 @@ steps:
     out: [logs_virtuoso_copy]
 
   step6-upload-cwl-rdf:
-    run: ../steps/virtuoso-bulk-load.cwl
+    # run: ../steps/virtuoso-bulk-load.cwl
+    run: ../steps/rdf-upload.cwl
     in:
       file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
-      # sparql_triplestore_url: sparql_final_triplestore_url
-      virtuoso_container_id: virtuoso_container_id
+      sparql_triplestore_url: sparql_final_triplestore_url
+      # virtuoso_container_id: virtuoso_container_id
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
+      output_graph_uri: hcls_metadata_graph_uri
       previous_step_output: step6-cwl-virtuoso-copy/logs_virtuoso_copy
     out: [logs_rdf_upload]
 
