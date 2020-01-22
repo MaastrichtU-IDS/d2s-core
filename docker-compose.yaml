@@ -80,9 +80,9 @@ services:
     ports:
       - 8082:8080
     environment:
-      # Work for Ubuntu ($UID=1000 and nothing in $GROUPS)
+      # Work for Ubuntu ($UID=1000 and 1000 in $GROUPS)
       - BLAZEGRAPH_UID=$UID
-      - BLAZEGRAPH_GID=$GROUPS
+      - BLAZEGRAPH_GID=$GID
     networks:
       - network
 
