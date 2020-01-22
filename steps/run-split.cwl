@@ -3,7 +3,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Split RDF statements
 
-hints:
+requirements:
   DockerRequirement:
     dockerPull: umids/d2s-sparql-operations:latest
     dockerOutputDirectory: /data

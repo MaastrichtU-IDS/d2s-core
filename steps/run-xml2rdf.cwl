@@ -3,7 +3,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Run xml2rdf
 
-hints:
+requirements:
   DockerRequirement:
     dockerPull: umids/xml2rdf:latest
     dockerOutputDirectory: /data

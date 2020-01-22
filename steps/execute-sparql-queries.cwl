@@ -7,8 +7,6 @@ requirements:
   InitialWorkDirRequirement:
     listing:    # Get the config dir as input
       - $(inputs.config_dir)
-
-hints:
   DockerRequirement:
     dockerPull: umids/d2s-sparql-operations:latest
     dockerOutputDirectory: /data

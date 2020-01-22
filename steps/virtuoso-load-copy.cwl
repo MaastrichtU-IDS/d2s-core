@@ -9,7 +9,6 @@ requirements:
     listing:    # Get the config dir as input
       - $(inputs.cwl_dir)
 
-# hints:
 #   DockerRequirement:
 #     dockerPull: umids/d2s-bash-exec:latest
 #     dockerOutputDirectory: /data

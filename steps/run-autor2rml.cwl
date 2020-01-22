@@ -5,7 +5,7 @@ label: Run AutoR2RML to generate R2RML mappings
 doc: |
     AutoR2RML Docker container to automatically generate R2RML and SPARQL mappings files for SQL databases and tabular files (via Apache Drill). See http://d2s.semanticscience.org/ for more details.
 
-hints:
+requirements:
   DockerRequirement:
     dockerPull: umids/autor2rml:latest
     dockerOutputDirectory: /data

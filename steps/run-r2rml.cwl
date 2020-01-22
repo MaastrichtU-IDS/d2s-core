@@ -3,7 +3,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Run R2RML
 
-hints:
+requirements:
   DockerRequirement:
     dockerPull: umids/r2rml:latest
     dockerOutputDirectory: /data

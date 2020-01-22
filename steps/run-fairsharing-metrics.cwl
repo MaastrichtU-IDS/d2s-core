@@ -3,7 +3,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Run fairsharing-metrics
 
-hints:
+requirements:
   DockerRequirement:
     dockerPull: umids/fairsharing-metrics:latest
     dockerOutputDirectory: /data

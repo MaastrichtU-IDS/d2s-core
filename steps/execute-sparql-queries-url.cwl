@@ -14,7 +14,7 @@ label: Execute SPARQL queries via URL
 #     listing:    # Get the config dir as input
 #       - $(inputs.config_dir)
 
-hints:
+requirements:
   DockerRequirement:
     dockerPull: umids/d2s-sparql-operations:latest
     dockerOutputDirectory: /data

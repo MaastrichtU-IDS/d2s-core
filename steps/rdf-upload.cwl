@@ -3,7 +3,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Upload RDF to SPARQL endpoint
 
-hints:
+requirements:
   DockerRequirement:
     dockerPull: umids/rdf-upload:latest
     dockerOutputDirectory: /data

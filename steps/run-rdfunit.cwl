@@ -3,7 +3,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 label: Run RDFUnit
 
-hints:
+requirements:
   DockerRequirement:
     dockerPull: umids/rdfunit:latest
     dockerOutputDirectory: /data
