@@ -159,7 +159,8 @@ steps:
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
-      sparql_output_graph_uri: sparql_final_graph_uri
+      sparql_input_graph_uri: sparql_final_graph_uri
+      sparql_output_graph_uri: hcls_metadata_graph_uri
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [logs_execute_sparql_query_]
 
@@ -175,12 +176,12 @@ steps:
 
   step6-upload-cwl-rdf:
     run: ../steps/rdf-upload.cwl
-    # run: ../steps/virtuoso-bulk-load.cwl
     in:
       file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
+      output_graph_uri: hcls_metadata_graph_uri
     out: [logs_rdf_upload]
 
   step6-execute-transform-queries:

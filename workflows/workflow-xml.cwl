@@ -154,7 +154,8 @@ steps:
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
-      sparql_output_graph_uri: sparql_final_graph_uri
+      sparql_input_graph_uri: sparql_final_graph_uri
+      sparql_output_graph_uri: hcls_metadata_graph_uri
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [logs_execute_sparql_query_]
 
@@ -168,23 +169,14 @@ steps:
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [cwl_workflow_rdf_description_file]
 
-  step6-cwl-virtuoso-copy:
-    run: ../steps/virtuoso-load-copy.cwl
-    in:
-      cwl_dir: cwl_dir
-      virtuoso_container_id: virtuoso_container_id
-      file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
-    out: [logs_virtuoso_copy]
-
   step6-upload-cwl-rdf:
-    run: ../steps/virtuoso-bulk-load.cwl
+    run: ../steps/rdf-upload.cwl
     in:
       file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
-      # sparql_triplestore_url: sparql_final_triplestore_url
-      virtuoso_container_id: virtuoso_container_id
+      sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
       sparql_password: sparql_final_triplestore_password
-      previous_step_output: step6-cwl-virtuoso-copy/logs_virtuoso_copy
+      output_graph_uri: hcls_metadata_graph_uri
     out: [logs_rdf_upload]
 
   step6-execute-transform-queries:
