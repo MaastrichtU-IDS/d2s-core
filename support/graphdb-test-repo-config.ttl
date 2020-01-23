@@ -17,7 +17,7 @@
 
             owlim:owlim-license "" ;
 
-            owlim:base-URL "https://w3id.org/data2services/" ;
+            owlim:base-URL "https://w3id.org/d2s/" ;
             owlim:defaultNS "" ;
             owlim:entity-index-size "200000" ;
             owlim:entity-id-size  "32" ;
