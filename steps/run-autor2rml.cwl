@@ -85,13 +85,13 @@ edam:has_topic:
 ## Extra inputs
 # sparql_base_uri:
 #   type: string?
-#   default: https://w3id.org/data2services/
+#   default: https://w3id.org/d2s/
 #   inputBinding:
 #     position: 2
 #     prefix: -b
 # sparql_tmp_graph_uri:
 #   type: string?
-#   default: https://w3id.org/data2services/graph/autor2rml
+#   default: https://w3id.org/d2s/graph/autor2rml
 #   inputBinding:
 #     position: 3
 #     prefix: -g

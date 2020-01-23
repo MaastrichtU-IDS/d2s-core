@@ -52,7 +52,7 @@ inputs:
       prefix: -pw
   sparql_input_graph_uri:
     type: string?
-    default: "https://w3id.org/data2services/graph/autor2rml"
+    default: "https://w3id.org/d2s/graph/autor2rml"
     inputBinding:
       position: 6
       prefix: --var-input

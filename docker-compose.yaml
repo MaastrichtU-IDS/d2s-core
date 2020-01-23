@@ -16,7 +16,7 @@ services:
       - VIRTUAL_PORT=8890
       - DBA_PASSWORD=dba
       - SPARQL_UPDATE=true
-      - DEFAULT_GRAPH=https://w3id.org/data2services/graph
+      - DEFAULT_GRAPH=https://w3id.org/d2s/graph
       - VIRT_Parameters_DirsAllowed=., /usr/local/virtuoso-opensource/share/virtuoso/vad, /usr/local/virtuoso-opensource/var/lib/virtuoso/db
       - VIRT_VDB_VDBDisconnectTimeout=7200000
       - VIRT_Client_SQL_QUERY_TIMEOUT=14400000

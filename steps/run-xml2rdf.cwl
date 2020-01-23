@@ -10,7 +10,7 @@ requirements:
 
 baseCommand: []
 arguments: ["-i", "$(inputs.download_dir.path)/*.xml", "-o", "$(runtime.outdir)/rdf_output.nq",
-"-g", "https://w3id.org/data2services/graph/xml2rdf"]
+"-g", "https://w3id.org/d2s/graph/xml2rdf"]
 
 inputs:
   download_dir:
