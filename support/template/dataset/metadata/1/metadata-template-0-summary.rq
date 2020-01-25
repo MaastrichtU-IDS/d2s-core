@@ -23,9 +23,9 @@ INSERT {
 	GRAPH <?_output> {
 
     # Agent publishing the dataset
-    <https://w3id.org/d2s/agent/umids> a dct:Agent ;
-      foaf:name "Institute of Data Science at Maastricht University" ;
-      foaf:page <https://maastrichtuniversity.nl/ids> .     
+    ?publisherUri a dct:Agent ;
+      foaf:name ?publisherName ;
+      foaf:page <$publisher_url> .     
 
     # Summary
     <https://w3id.org/d2s/dataset/$dataset_id>      
@@ -33,9 +33,9 @@ INSERT {
       dct:title "$dataset_name" ;
       idot:preferredPrefix "$dataset_id" ;                     
       dct:description "$dataset_description"@en;   
-      dct:publisher <https://w3id.org/d2s/agent/umids> ;      
+      dct:publisher ?publisherUri ;      
       
-      dct:license <http://creativecommons.org/licenses/by-nc/4.0/legalcode> ;   
+      dct:license <$source_license> ;   
       # Human readable licenses terms
       # dct:rights """Rights."""@en ;
 
@@ -71,4 +71,6 @@ INSERT {
   }
 } WHERE {
     BIND(NOW() AS ?now)
+    BIND ( "$publisher_name" as ?publisherName)
+    BIND ( iri(concat("https://w3id.org/d2s/agent/", md5(?publisherName))) AS ?publisherUri )
 }

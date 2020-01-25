@@ -22,10 +22,10 @@ PREFIX void-ext: <http://ldf.fi/void-ext#>
 INSERT {
 	GRAPH <?_output> {
 
-    # Agent publishing the dataset distribution
-    <https://w3id.org/d2s/agent/umids> a dct:Agent ;
-      foaf:name "Institute of Data Science at Maastricht University" ;
-      foaf:page <https://maastrichtuniversity.nl/ids> .
+    # Agent publishing the RDF distribution
+    ?rdfPublisherUri a dct:Agent ;
+      foaf:name ?umidsName ;
+      foaf:page <https://maastrichtuniversity.nl/ids> .   
 
     # Version
     ?versionUri
@@ -43,8 +43,8 @@ INSERT {
       
       dct:title ?dctTitle ;
       dct:description ?dctDescription ;
-      dct:license ?dctLicense ;
-      dct:publisher ?dctPublisher ;
+      dct:license ?sourceLicense ;
+      dct:publisher ?sourcePublisher ;
       idot:preferredPrefix ?idotPreferredPrefix ;
       dct:language ?dctLanguage ;
 
@@ -67,14 +67,14 @@ INSERT {
       # # more convenient to do strafter() and extract version number
 
       # TODO: What should be data2services BioLink RDF license?
-      dct:license <http://creativecommons.org/licenses/by/3.0/> ;           
+      dct:license <$rdf_license> ;           
       void:exampleResource <https://identifiers.org/drugbank:DB00001> ;     
-      # TODO: should we point createdWith to the SPARQL mappings?
+      # TODO: should we point createdWith to the SPARQL mappings? Or d2s-cli URL?
       pav:createdWith <https://github.com/MaastrichtU-IDS/d2s-transform-template/tree/master/mapping/template> ;  
 
-      # Which publisher for BioLink Dataset?
-      dct:publisher <https://w3id.org/d2s/agent/umids> ;  
-      dct:creator <https://w3id.org/d2s/agent/umids> ;    
+      # Which publisher for RDF BioLink Dataset? IDS by default
+      dct:publisher ?rdfPublisherUri ;  
+      dct:creator ?rdfPublisherUri ;    
 
       dct:source ?distributionSourceUri ;
       dct:language ?dctLanguage ;
@@ -110,14 +110,14 @@ INSERT {
       # TODO: should we put issues?
       
       # TODO: Same publisher as source?
-      dct:publisher ?dctPublisher ;
-      dct:creator ?dctPublisher ;
+      dct:publisher ?sourcePublisher ;
+      dct:creator ?sourcePublisher ;
       pav:version ?pavVersion ;
 
       dct:title ?dctTitle ;
       dct:description ?dctDescription ;
       dct:rights ?dctRights ;
-      dct:license ?dctLicense ;
+      dct:license ?sourceLicense ;
       idot:preferredPrefix ?idotPreferredPrefix ;
       pav:retrievedOn ?now ;
       dct:language ?dctLanguage ;
@@ -144,8 +144,8 @@ INSERT {
   OPTIONAL {
     ?summaryUri dct:title ?dctTitle ;
       dct:description ?dctDescription ;
-      dct:license ?dctLicense ;
-      dct:publisher ?dctPublisher ;
+      dct:license ?sourceLicense ;
+      dct:publisher ?sourcePublisher ;
       idot:preferredPrefix ?idotPreferredPrefix ;
       idot:alternatePrefix ?idotAlternatePrefix .
   }
@@ -154,4 +154,7 @@ INSERT {
   BIND(iri(concat(str(?summaryUri), "/version#", str(?pavVersion))) AS ?versionUri)
   BIND(iri(concat(str(?summaryUri), "/distribution/source#", str(?pavVersion))) AS ?distributionSourceUri)
   BIND(<http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> AS ?hclsDataset)
+
+  BIND ( "Institute of Data Science at Maastricht University" as ?umidsName)
+  BIND ( iri(concat("https://w3id.org/d2s/agent/", md5(?umidsName))) AS ?rdfPublisherUri )
 }
