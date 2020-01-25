@@ -5,8 +5,8 @@ label: Convert CSV/TSV files to a target RDF
 
 inputs:
   - id: input_dir
-    label: "Directory with downloaded input files"
-    type: Directory
+    label: "Path to input dir within the workspace"
+    type: string
   - id: config_dir
     label: "CWL config directory"
     type: Directory
@@ -144,7 +144,7 @@ steps:
   step2-autor2rml:
     run: ../steps/run-autor2rml.cwl
     in:
-      download_dir: input_dir
+      input_dir: input_dir
       input_data_jdbc: input_data_jdbc
     out: [r2rml_trig_file_output, sparql_mapping_templates, logs_autor2rml]
 

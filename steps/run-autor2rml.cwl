@@ -11,11 +11,12 @@ requirements:
     dockerOutputDirectory: /data
 
 baseCommand: []
-arguments: ["-r", "-o", "/data/mapping.trig", "-d", "/data"]
+arguments: ["-r", "-o", "/data/mapping.trig", "-d", "/data/$(inputs.input_dir)"]
 
 inputs:
-  download_dir:   # Previous step output
-    type: Directory
+  input_dir:   # Previous step output
+    type: string
+    default: "/data"
   input_data_jdbc:
     type: string
     inputBinding:
