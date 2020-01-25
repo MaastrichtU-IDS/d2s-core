@@ -16,7 +16,6 @@ arguments: ["-r", "-o", "/data/mapping.trig", "-d", "/data/$(inputs.input_dir)"]
 inputs:
   input_dir:   # Previous step output
     type: string
-    default: "/data"
   input_data_jdbc:
     type: string
     inputBinding:
