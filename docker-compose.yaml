@@ -130,8 +130,8 @@ services:
       - network
 
   # Pull Data2Services images
-  d2s-download:
-    image: umids/d2s-download:latest
+  d2s-bash-exec:
+    image: umids/d2s-bash-exec:latest
 
   d2s-sparql-operations:
     image: umids/d2s-sparql-operations:latest

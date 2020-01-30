@@ -7,6 +7,9 @@ requirements:
   DockerRequirement:
     dockerPull: umids/xml2rdf:latest
     dockerOutputDirectory: /data
+  # InitialWorkDirRequirement:
+  #   listing:    # Get the config dir as input
+  #     - $(inputs.dir_to_process)
 
 baseCommand: []
 arguments: ["-i", "$(inputs.dir_to_process.path)/*.xml", "-o", "$(runtime.outdir)/rdf_output.nq",
