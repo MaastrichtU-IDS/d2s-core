@@ -36,7 +36,7 @@ services:
       - 31011:31010
     tty: true
     volumes:
-      - $PWD/workspace:/data:ro
+      - $PWD/workspace/input:/data:ro
       # - $PWD/workspace:/data:ro
     networks:
       - network

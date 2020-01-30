@@ -1,48 +1,32 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: CommandLineTool
-label: Copy files to load to Virtuoso
-doc: Docker container to automatically execute Bash script from files and URLs. See http://d2s.semanticscience.org/ for more details.
-requirements:
-  # InlineJavascriptRequirement: {}
-  InitialWorkDirRequirement:
-    listing:    # Get the config dir as input
-      - $(inputs.cwl_dir)
+label: Bulk load to Blazegraph
+doc: Copy files to a volume shared with the Blazegraph container, then send request to bulk load. See http://d2s.semanticscience.org/ for more details.
 
-#   DockerRequirement:
-#     dockerPull: umids/d2s-bash-exec:latest
-#     dockerOutputDirectory: /data
-# Link the output dir to /data in the Docker container
 
-# baseCommand: [docker, run]
-baseCommand: [docker, cp]
+baseCommand: [docker, run]
 
-arguments: ["-aL", "$(inputs.file_to_load)",
-"$(inputs.virtuoso_container_id):/usr/local/virtuoso-opensource/var/lib/virtuoso/db/"]
+arguments: ["umids/d2s-bash-exec:latest",
+# Bash script to copy files in shared volume and send curl:
+"https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/master/support/blazegraph/blazegraph-bulk-load.sh",
+"$(inputs.file_to_load.path)",
+"$(inputs.default_graph)"]
 
-# arguments: ["-v", "/data/d2s-workspace/virtuoso:/data/d2s-workspace/virtuoso",
-# "-v", "$(inputs.cwl_dir.path):$(inputs.cwl_dir.path)",
-# "-v", "$(inputs.file_to_load.dirname):/tmp",    # Share dir containing file to load to /tmp
-# "umids/d2s-bash-exec:latest",
-# "$(inputs.cwl_dir.path)/support/virtuoso/virtuoso_copy.sh",
-# "/tmp", "$(inputs.cwl_dir.path)/support/virtuoso/load.sh"]
-
-# https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/develop/support/virtuoso/load.sh
 
 inputs:
-  cwl_dir:
-    type: Directory
-  virtuoso_container_id:
-    type: string
   file_to_load:
     type: File
+  default_graph:
+    type: string?
+    default: "https://w3id.org/d2s/graph/default"
   previous_step_output:
     type: File?
 
-stdout: logs-virtuoso-copy.txt
+stdout: logs-blazegraph-bulk-load.txt
 
 outputs:
-  logs_virtuoso_copy:
+  logs_blazegraph_bulk_load:
     type: stdout
     format: edam:format_1964    # Plain text
 

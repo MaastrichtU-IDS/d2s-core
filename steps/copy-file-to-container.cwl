@@ -1,29 +1,33 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: CommandLineTool
-label: Bulk load to Blazegraph
-doc: Copy files to a volume shared with the Blazegraph container, then send request to bulk load. See http://d2s.semanticscience.org/ for more details.
+label: Copy files to load to Virtuoso
+doc: Docker container to automatically execute Bash script from files and URLs. See http://d2s.semanticscience.org/ for more details.
 
+# baseCommand: [docker, run]
+baseCommand: [docker, cp]
 
-baseCommand: [docker, run]
+arguments: ["-aL", "$(inputs.file_to_load)",
+"$(inputs.load_in_container_id):$(inputs.load_to_dir)"]
 
-arguments: ["-v", "/data/blazegraph-load:/data/d2s-workspace/blazegraph-load",
-"umids/d2s-bash-exec:latest",
-# Bash script to copy files in shared volume and send curl:
-"https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/master/support/blazegraph/blazegraph-bulk-load.sh",
-"$(inputs.file_to_load.path)"]
+# Virtuoso load dir: /usr/local/virtuoso-opensource/var/lib/virtuoso/db
 
+# https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/develop/support/virtuoso/load.sh
 
 inputs:
+  load_in_container_id:
+    type: string
   file_to_load:
     type: File
+  load_to_dir:
+    type: string
   previous_step_output:
     type: File?
 
-stdout: logs-blazegraph-bulk-load.txt
+stdout: logs-copy-file-to-container.txt
 
 outputs:
-  logs_blazegraph_bulk_load:
+  logs_copy_file_to_container:
     type: stdout
     format: edam:format_1964    # Plain text
 

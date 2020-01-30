@@ -1,5 +1,5 @@
 # Arg $1 is the input RDF file to load
-# Arg $2 is the URL to dataloader.txt to ddl
+# Arg $2 is the default graph URI (e.g. https://w3id.org/d2s/graph/default)
 
 # Remove previous files
 rm -rf /data/blazegraph-load/*
@@ -13,7 +13,7 @@ cp -r $1 /data/blazegraph-load/
 echo "namespace=kb
 propertyFile=/RWStore.properties
 fileOrDirs=/data/blazegraph-load
-defaultGraph=https://w3id.org/d2s/graph/default
+defaultGraph=$2
 quiet=false
 verbose=0
 closure=false
