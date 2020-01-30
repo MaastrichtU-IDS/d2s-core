@@ -12,9 +12,10 @@ requirements:
 
 baseCommand: []
 arguments: ["-r", "-o", "/data/mapping.trig", "-d", "/data/$(inputs.input_dir)"]
+#  drill should share workspace/input
 
 inputs:
-  input_dir:   # Previous step output
+  dataset_to_process:   # Previous step output
     type: string
   input_data_jdbc:
     type: string
