@@ -4,8 +4,8 @@ class: Workflow
 label: Convert CSV/TSV files to a target RDF and split statements
 
 inputs:
-  - id: input_dir
-    label: "Path to input dir within the workspace"
+  - id: dataset_to_process
+    label: "Dataset to process"
     type: string
   - id: config_dir
     label: "CWL config directory"
@@ -25,10 +25,17 @@ inputs:
   - id: input_data_jdbc
     label: "JDBC URL for database connexion"
     type: string
-  # Tmp RDF4J server SPARQL endpoint to load generic RDF
-  - id: sparql_tmp_triplestore_url
+  # tmp RDF4J server SPARQL endpoint to load generic RDF
+  - id: sparql_tmp_triplestore_url  # TODO: remove?
     label: "URL of tmp triplestore"
     type: string
+  - id: tmp_triplestore_container_id
+    label: "ID of the tmp triplestore Docker container"
+    type: string
+  - id: tmp_triplestore_load_dir
+    label: "Path to the tmp triplestore load dir in its container"
+    type: string
+    default: "/usr/local/virtuoso-opensource/var/lib/virtuoso/db/"
   - id: sparql_tmp_service_url
     label: "Service URL of tmp triplestore"
     type: string
@@ -37,10 +44,10 @@ inputs:
     type: string
   - id: sparql_tmp_triplestore_username
     label: "Username for tmp triplestore"
-    type: string?
+    type: string
   - id: sparql_tmp_triplestore_password
     label: "Password for tmp triplestore"
-    type: string?
+    type: string
   # Final RDF4J server SPARQL endpoint to load the BioLink RDF
   - id: sparql_final_triplestore_url
     label: "URL of final triplestore"
@@ -83,14 +90,6 @@ inputs:
     type: string
 
 outputs:
-  # - id: download_dir
-  #   outputSource: step1-d2s-download/download_dir
-  #   type: Directory
-  #   label: "Downloaded files"
-  # - id: logs_download_dataset
-  #   outputSource: step1-d2s-download/logs_download_dataset
-  #   type: File
-  #   label: "Download script log file"
   - id: logs_autor2rml
     outputSource: step2-autor2rml/logs_autor2rml
     type: File
@@ -111,10 +110,10 @@ outputs:
     outputSource: step3-r2rml/logs_r2rml
     type: File
     label: "R2RML log file"
-  - id: logs_virtuoso_copy
-    outputSource: step4-virtuoso-copy/logs_virtuoso_copy
+  - id: logs_copy_file_to_container
+    outputSource: step4-copy-file-to-tmp-triplestore/logs_copy_file_to_container
     type: File
-    label: "Virtuoso copy RDF output log file"
+    label: "Copy RDF output to container log file"
   - id: logs_rdf_upload
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
@@ -144,18 +143,11 @@ outputs:
     type: File
 
 steps:
-  # step1-d2s-download:
-  #   run: ../steps/d2s-bash-download.cwl
-  #   in:
-  #     config_dir: config_dir
-  #     download_username: download_username
-  #     download_password: download_password
-  #   out: [download_dir, logs_download_dataset]
 
   step2-autor2rml:
     run: ../steps/run-autor2rml.cwl
     in:
-      input_dir: input_dir
+      dataset_to_process: dataset_to_process
       input_data_jdbc: input_data_jdbc
     out: [r2rml_trig_file_output, sparql_mapping_templates, logs_autor2rml]
 
@@ -166,20 +158,25 @@ steps:
       input_data_jdbc: input_data_jdbc
     out: [r2rml_nquads_file_output, logs_r2rml]
 
-  step4-virtuoso-copy:
-    run: ../steps/virtuoso-load-copy.cwl
+  step4-copy-file-to-tmp-triplestore:
+    run: ../steps/copy-file-to-container.cwl
     in:
-      cwl_dir: cwl_dir
+      load_in_container_id: tmp_triplestore_container_id
       file_to_load: step3-r2rml/r2rml_nquads_file_output
-    out: [logs_virtuoso_copy]
+      load_to_dir: tmp_triplestore_load_dir
+    out: [logs_copy_file_to_container]
 
   step4-rdf-upload:
-    run: ../steps/virtuoso-bulk-load.cwl
+    run: ../steps/bulk-load-virtuoso.cwl
+    # run: ../steps/bulk-load-blazegraph.cwl
     in:
       file_to_load: step3-r2rml/r2rml_nquads_file_output
+      default_graph: sparql_tmp_graph_uri
+      virtuoso_container_id: tmp_triplestore_container_id
+      virtuoso_load_dir: tmp_triplestore_load_dir
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
-      previous_step_output: step4-virtuoso-copy/logs_virtuoso_copy
+      previous_step_output: step4-copy-file-to-tmp-triplestore/logs_copy_file_to_container
     out: [logs_rdf_upload]
 
   step5-insert-metadata:
@@ -244,6 +241,7 @@ steps:
   step7-compute-hcls-stats:
     run: ../steps/execute-sparql-queries-url.cwl
     in: # No sparql_queries_path, HCLS stats is the default
+      # config_dir: config_dir
       sparql_queries_path: sparql_compute_hcls_path
       sparql_triplestore_url: sparql_final_triplestore_url
       sparql_username: sparql_final_triplestore_username
