@@ -13,12 +13,14 @@ arguments: ["-i", "$(inputs.dir_to_process.path)/*.xml", "-o", "$(runtime.outdir
 "-g", "https://w3id.org/d2s/graph/xml2rdf"]
 
 inputs:
-  dataset_to_process:
-    type: string
+  # dataset_to_process:
+  #   type: string
   dir_to_process:
-    type: Directory?
-    default: "../../datasets/workspace/input/$(inputs.dataset_to_process)"
+    type: Directory
+    # path: "../../datasets/workspace/input/$(inputs.dataset_to_process)"
     # format: edam:format_2332    # XML (validation exception because finds .zip)
+  # TODO: add graph URI input
+
 
 stdout: logs-xml2rdf.txt
 

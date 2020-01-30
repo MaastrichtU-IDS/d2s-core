@@ -4,7 +4,7 @@ class: Workflow
 label: Convert XML files to a target RDF
 
 inputs:
-  - id: dataset_to_process
+  - id: dir_to_process
     label: "Dataset to process"
     type: Directory
   - id: config_dir
@@ -128,7 +128,7 @@ steps:
   step2-xml2rdf:
     run: ../steps/run-xml2rdf.cwl
     in:
-      dataset_to_process: dataset_to_process
+      dir_to_process: dir_to_process
     out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
     # out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
 
@@ -144,7 +144,7 @@ steps:
     run: ../steps/bulk-load-virtuoso.cwl
     # run: ../steps/bulk-load-blazegraph.cwl
     in:
-      file_to_load: step3-r2rml/r2rml_nquads_file_output
+      file_to_load: step2-xml2rdf/xml2rdf_nquads_file_output
       default_graph: sparql_tmp_graph_uri
       virtuoso_container_id: tmp_triplestore_container_id
       virtuoso_load_dir: tmp_triplestore_load_dir
