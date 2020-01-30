@@ -34,7 +34,7 @@ inputs:
     type: string
   - id: tmp_triplestore_load_dir
     label: "Path to the tmp triplestore load dir in its container"
-    type: string?
+    type: string
     default: "/usr/local/virtuoso-opensource/var/lib/virtuoso/db/"
   - id: sparql_tmp_service_url
     label: "Service URL of tmp triplestore"
