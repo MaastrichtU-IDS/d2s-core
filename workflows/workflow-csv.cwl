@@ -106,10 +106,10 @@ outputs:
     outputSource: step3-r2rml/logs_r2rml
     type: File
     label: "R2RML log file"
-  - id: logs_virtuoso_copy
+  - id: logs_copy_file_to_container
     outputSource: step4-copy-file-to-tmp-triplestore/logs_copy_file_to_container
     type: File
-    label: "Virtuoso copy RDF output log file"
+    label: "Copy RDF output to container log file"
   - id: logs_rdf_upload
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File

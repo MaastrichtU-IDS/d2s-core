@@ -42,9 +42,13 @@ inputs:
   - id: sparql_final_triplestore_url
     label: "URL of final triplestore"
     type: string
-  - id: virtuoso_container_id
-    label: "ID of the virtuoso Docker container"
+  - id: tmp_triplestore_container_id
+    label: "ID of the tmp triplestore Docker container"
     type: string
+  - id: tmp_triplestore_load_dir
+    label: "Path to the tmp triplestore load dir in its container"
+    type: string
+    default: "/usr/local/virtuoso-opensource/var/lib/virtuoso/db/"
   - id: sparql_final_triplestore_username
     label: "Username for final triplestore"
     type: string?
@@ -82,10 +86,10 @@ outputs:
     outputSource: step2-xml2rdf/logs_xml2rdf
     type: File
     label: "xml2rdf log file"
-  - id: logs_virtuoso_copy
-    outputSource: step4-virtuoso-copy/logs_virtuoso_copy
+  - id: logs_copy_file_to_container
+    outputSource: step4-copy-file-to-tmp-triplestore/logs_copy_file_to_container
     type: File
-    label: "Virtuoso copy RDF output log file"
+    label: "Copy RDF output to container log file"
   - id: logs_rdf_upload
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
@@ -128,23 +132,45 @@ steps:
     out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
     # out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
 
-  step4-virtuoso-copy:
-    run: ../steps/virtuoso-load-copy.cwl
+  step4-copy-file-to-tmp-triplestore:
+    run: ../steps/copy-file-to-container.cwl
     in:
-      cwl_dir: cwl_dir
-      virtuoso_container_id: virtuoso_container_id
+      load_in_container_id: tmp_triplestore_container_id
       file_to_load: step2-xml2rdf/xml2rdf_nquads_file_output
-    out: [logs_virtuoso_copy]
+      load_to_dir: tmp_triplestore_load_dir
+    out: [logs_copy_file_to_container]
 
   step4-rdf-upload:
-    run: ../steps/virtuoso-bulk-load.cwl
+    run: ../steps/bulk-load-virtuoso.cwl
+    # run: ../steps/bulk-load-blazegraph.cwl
     in:
-      file_to_load: step2-xml2rdf/xml2rdf_nquads_file_output
-      virtuoso_container_id: virtuoso_container_id
+      file_to_load: step3-r2rml/r2rml_nquads_file_output
+      default_graph: sparql_tmp_graph_uri
+      virtuoso_container_id: tmp_triplestore_container_id
+      virtuoso_load_dir: tmp_triplestore_load_dir
       sparql_username: sparql_tmp_triplestore_username
       sparql_password: sparql_tmp_triplestore_password
-      previous_step_output: step4-virtuoso-copy/logs_virtuoso_copy
+      previous_step_output: step4-copy-file-to-tmp-triplestore/logs_copy_file_to_container
     out: [logs_rdf_upload]
+
+
+  # step4-virtuoso-copy:
+  #   run: ../steps/virtuoso-load-copy.cwl
+  #   in:
+  #     cwl_dir: cwl_dir
+  #     virtuoso_container_id: virtuoso_container_id
+  #     file_to_load: step2-xml2rdf/xml2rdf_nquads_file_output
+  #   out: [logs_virtuoso_copy]
+
+  # step4-rdf-upload:
+  #   run: ../steps/virtuoso-bulk-load.cwl
+  #   in:
+  #     file_to_load: step2-xml2rdf/xml2rdf_nquads_file_output
+  #     virtuoso_container_id: virtuoso_container_id
+  #     sparql_username: sparql_tmp_triplestore_username
+  #     sparql_password: sparql_tmp_triplestore_password
+  #     previous_step_output: step4-virtuoso-copy/logs_virtuoso_copy
+  #   out: [logs_rdf_upload]
 
   step5-insert-metadata:
     run: ../steps/execute-sparql-queries.cwl
