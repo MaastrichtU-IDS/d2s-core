@@ -11,7 +11,7 @@ requirements:
     dockerOutputDirectory: /data
 
 baseCommand: []
-arguments: ["-r", "-o", "/data/mapping.trig", "-d", "/data/$(inputs.input_dir)"]
+arguments: ["-r", "-o", "/data/mapping.trig", "-d", "/data/$(inputs.dataset_to_process)"]
 #  drill should share workspace/input
 
 inputs:
