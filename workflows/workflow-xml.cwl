@@ -4,8 +4,8 @@ class: Workflow
 label: Convert XML files to a target RDF
 
 inputs:
-  - id: input_dir
-    label: "Directory with downloaded input files"
+  - id: dataset_to_process
+    label: "Dataset to process"
     type: Directory
   - id: config_dir
     label: "CWL config directory (config.yml)"
@@ -124,7 +124,7 @@ steps:
   step2-xml2rdf:
     run: ../steps/run-xml2rdf.cwl
     in:
-      download_dir: input_dir
+      dataset_to_process: dataset_to_process
     out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
     # out: [xml2rdf_nquads_file_output, logs_xml2rdf, sparql_mapping_templates]
 

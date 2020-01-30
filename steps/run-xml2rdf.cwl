@@ -9,12 +9,15 @@ requirements:
     dockerOutputDirectory: /data
 
 baseCommand: []
-arguments: ["-i", "$(inputs.download_dir.path)/*.xml", "-o", "$(runtime.outdir)/rdf_output.nq",
+arguments: ["-i", "$(inputs.dir_to_process.path)/*.xml", "-o", "$(runtime.outdir)/rdf_output.nq",
 "-g", "https://w3id.org/d2s/graph/xml2rdf"]
 
 inputs:
-  download_dir:
-    type: Directory
+  dataset_to_process:
+    type: string
+  dir_to_process:
+    type: Directory?
+    default: "../../datasets/workspace/input/$(inputs.dataset_to_process)"
     # format: edam:format_2332    # XML (validation exception because finds .zip)
 
 stdout: logs-xml2rdf.txt
