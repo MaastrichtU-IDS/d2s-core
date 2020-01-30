@@ -117,13 +117,6 @@ outputs:
 
 
 steps:
-  # step1-d2s-download:
-  #   run: ../steps/d2s-bash-download.cwl
-  #   in:
-  #     config_dir: config_dir
-  #     download_username: download_username
-  #     download_password: download_password
-  #   out: [download_dir, logs_download_dataset]
 
   step2-xml2rdf:
     run: ../steps/run-xml2rdf.cwl

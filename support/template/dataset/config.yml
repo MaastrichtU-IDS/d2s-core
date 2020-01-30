@@ -1,8 +1,8 @@
 
-input_dir: "$dataset_id"
+dataset_to_process: "$dataset_id"
 
 ## For XML workflows
-# input_dir:
+# dir_to_process:
 #   class: Directory
 #   path: ../../workspace/input/$dataset_id
 

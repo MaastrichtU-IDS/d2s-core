@@ -4,8 +4,8 @@ class: Workflow
 label: Convert CSV/TSV files to a target RDF
 
 inputs:
-  - id: input_dir
-    label: "Path to input dir within the workspace"
+  - id: dataset_to_process
+    label: "Dataset to process"
     type: string
   - id: config_dir
     label: "CWL config directory"
@@ -148,7 +148,7 @@ steps:
   step2-autor2rml:
     run: ../steps/run-autor2rml.cwl
     in:
-      input_dir: input_dir
+      dataset_to_process: dataset_to_process
       input_data_jdbc: input_data_jdbc
     out: [r2rml_trig_file_output, sparql_mapping_templates, logs_autor2rml]
 
