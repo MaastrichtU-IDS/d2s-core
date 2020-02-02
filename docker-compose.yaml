@@ -4,7 +4,6 @@ services:
 
   virtuoso:
     image: tenforce/virtuoso
-    restart: unless-stopped
     volumes:
       - $PWD/workspace/virtuoso:/data
       # - $PWD/workspace/tmp:/tmp
@@ -26,11 +25,11 @@ services:
       # - VIRT_SPARQL_DefaultQuery=select distinct ?Concept where {[] a ?Concept} LIMIT 100
     networks:
       - network
+    restart: unless-stopped
 
 
   drill:
     image: vemonet/apache-drill
-    restart: unless-stopped
     ports:
       - 8048:8047
       - 31011:31010
@@ -40,6 +39,7 @@ services:
       # - $PWD/workspace:/data:ro
     networks:
       - network
+    restart: unless-stopped
 
 
   graphdb:
@@ -49,7 +49,6 @@ services:
       args:
         version: 8.10.1
     # build: ./support/graphdb
-    restart: unless-stopped
     volumes:
       - $PWD/workspace/graphdb:/opt/graphdb/home
       - $PWD/workspace/graphdb-import:/root/graphdb-import
@@ -57,16 +56,19 @@ services:
       - 7200:7200
     networks:
       - network
+    restart: unless-stopped
+    # environment:
+    #   - VIRTUAL_HOST=d2s-graphdb.137.120.31.101.nip.io
 
 
   postgres:
     image: postgres:11
-    restart: unless-stopped
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=db
     networks:
       - network
+    restart: unless-stopped
 
 
   # http://localhost:8889/bigdata/#splash
@@ -85,49 +87,64 @@ services:
     #   - BLAZEGRAPH_GID=${GID}
     networks:
       - network
+    # environment:
+    #   # Work for Ubuntu ($UID=1000 and 1000 in $GROUPS)
+    #   - BLAZEGRAPH_UID=${UID}
+    #   - BLAZEGRAPH_GID=${GID}
+    #   - VIRTUAL_HOST=d2s-blazegraph.137.120.31.101.nip.io
 
   comunica:
-    restart: unless-stopped
     image: umids/comunica-sparql-widget:latest
+    ports:
+      - 8884:80
     # volumes:
     #   - $PWD/workspace:/data
       # - $PWD/workspace/RWStore.properties:/RWStore.properties
-    ports:
-      - 8884:80
     networks:
       - network
+    restart: unless-stopped
 
   into-the-graph:
-    restart: unless-stopped
     image: umids/into-the-graph:latest
     ports:
       - 8079:80
     networks:
       - network
+    restart: unless-stopped
 
   browse-local-virtuoso:
-    restart: unless-stopped
     image: umids/into-the-graph:local-virtuoso
     ports:
       - 8891:80
     networks:
       - network
+    restart: unless-stopped
 
   browse-local-graphdb:
-    restart: unless-stopped
     image: umids/into-the-graph:local-graphdb
     ports:
       - 7201:80
     networks:
       - network
+    restart: unless-stopped
 
   browse-local-blazegraph:
-    restart: unless-stopped
     image: umids/into-the-graph:local-blazegraph
     ports:
       - 8083:80
     networks:
       - network
+    restart: unless-stopped
+
+  proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - network
+    restart: unless-stopped
 
   # Pull Data2Services images
   d2s-bash-exec:
