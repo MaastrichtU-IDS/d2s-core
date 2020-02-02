@@ -1,6 +1,6 @@
 #!/bin/bash
 
-########## Download files
+#### Download files
 
 wget -N https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-template/master/datasets/cohd/download/cohd-sample/concepts.tsv
 wget -N https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-template/master/datasets/cohd/download/cohd-sample/paired_concept_counts_associations.tsv
@@ -35,7 +35,7 @@ array=( ${array[@]//*test.ttl/} )
 ( IFS=$'\n'; echo "${array[*]}" )
 
 
-########## Uncompress
+#### Uncompress
 
 # ZIP
 # Recursive in subdir
@@ -55,7 +55,7 @@ find . -name "*.tgz" -exec tar -xzvf {} \;
 find . -name "*.bz2" | while read filename; do bzip2 -f -d "$filename"; done;
 
 
-########## Prepare files
+#### Prepare files
 
 ## RENAME EXTENSION (e.g.: txt in tsv)
 rename s/\.txt/.tsv/ *.txt
