@@ -97,10 +97,20 @@ services:
   comunica:
     image: umids/comunica-sparql-widget:latest
     ports:
-      - 8884:80
+      - 8084:80
     # volumes:
     #   - $PWD/workspace:/data
       # - $PWD/workspace/RWStore.properties:/RWStore.properties
+    networks:
+      - network
+    restart: unless-stopped
+
+  api:
+    image: umids/d2s-api:latest
+    ports: 
+      - 8080:8080
+    environment: 
+      - ENDPOINT="http://graphdb:7200/repositories/test"
     networks:
       - network
     restart: unless-stopped
