@@ -49,6 +49,7 @@ services:
       args:
         version: 8.10.1
     # build: ./support/graphdb
+    command: -Dgraphdb.home=/opt/graphdb/home -Dgraphdb.workbench.cors.enable=true
     volumes:
       - $PWD/workspace/graphdb:/opt/graphdb/home
       - $PWD/workspace/graphdb-import:/root/graphdb-import
