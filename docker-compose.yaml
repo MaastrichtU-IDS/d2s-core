@@ -110,7 +110,7 @@ services:
     ports: 
       - 8080:8080
     environment: 
-      - ENDPOINT="http://graphdb:7200/repositories/test"
+      - ENDPOINT=http://graphdb:7200/repositories/test
     networks:
       - network
     restart: unless-stopped
