@@ -110,7 +110,7 @@ services:
     ports: 
       - 8080:8080
     environment: 
-      - ENDPOINT=http://graphdb:7200/repositories/test
+      - ENDPOINT=http://graphdb:7200/repositories/trek
     networks:
       - network
     restart: unless-stopped
@@ -119,6 +119,15 @@ services:
     image: umids/into-the-graph:latest
     ports:
       - 8079:80
+    networks:
+      - network
+    restart: unless-stopped
+
+    browse-translator-trek:
+    image: umids/into-the-graph:translator-trek
+    ports:
+      # WARNING: same port as browse-local-graphdb
+      - 7201:80
     networks:
       - network
     restart: unless-stopped
