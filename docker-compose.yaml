@@ -109,8 +109,8 @@ services:
     image: umids/d2s-api:latest
     ports: 
       - 8080:8080
-    environment: 
-      - ENDPOINT=http://graphdb:7200/repositories/trek
+    # environment: 
+    #   - ENDPOINT=http://graphdb:7200/repositories/trek
     networks:
       - network
     restart: unless-stopped
@@ -123,7 +123,7 @@ services:
       - network
     restart: unless-stopped
 
-    browse-translator-trek:
+  browse-translator-trek:
     image: umids/into-the-graph:translator-trek
     ports:
       # WARNING: same port as browse-local-graphdb
