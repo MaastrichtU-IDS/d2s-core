@@ -127,7 +127,7 @@ services:
     image: umids/into-the-graph:translator-trek
     ports:
       # WARNING: same port as browse-local-graphdb
-      - 7201:80
+      - 7202:80
     networks:
       - network
     restart: unless-stopped
