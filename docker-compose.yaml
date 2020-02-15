@@ -118,7 +118,7 @@ services:
   into-the-graph:
     image: umids/into-the-graph:latest
     ports:
-      - 8079:80
+      - 8079:5000
     networks:
       - network
     restart: unless-stopped
@@ -126,8 +126,7 @@ services:
   browse-translator-trek:
     image: umids/into-the-graph:translator-trek
     ports:
-      # WARNING: same port as browse-local-graphdb
-      - 7202:80
+      - 7202:5000
     networks:
       - network
     restart: unless-stopped
@@ -135,7 +134,7 @@ services:
   browse-local-virtuoso:
     image: umids/into-the-graph:local-virtuoso
     ports:
-      - 8891:80
+      - 8891:5000
     networks:
       - network
     restart: unless-stopped
@@ -143,7 +142,7 @@ services:
   browse-local-graphdb:
     image: umids/into-the-graph:local-graphdb
     ports:
-      - 7201:80
+      - 7201:5000
     networks:
       - network
     restart: unless-stopped
@@ -151,7 +150,7 @@ services:
   browse-local-blazegraph:
     image: umids/into-the-graph:local-blazegraph
     ports:
-      - 8083:80
+      - 8083:5000
     networks:
       - network
     restart: unless-stopped
