@@ -8,6 +8,9 @@
 # Get input arguments
 args=("$@")
 
+# Measure the real time needed for the import
+SECONDS=0
+
 isql-v -U dba -P ${args[4]} exec="grant execute on DB.DBA.SPARQL_INSERT_DICT_CONTENT to \"SPARQL\";"
 isql-v -U dba -P ${args[4]} exec="grant execute on DB.DBA.SPARQL_DELETE_DICT_CONTENT to \"SPARQL\";"
 isql-v -U dba -P ${args[4]} exec="grant execute on DB.DBA.L_O_LOOK to \"SPARQL\";"
@@ -62,6 +65,7 @@ EOF
 
     # Status message
     echo "Loading finished! Check ${LOGFILE} for details."
+    echo "The import took $SECONDS secondes"
     exit 0
 fi
 
