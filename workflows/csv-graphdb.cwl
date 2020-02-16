@@ -186,6 +186,17 @@ steps:
       previous_step_output: step4-copy-file-to-tmp-triplestore/logs_copy_file_to_container
     out: [logs_rdf_upload]
 
+  # # We need to create a script that sleeps and check until all imports are done
+  # curl -X GET --header 'Accept: application/json' 'http://localhost:7200/rest/data/import/server/test'
+  # # Still importing:
+  # [
+  #   {
+  #     "name": "rdf_output.nq",
+  #     "status": "IMPORTING",
+  #     "message": ""
+  #   }
+  # ]
+
   step5-insert-metadata:
     run: ../steps/execute-sparql-queries.cwl
     in:
