@@ -47,7 +47,7 @@ services:
       context: ./support/graphdb
       dockerfile: Dockerfile
       args:
-        version: 8.10.1
+        version: 9.1.1
     # build: ./support/graphdb
     command: -Dgraphdb.home=/opt/graphdb/home -Dgraphdb.workbench.cors.enable=true
     volumes:
