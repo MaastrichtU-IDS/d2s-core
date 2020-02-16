@@ -20,6 +20,7 @@ services:
       - VIRT_VDB_VDBDisconnectTimeout=7200000
       - VIRT_Client_SQL_QUERY_TIMEOUT=14400000
       - VIRT_CLient_SQL_TXN_TIMEOUT=14400000
+      - VIRT_SPARQL_ResultSetMaxRows=999999999999999999
       - VIRT_SPARQL_MaxQueryCostEstimationTime=0
       - VIRT_SPARQL_MaxQueryExecutionTime=14400
       # - VIRT_SPARQL_DefaultQuery=select distinct ?Concept where {[] a ?Concept} LIMIT 100
