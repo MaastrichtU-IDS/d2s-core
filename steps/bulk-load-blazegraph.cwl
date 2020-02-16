@@ -26,7 +26,7 @@ inputs:
 stdout: logs-blazegraph-bulk-load.txt
 
 outputs:
-  logs_blazegraph_bulk_load:
+  logs_rdf_upload:
     type: stdout
     format: edam:format_1964    # Plain text
 

@@ -1,30 +1,46 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: CommandLineTool
-label: Bulk load to Blazegraph
-doc: Copy files to a volume shared with the Blazegraph container, then send request to bulk load. See http://d2s.semanticscience.org/ for more details.
+label: Bulk load to GraphDB
+doc: Send HTTP request to GraphDB to start bulk load. See http://d2s.semanticscience.org/ for more details.
 
 
-baseCommand: [docker, run]
+baseCommand: [curl]
 
-arguments: ["umids/d2s-bash-exec:latest",
-# Bash script to copy files in shared volume and send curl:
-"https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/master/support/blazegraph/blazegraph-bulk-load.sh",
-"$(inputs.file_to_load.path)",
-"$(inputs.default_graph)"]
-# curl -X POST --data-binary @dataloader.txt --header 'Content-Type:text/plain' \
-# http://blazegraph:8080/bigdata/dataloader
-
-# curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
+# curl -X POST --header 'Content-Type: application/json' 
+# --header 'Accept: application/json' -d '{
 #    "fileNames": [
 #      "rdf_output.nq"
 #    ]
-#  }' 'http://graphdb.dumontierlab.com/rest/data/import/server/test'
+#  }' 'http://localhost:7200/rest/data/import/server/test'
+
+arguments: ["-X", "POST", "-u", "$(inputs.graphdb_username):$(inputs.graphdb_password)"
+"--header", "'Content-Type: application/json'", 
+"--header", "'Accept: application/json'", 
+"-d", "'{\"fileNames\": [\"rdf_output.nq\"]}'",
+"'$(inputs.graphdb_url)/rest/data/import/server/$(inputs.graphdb_repository)'"]
+
+# $(inputs.file_to_load.basename)
+
+# "'http://localhost:7200/repositories/test/rdf-graphs/service?graph=$(inputs.file_to_load.path)'"
+# # Bash script to copy files in shared volume and send curl:
+# "https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/master/support/blazegraph/blazegraph-bulk-load.sh",
+# "$(inputs.file_to_load.path)",
+# "$(inputs.default_graph)"]
+# curl -X POST --data-binary @dataloader.txt --header 'Content-Type:text/plain' \
+# http://blazegraph:8080/bigdata/dataloader
+
 
 inputs:
   file_to_load:
-    type: 
+    type: File
+  graphdb_url:
+    type: string
   graphdb_repository:
+    type: string
+  graphdb_username:
+    type: string
+  graphdb_password:
     type: string
   default_graph:
     type: string?
@@ -32,10 +48,10 @@ inputs:
   previous_step_output:
     type: File?
 
-stdout: logs-blazegraph-bulk-load.txt
+stdout: logs-graphdb-bulk-load.txt
 
 outputs:
-  logs_blazegraph_bulk_load:
+  logs_rdf_upload:
     type: stdout
     format: edam:format_1964    # Plain text
 

@@ -55,7 +55,7 @@ inputs:
   - id: final_graphdb_url
     label: "URL of final GraphDB triplestore"
     type: string
-  - id: final_graphdb_repository
+  - id: tmp_graphdb_repository
     label: "URL of final GraphDB repository"
     type: string
   - id: sparql_final_triplestore_username
@@ -179,11 +179,10 @@ steps:
     # run: ../steps/bulk-load-blazegraph.cwl
     in:
       file_to_load: step3-r2rml/r2rml_nquads_file_output
-      default_graph: sparql_tmp_graph_uri
-      virtuoso_container_id: tmp_triplestore_container_id
-      virtuoso_load_dir: tmp_triplestore_load_dir
-      sparql_username: sparql_tmp_triplestore_username
-      sparql_password: sparql_tmp_triplestore_password
+      graphdb_url: final_graphdb_url
+      graphdb_repository: tmp_graphdb_repository
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
       previous_step_output: step4-copy-file-to-tmp-triplestore/logs_copy_file_to_container
     out: [logs_rdf_upload]
 
