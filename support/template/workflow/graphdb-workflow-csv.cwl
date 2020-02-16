@@ -8,10 +8,10 @@ inputs:
     label: "CWL config directory"
     type: Directory
   - id: cwl_workflow_filename
-    label: "CWL workflow definition file (workflow-xml.cwl)"
+    label: "CWL workflow definition file"
     type: string
   - id: cwl_dir
-    label: "CWL workflow directory (workflow.cwl)"
+    label: "CWL workflow directory"
     type: Directory
   - id: download_username
     label: "Username to download files"

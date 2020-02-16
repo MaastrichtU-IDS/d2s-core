@@ -40,7 +40,7 @@ sparql_final_triplestore_password: "dba"
 sparql_transform_queries_path: "mapping"
 sparql_insert_metadata_path: "metadata"
 
-cwl_workflow_filename: "workflow-csv.cwl"
+cwl_workflow_filename: "virtuoso.cwl"
 
 config_dir:
   class: Directory

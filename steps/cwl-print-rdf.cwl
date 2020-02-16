@@ -17,7 +17,7 @@ baseCommand: ["cwl-runner"]
 arguments: ["--print-rdf", "$(inputs.cwl_dir.path)/workflows/$(inputs.cwl_workflow_filename)"]
 
 # baseCommand: []
-# arguments: ["cwltool", "--print-rdf", "$(inputs.cwl_dir.path)/workflows/workflow-csv.cwl"]
+# arguments: ["cwltool", "--print-rdf", "$(inputs.cwl_dir.path)/workflows/csv-virtuoso.cwl"]
 
 inputs:
   cwl_workflow_filename:

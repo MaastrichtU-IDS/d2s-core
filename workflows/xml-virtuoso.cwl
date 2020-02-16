@@ -1,7 +1,7 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: Workflow
-label: Convert XML files to a target RDF
+label: Convert XML files to target RDF using Virtuoso
 
 inputs:
   - id: dir_to_process
@@ -11,7 +11,7 @@ inputs:
     label: "CWL config directory (config.yml)"
     type: Directory
   - id: cwl_workflow_filename
-    label: "CWL workflow definition file (workflow-xml.cwl)"
+    label: "CWL workflow definition file"
     type: string
   - id: cwl_dir
     label: "CWL workflow directory (workflow.cwl)"

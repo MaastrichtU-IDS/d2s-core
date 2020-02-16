@@ -5,7 +5,7 @@ label: Load CWL descriptions as RDF
 
 inputs:
   - id: cwl_workflow_filename
-    label: "CWL workflow definition file (workflow-xml.cwl)"
+    label: "CWL workflow definition file"
     type: string
   - id: cwl_dir
     label: "CWL config directory"
