@@ -116,7 +116,7 @@ services:
       - network
     restart: unless-stopped
 
-  download-filebrowser:
+  filebrowser:
     image: mohamnag/nginx-file-browser:latest
     ports:
       - 8081:80
@@ -124,8 +124,8 @@ services:
       - $PWD/workspace/download/:/opt/www/files/
     restart: unless-stopped
     # environment:
-    #   - VIRTUAL_HOST=download.bio2rdf.org
-    #   - LETSENCRYPT_HOST=download.bio2rdf.org
+    #   - VIRTUAL_HOST=download.semanticscience.org
+    #   - LETSENCRYPT_HOST=download.semanticscience.org
 
   into-the-graph:
     image: umids/into-the-graph:latest
