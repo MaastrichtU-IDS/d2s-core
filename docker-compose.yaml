@@ -30,12 +30,12 @@ services:
 
 
   drill:
-    image: umids/apache-drill:1.17.0-100G
+    image: apache/drill:1.17.0
     # image: umids/apache-drill:1.17.0-100G
     ports:
       - 8048:8047
-      - 31011:31010
-    tty: true
+    command: /bin/bash
+    # tty: true
     volumes:
       - $PWD/workspace/input:/data:ro
       # - $PWD/workspace:/data:ro
