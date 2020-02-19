@@ -30,7 +30,7 @@ services:
 
 
   drill:
-    image: umids/apache-drill:1.17.0
+    image: umids/apache-drill:1.17.0-100G
     # image: umids/apache-drill:1.17.0-100G
     ports:
       - 8048:8047
@@ -178,7 +178,7 @@ services:
       - network
     restart: unless-stopped
 
-  jobmanager:
+  rmljob:
     image: flink:1.9.1-scala_2.11
     expose:
       - "6123"
@@ -186,20 +186,20 @@ services:
       - "8078:8081"
     command: jobmanager
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - JOB_MANAGER_RPC_ADDRESS=rmljob
     volumes:
       - $PWD/workspace/input:/mnt/data
 
-  taskmanager:
+  rmltask:
     image: flink:1.9.1-scala_2.11
     expose:
       - "6121"
       - "6122"
     depends_on:
-      - jobmanager
+      - rmljob
     command: taskmanager
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - JOB_MANAGER_RPC_ADDRESS=rmljob
     volumes:
       - $PWD/workspace/input:/mnt/data
 
