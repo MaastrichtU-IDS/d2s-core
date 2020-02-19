@@ -186,7 +186,7 @@ services:
       - "8078:8081"
     command: jobmanager
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - JOB_MANAGER_RPC_ADDRESS=rmljob
     volumes:
       - $PWD/workspace/input:/mnt/data
 
@@ -196,12 +196,10 @@ services:
       - "6121"
       - "6122"
     depends_on:
-      - jobmanager
+      - rmljob
     command: taskmanager
-    links:
-      - "jobmanager:jobmanager"
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - JOB_MANAGER_RPC_ADDRESS=rmljob
     volumes:
       - $PWD/workspace/input:/mnt/data
 
