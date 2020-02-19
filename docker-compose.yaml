@@ -178,6 +178,33 @@ services:
       - network
     restart: unless-stopped
 
+  rmljob:
+    image: flink:1.9.1-scala_2.11
+    expose:
+      - "6123"
+    ports:
+      - "8078:8081"
+    command: jobmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    volumes:
+      - $PWD/workspace/input:/mnt/data
+
+  rmltask:
+    image: flink:1.9.1-scala_2.11
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    links:
+      - "jobmanager:jobmanager"
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    volumes:
+      - $PWD/workspace/input:/mnt/data
+
   # Pull Data2Services images
   d2s-bash-exec:
     image: umids/d2s-bash-exec:latest
