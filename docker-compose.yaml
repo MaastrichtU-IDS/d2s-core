@@ -175,8 +175,9 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-    networks:
-      - host
+    # networks:
+    #   - host
+    network_mode: "host"
     restart: unless-stopped
 
   rmljob:
