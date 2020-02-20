@@ -11,7 +11,7 @@ services:
       - 8890:8890
       - 1111:1111
     environment:
-      - VIRTUAL_HOST=d2s-virtuoso.137.120.31.102.nip.io # for IDS node2
+      - VIRTUAL_HOST=virtuoso.137.120.31.102.nip.io # for IDS node2
       - VIRTUAL_PORT=8890
       - DBA_PASSWORD=dba
       - SPARQL_UPDATE=true
@@ -120,8 +120,9 @@ services:
     image: umids/d2s-api:latest
     ports: 
       - 8080:8080
-    # environment: 
-    #   - ENDPOINT=http://graphdb:7200/repositories/trek
+    environment: 
+      - ENDPOINT=http://graphdb:7200/repositories/trek
+      - VIRTUAL_HOST=api.137.120.31.102.nip.io
     networks:
       - network
     restart: unless-stopped
@@ -133,7 +134,8 @@ services:
     volumes:
       - $PWD/workspace/download/:/opt/www/files/
     restart: unless-stopped
-    # environment:
+    environment:
+      - VIRTUAL_HOST=download.137.120.31.102.nip.io
     #   - VIRTUAL_HOST=download.semanticscience.org
     #   - LETSENCRYPT_HOST=download.semanticscience.org
 
@@ -151,6 +153,8 @@ services:
       - 7202:5000
     networks:
       - network
+    environment:
+      - VIRTUAL_HOST=trek.137.120.31.102.nip.io
     restart: unless-stopped
 
   browse-local-virtuoso:
