@@ -60,7 +60,8 @@ services:
     networks:
       - network
     restart: unless-stopped
-    # environment:
+    environment:
+      - VIRTUAL_HOST=graphdb.dumontierlab.com
     #   - VIRTUAL_HOST=d2s-graphdb.137.120.31.101.nip.io
 
 
@@ -169,13 +170,14 @@ services:
     restart: unless-stopped
 
   proxy:
-    image: jwilder/nginx-proxy
+    image: jwilder/nginx-proxy:latest
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
-      - network
+      - host
     restart: unless-stopped
 
   rmljob:
