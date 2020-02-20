@@ -60,8 +60,7 @@ services:
     networks:
       - network
     restart: unless-stopped
-    environment:
-      - VIRTUAL_HOST=graphdb.dumontierlab.com
+    # environment:
     #   - VIRTUAL_HOST=d2s-graphdb.137.120.31.101.nip.io
 
 
