@@ -129,7 +129,7 @@ services:
     restart: unless-stopped
 
   filebrowser:
-    image: mohamnag/nginx-file-browser:latest
+    image: umids/nginx-file-browser:latest
     ports:
       - 8081:80
     volumes:
