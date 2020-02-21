@@ -11,8 +11,6 @@ services:
       - 8890:8890
       - 1111:1111
     environment:
-      - VIRTUAL_HOST=virtuoso.137.120.31.102.nip.io # for IDS node2
-      - VIRTUAL_PORT=8890
       - DBA_PASSWORD=dba
       - SPARQL_UPDATE=true
       - DEFAULT_GRAPH=https://w3id.org/d2s/graph
@@ -45,9 +43,6 @@ services:
     volumes:
       - $PWD/workspace/input:/data:ro
       # - $PWD/workspace:/data:ro
-    environment:
-      - VIRTUAL_HOST=drill.137.120.31.102.nip.io  # node2
-      - VIRTUAL_PORT=8047
     networks:
       - network
     restart: unless-stopped
@@ -70,8 +65,6 @@ services:
     networks:
       - network
     restart: unless-stopped
-    # environment:
-    #   - VIRTUAL_HOST=d2s-graphdb.137.120.31.101.nip.io
 
 
   postgres:
@@ -94,17 +87,12 @@ services:
       # - $PWD/workspace/RWStore.properties:/RWStore.properties
     ports:
       - 8082:8080
-    # environment:
-    #   # Work for Ubuntu ($UID=1000 and 1000 in $GROUPS)
-    #   - BLAZEGRAPH_UID=${UID}
-    #   - BLAZEGRAPH_GID=${GID}
     networks:
       - network
     # environment:
     #   # Work for Ubuntu ($UID=1000 and 1000 in $GROUPS)
     #   - BLAZEGRAPH_UID=${UID}
     #   - BLAZEGRAPH_GID=${GID}
-    #   - VIRTUAL_HOST=d2s-blazegraph.137.120.31.101.nip.io
 
   comunica:
     image: umids/comunica-sparql-widget:latest
@@ -122,8 +110,7 @@ services:
     ports: 
       - 8080:8080
     environment: 
-      - ENDPOINT=http://graphdb:7200/repositories/trek
-      - VIRTUAL_HOST=api.137.120.31.102.nip.io
+      - ENDPOINT=http://graphdb:7200/repositories/test
     networks:
       - network
     restart: unless-stopped
@@ -135,10 +122,6 @@ services:
     volumes:
       - $PWD/workspace/download/:/opt/www/files/
     restart: unless-stopped
-    environment:
-      - VIRTUAL_HOST=download.137.120.31.102.nip.io
-    #   - VIRTUAL_HOST=download.semanticscience.org
-    #   - LETSENCRYPT_HOST=download.semanticscience.org
 
   into-the-graph:
     image: umids/into-the-graph:latest
@@ -154,8 +137,8 @@ services:
       - 7202:5000
     networks:
       - network
-    environment:
-      - VIRTUAL_HOST=trek.137.120.31.102.nip.io
+    # environment:
+    #   - VIRTUAL_HOST=trek.137.120.31.102.nip.io
     restart: unless-stopped
 
   browse-local-virtuoso:
@@ -189,8 +172,6 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-    # networks:
-    #   - host
     network_mode: "host"
     restart: unless-stopped
 
@@ -238,7 +219,6 @@ services:
   rdf-upload:
     image: umids/rdf-upload:latest
 
-  
 
 networks:
   network:
