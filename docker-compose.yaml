@@ -243,6 +243,9 @@ services:
   rdf-upload:
     image: umids/rdf-upload:latest
 
+  hdt-cpp:
+    image: rdfhdt/hdt-cpp:latest
+
 
 networks:
   network:
