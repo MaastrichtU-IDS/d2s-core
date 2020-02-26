@@ -5,7 +5,7 @@ label: Run xml2rdf
 
 requirements:
   DockerRequirement:
-    dockerPull: umids/xml2rdf:latest
+    dockerPull: umids/xml2rdf:dev
     dockerOutputDirectory: /data
   # InitialWorkDirRequirement:
   #   listing:    # Get the config dir as input

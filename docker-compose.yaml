@@ -107,6 +107,18 @@ services:
       - network
     restart: unless-stopped
 
+  ldfserver:
+    image: umids/ldf-server:latest
+    command: /tmp/config.json
+    ports:
+      - 8085:3000
+    volumes:
+      - $PWD/workspace/hdt-archives:/data
+      - $PWD/workspace/ldf-server-config.json:/tmp/config.json
+    networks:
+      - network
+    restart: unless-stopped
+
   api:
     image: umids/d2s-api:latest
     ports: 
