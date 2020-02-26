@@ -77,10 +77,10 @@ edam:has_function:
   - edam:operation_2422   # Data retrieval
 
 edam:has_input: 
-  - edam:data_3786        # Query script
+  - edam:format_3857        # CWL
 
 edam:has_output:
-  - edam:data_2526        # Text data
+  - edam:format_2376        # RDF
 
 edam:has_topic:
   - edam:topic_3077       # Data acquisition
