@@ -97,7 +97,8 @@ services:
     #   - BLAZEGRAPH_GID=${GID}
 
   comunica:
-    image: umids/comunica-sparql-widget:latest
+    image: comunica/jquery-widget.js:latest
+    # image: umids/comunica-sparql-widget:latest
     ports:
       - 8084:80
     volumes:
