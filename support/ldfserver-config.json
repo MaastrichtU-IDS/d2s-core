@@ -1,7 +1,7 @@
 {
     "title": "Data2Services Linked Data Fragments server",
     "datasources": {
-      "drugbankHdt": {
+      "drugbank": {
         "title": "DrugBank",
         "type": "HdtDatasource",
         "description": "Drugbank with an HDT back-end",
