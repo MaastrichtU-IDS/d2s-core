@@ -102,7 +102,7 @@ services:
       - 8084:80
     volumes:
       - $PWD/workspace/comunica-settings.json:/tmp/settings.json
-      # - $PWD/workspace:/data
+      - $PWD/workspace/hdt-archives:/data
       # - $PWD/workspace/RWStore.properties:/RWStore.properties
     networks:
       - network
@@ -114,7 +114,7 @@ services:
     ports:
       - 8085:3000
     volumes:
-      # - $PWD/workspace/hdt-archives:/data
+      - $PWD/workspace/hdt-archives:/data
       - $PWD/workspace/ldfserver-config.json:/tmp/config.json
     networks:
       - network
