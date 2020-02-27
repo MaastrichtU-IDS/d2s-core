@@ -27,6 +27,14 @@
       "bow":         "https://betweenourworlds.org/ontology/",
       "lc":          "http://semweb.mmlab.be/ns/linkedconnections#"
     },
-    "queries": "(Will be generated from the 'queries' folder by running the './queries-to-json' script.)"
+    "queries":
+    [
+      {
+        "name":"Directors of movies starring Brad Pitt",
+        "datasources":["http://fragments.dbpedia.org/*/en"],
+        "queryFormat":"sparql",
+        "query":"SELECT ?movie ?title ?name\nWHERE {\n  ?movie dbpedia-owl:starring [ rdfs:label \"Brad Pitt\"@en ];\n         rdfs:label ?title;\n         dbpedia-owl:director [ rdfs:label ?name ].\n  FILTER LANGMATCHES(LANG(?title), \"EN\")\n  FILTER LANGMATCHES(LANG(?name),  \"EN\")\n}"
+      }
+    ]
   }
   

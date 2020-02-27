@@ -1,11 +1,11 @@
 {
-    "title": "My Linked Data Fragments server",
+    "title": "Data2Services Linked Data Fragments server",
     "datasources": {
-      "dbpedia": {
-        "title": "DBpedia 2014",
+      "drugbankHdt": {
+        "title": "DrugBank",
         "type": "HdtDatasource",
-        "description": "DBpedia 2014 with an HDT back-end",
-        "settings": { "file": "data/dbpedia2014.hdt" }
+        "description": "Drugbank with an HDT back-end",
+        "settings": { "file": "/data/drugbank.hdt" }
       },
       "dbpedia-sparql": {
         "title": "DBpedia 3.9 (Virtuoso)",
