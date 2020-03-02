@@ -85,7 +85,7 @@ services:
     restart: unless-stopped
     image: lyrasis/blazegraph:2.1.5
     volumes:
-      - $PWD/workspace:/data
+      - $PWD/workspace/blazegraph:/data
       # - $PWD/workspace/RWStore.properties:/RWStore.properties
     ports:
       - 8082:8080
@@ -95,6 +95,18 @@ services:
     #   # Work for Ubuntu ($UID=1000 and 1000 in $GROUPS)
     #   - BLAZEGRAPH_UID=${UID}
     #   - BLAZEGRAPH_GID=${GID}
+
+  # http://localhost:10035
+  # Default login: test / xyzzy
+  agraph:
+    restart: unless-stopped
+    image: franzinc/agraph:v6.6.0
+    volumes:
+      - $PWD/workspace/agraph:/data
+    ports:
+      - 10000-10035:10000-10035
+    networks:
+      - network
 
   comunica:
     image: comunica/jquery-widget.js:latest
