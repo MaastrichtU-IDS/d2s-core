@@ -14,7 +14,7 @@ baseCommand: [curl]
 #    ]
 #  }' 'http://localhost:7200/rest/data/import/server/test'
 
-arguments: ["-X", "POST", "-u", "$(inputs.graphdb_username):$(inputs.graphdb_password)"
+arguments: ["-X", "POST", "-u", "$(inputs.graphdb_username):$(inputs.graphdb_password)",
 "--header", "'Content-Type: application/json'", 
 "--header", "'Accept: application/json'", 
 "-d", "'{\"fileNames\": [\"rdf_output.nq\"]}'",

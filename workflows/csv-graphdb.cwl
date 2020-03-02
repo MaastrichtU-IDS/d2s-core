@@ -181,8 +181,8 @@ steps:
       file_to_load: step3-r2rml/r2rml_nquads_file_output
       graphdb_url: final_graphdb_url
       graphdb_repository: tmp_graphdb_repository
-      sparql_username: sparql_final_triplestore_username
-      sparql_password: sparql_final_triplestore_password
+      graphdb_username: sparql_final_triplestore_username
+      graphdb_password: sparql_final_triplestore_password
       previous_step_output: step4-copy-file-to-tmp-triplestore/logs_copy_file_to_container
     out: [logs_rdf_upload]
 
