@@ -101,11 +101,11 @@ services:
   allegrograph:
     restart: unless-stopped
     image: franzinc/agraph:v6.6.0
-    volumes:
-      - $PWD/workspace/allegrograph:/data
     ports:
       - 10000-10035:10000-10035
     shm_size: 1g
+    # volumes:
+    #   - $PWD/workspace/allegrograph:/data
     networks:
       - network
 
