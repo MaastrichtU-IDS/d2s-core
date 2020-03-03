@@ -105,6 +105,7 @@ services:
       - $PWD/workspace/allegrograph:/data
     ports:
       - 10000-10035:10000-10035
+    shm_size: 1g
     networks:
       - network
 
@@ -113,11 +114,11 @@ services:
   anzograph:
     restart: unless-stopped
     image: cambridgesemantics/anzograph:2.0.2 
-    volumes:
-      - $PWD/workspace/anzograph:/opt/anzograph
     ports:
       - 8086:8080
       # - 8443:8443
+    # volumes:
+    #   - $PWD/workspace/anzograph:/opt/anzograph
     networks:
       - network
 
