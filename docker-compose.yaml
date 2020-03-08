@@ -157,6 +157,19 @@ services:
       - network
     restart: unless-stopped
 
+  notebook:
+    image: umids/jupyterlab:latest
+    ports: 
+      - 8888:8888
+    volumes:
+      - $PWD/workspace/notebooks:/notebooks
+    environment: 
+      - PASSWORD=password
+      - GIT_URL=https://github.com/vemonet/translator-sparql-notebook
+    networks:
+      - network
+    restart: unless-stopped
+
   filebrowser:
     image: umids/nginx-file-browser:latest
     ports:
