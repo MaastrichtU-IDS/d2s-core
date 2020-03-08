@@ -186,50 +186,6 @@ services:
       - network
     restart: unless-stopped
 
-  browse-translator-trek:
-    image: umids/into-the-graph:translator-trek
-    ports:
-      - 7202:5000
-    networks:
-      - network
-    # environment:
-    #   - VIRTUAL_HOST=trek.137.120.31.102.nip.io
-    restart: unless-stopped
-
-  browse-bio2vec:
-    image: umids/into-the-graph:bio2vec
-    ports:
-      - 7203:5000
-    networks:
-      - network
-    # environment:
-    #   - VIRTUAL_HOST=trek.137.120.31.102.nip.io
-    restart: unless-stopped
-
-  browse-local-virtuoso:
-    image: umids/into-the-graph:local-virtuoso
-    ports:
-      - 8891:5000
-    networks:
-      - network
-    restart: unless-stopped
-
-  browse-local-graphdb:
-    image: umids/into-the-graph:local-graphdb
-    ports:
-      - 7201:5000
-    networks:
-      - network
-    restart: unless-stopped
-
-  browse-local-blazegraph:
-    image: umids/into-the-graph:local-blazegraph
-    ports:
-      - 8083:5000
-    networks:
-      - network
-    restart: unless-stopped
-
   proxy:
     image: jwilder/nginx-proxy:latest
     ports:

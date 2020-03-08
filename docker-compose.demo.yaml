@@ -5,4 +5,7 @@ services:
   api:
     environment: 
       - ENDPOINT=http://blazegraph:8080/bigdata/sparql
+
+  into-the-graph:
+    image: umids/into-the-graph:local-blazegraph
     

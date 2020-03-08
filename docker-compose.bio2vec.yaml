@@ -24,10 +24,10 @@ services:
     #   - VIRTUAL_HOST=download.semanticscience.org
     #   - LETSENCRYPT_HOST=download.semanticscience.org
 
-  browse-bio2vec:
+  into-the-graph:
+    image: umids/into-the-graph:bio2vec
     environment:
       - VIRTUAL_HOST=bio2vec.137.120.31.102.nip.io
-
 
   # graphdb:
     # image: ontotext/graphdb:9.1.1-ee
