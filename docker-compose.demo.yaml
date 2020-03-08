@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+
+  api:
+    environment: 
+      - ENDPOINT=http://blazegraph:8080/bigdata/sparql
+    
