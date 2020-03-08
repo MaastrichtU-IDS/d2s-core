@@ -28,6 +28,9 @@ services:
     environment:
       - VIRTUAL_HOST=trek.137.120.31.102.nip.io
 
+  notebook:
+    environment:
+      - VIRTUAL_HOST=notebooks.137.120.31.102.nip.io  # node2
 
   # graphdb:
     # image: ontotext/graphdb:9.1.1-ee
