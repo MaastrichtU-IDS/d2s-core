@@ -34,6 +34,29 @@ services:
       - network
     restart: unless-stopped
 
+  virtuoso-tmp:
+    image: tenforce/virtuoso
+    volumes:
+      - $PWD/workspace/virtuoso-tmp:/data
+    ports:
+      - 8891:8890
+      - 1111:1111
+    environment:
+      - DBA_PASSWORD=dba
+      - SPARQL_UPDATE=true
+      - DEFAULT_GRAPH=https://w3id.org/d2s/graph
+      - VIRT_Parameters_DirsAllowed=., /usr/local/virtuoso-opensource/share/virtuoso/vad, /usr/local/virtuoso-opensource/var/lib/virtuoso/db
+      - VIRT_SPARQL_ResultSetMaxRows=999999999999999999
+      - VIRT_SPARQL_MaxQueryCostEstimationTime=0
+      - VIRT_SPARQL_MaxQueryExecutionTime=14400
+      - VIRT_VDB_VDBDisconnectTimeout=7200000
+      - VIRT_Client_SQL_QUERY_TIMEOUT=14400000
+      - VIRT_CLient_SQL_TXN_TIMEOUT=14400000
+      - VIRT_Parameters_Timeout=7200
+    networks:
+      - network
+    restart: unless-stopped
+
 
   drill:
     image: apache/drill:1.17.0
