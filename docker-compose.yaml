@@ -2,6 +2,24 @@ version: "3"
 
 services:
 
+  graphdb:
+    build:
+      context: ./support/graphdb
+      dockerfile: Dockerfile
+      args:
+        version: 9.1.1
+    # build: ./support/graphdb
+    # image: ontotext/graphdb:9.1.1-ee
+    command: -Dgraphdb.home=/opt/graphdb/home -Dgraphdb.workbench.cors.enable=true
+    volumes:
+      - $PWD/workspace/graphdb:/opt/graphdb/home
+      - $PWD/workspace/graphdb-import:/root/graphdb-import
+    ports:
+      - 7200:7200
+    networks:
+      - network
+    restart: unless-stopped
+
   virtuoso:
     image: tenforce/virtuoso
     volumes:
@@ -61,51 +79,6 @@ services:
       - network
     restart: unless-stopped
 
-
-  drill:
-    image: apache/drill:1.17.0
-    # image: umids/apache-drill:1.17.0-100G
-    ports:
-      - 8048:8047
-    command: /bin/bash
-    tty: true
-    volumes:
-      - $PWD/workspace/input:/data:ro
-      # - $PWD/workspace:/data:ro
-    networks:
-      - network
-    restart: unless-stopped
-
-
-  graphdb:
-    build:
-      context: ./support/graphdb
-      dockerfile: Dockerfile
-      args:
-        version: 9.1.1
-    # build: ./support/graphdb
-    # image: ontotext/graphdb:9.1.1-ee
-    command: -Dgraphdb.home=/opt/graphdb/home -Dgraphdb.workbench.cors.enable=true
-    volumes:
-      - $PWD/workspace/graphdb:/opt/graphdb/home
-      - $PWD/workspace/graphdb-import:/root/graphdb-import
-    ports:
-      - 7200:7200
-    networks:
-      - network
-    restart: unless-stopped
-
-
-  postgres:
-    image: postgres:11
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=db
-    networks:
-      - network
-    restart: unless-stopped
-
-
   # http://localhost:8889/bigdata/#splash
   # https://hub.docker.com/r/lyrasis/blazegraph
   blazegraph:
@@ -148,6 +121,29 @@ services:
     #   - $PWD/workspace/anzograph:/opt/anzograph
     networks:
       - network
+
+  drill:
+    image: apache/drill:1.17.0
+    # image: umids/apache-drill:1.17.0-100G
+    ports:
+      - 8048:8047
+    command: /bin/bash
+    tty: true
+    volumes:
+      - $PWD/workspace/input:/data:ro
+      # - $PWD/workspace:/data:ro
+    networks:
+      - network
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:11
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    networks:
+      - network
+    restart: unless-stopped
 
   comunica:
     image: comunica/jquery-widget.js:latest
