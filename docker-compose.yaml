@@ -40,7 +40,7 @@ services:
       - $PWD/workspace/virtuoso-tmp:/data
     ports:
       - 8891:8890
-      - 1111:1111
+      # - 1112:1111
     environment:
       - DBA_PASSWORD=dba
       - SPARQL_UPDATE=true
