@@ -4,8 +4,8 @@ services:
 
   api:
     environment: 
-      - ENDPOINT=http://blazegraph:8080/bigdata/sparql
+      - ENDPOINT=http://virtuoso:8890/sparql
 
   into-the-graph:
-    image: umids/into-the-graph:local-blazegraph
+    image: umids/into-the-graph:local-virtuoso
     
