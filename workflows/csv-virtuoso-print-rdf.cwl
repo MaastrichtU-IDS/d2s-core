@@ -10,6 +10,12 @@ inputs:
   - id: config_dir
     label: "CWL config directory"
     type: Directory
+  - id: cwl_workflow_filename
+    label: "CWL workflow definition file"
+    type: string
+  - id: cwl_dir
+    label: "CWL workflow directory (workflow.cwl)"
+    type: Directory
   - id: download_username
     label: "Username to download files"
     type: string?
@@ -108,6 +114,14 @@ outputs:
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
     label: "RDF Upload log file"
+  - id: cwl_workflow_rdf_description_file
+    outputSource: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
+    type: File
+    label: "CWL workflow RDF description file"
+  - id: logs_upload_cwl_rdf
+    outputSource: step6-upload-cwl-rdf/logs_rdf_upload
+    type: File
+    label: "CWL RDF Upload log file"
   - id: sparql_insert_metadata_logs
     outputSource: step5-insert-metadata/logs_execute_sparql_query_
     type: File
@@ -178,6 +192,25 @@ steps:
       sparql_output_graph_uri: hcls_metadata_graph_uri
       previous_step_output: step4-rdf-upload/logs_rdf_upload
     out: [logs_execute_sparql_query_]
+
+  # Generate RDF describing CWL workflows and upload it to final triplestore
+  step5-get-cwl-rdf:
+    run: ../steps/cwl-print-rdf.cwl
+    in:
+      cwl_workflow_filename: cwl_workflow_filename
+      cwl_dir: cwl_dir
+      previous_step_output: step4-rdf-upload/logs_rdf_upload
+    out: [cwl_workflow_rdf_description_file]
+
+  step6-upload-cwl-rdf:
+    run: ../steps/rdf-upload.cwl
+    in:
+      file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
+      sparql_triplestore_url: sparql_final_triplestore_url
+      sparql_username: sparql_final_triplestore_username
+      sparql_password: sparql_final_triplestore_password
+      output_graph_uri: hcls_metadata_graph_uri
+    out: [logs_rdf_upload]
 
   step6-execute-transform-queries:
     run: ../steps/execute-sparql-queries.cwl
