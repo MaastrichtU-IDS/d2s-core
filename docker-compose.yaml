@@ -21,6 +21,7 @@ services:
       - VIRT_Client_SQL_QUERY_TIMEOUT=14400000
       - VIRT_CLient_SQL_TXN_TIMEOUT=14400000
       - VIRT_Parameters_Timeout=7200
+      - VIRT_Parameters_TransactionAfterImageLimit=5000000000 # default is 50M
       # - VIRT_Parameters_NumberOfBuffers=10900000
       # - VIRT_Parameters_MaxDirtyBuffers=8000000
       # - VIRT_Parameters_MaxClientConnections		= 10 # Better to reduce if a lot of big requests
@@ -53,6 +54,7 @@ services:
       - VIRT_Client_SQL_QUERY_TIMEOUT=14400000
       - VIRT_CLient_SQL_TXN_TIMEOUT=14400000
       - VIRT_Parameters_Timeout=7200
+      - VIRT_Parameters_TransactionAfterImageLimit=5000000000 # default is 50M
     networks:
       - network
     restart: unless-stopped
