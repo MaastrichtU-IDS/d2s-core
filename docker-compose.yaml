@@ -20,6 +20,7 @@ services:
       - VIRT_VDB_VDBDisconnectTimeout=7200000
       - VIRT_Client_SQL_QUERY_TIMEOUT=14400000
       - VIRT_CLient_SQL_TXN_TIMEOUT=14400000
+      - VIRT_Database_ErrorLogLevel=0 # default: 7 is maximum logs
       - VIRT_Parameters_Timeout=7200
       - VIRT_Parameters_TransactionAfterImageLimit=5000000000 # default is 50M
       # - VIRT_Parameters_NumberOfBuffers=10900000
@@ -53,6 +54,7 @@ services:
       - VIRT_VDB_VDBDisconnectTimeout=7200000
       - VIRT_Client_SQL_QUERY_TIMEOUT=14400000
       - VIRT_CLient_SQL_TXN_TIMEOUT=14400000
+      - VIRT_Database_ErrorLogLevel=0 # default: 7 is maximum logs
       - VIRT_Parameters_Timeout=7200
       - VIRT_Parameters_TransactionAfterImageLimit=5000000000 # default is 50M
     networks:
