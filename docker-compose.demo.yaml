@@ -5,7 +5,9 @@ services:
   api:
     environment: 
       - ENDPOINT=http://virtuoso:8890/sparql
+      # - ENDPOINT=http://graphdb:7200/repositories/test
 
   into-the-graph:
     image: umids/into-the-graph:local-virtuoso
+    # image: umids/into-the-graph:local-graphdb
     
