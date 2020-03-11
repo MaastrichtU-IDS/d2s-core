@@ -28,6 +28,8 @@ services:
       - 8890:8890
       - 1111:1111
     environment:
+      # http://vos.openlinksw.com/owiki/wiki/VOS/VirtRDFPerformanceTuning
+      # http://docs.openlinksw.com/virtuoso/rdfperfgeneral/
       - DBA_PASSWORD=dba
       - SPARQL_UPDATE=true
       - DEFAULT_GRAPH=https://w3id.org/d2s/graph
@@ -41,9 +43,10 @@ services:
       - VIRT_Database_ErrorLogLevel=0 # default: 7 is maximum logs
       - VIRT_Parameters_Timeout=7200
       - VIRT_Parameters_TransactionAfterImageLimit=5000000000 # default is 50M
-      - VIRT_Parameters_NumberOfBuffers=493674 # To use up to 4G of RAM
-      # Each buffer caches one 8K page of data and occupies approximately 8700 bytes of memory.
-      # - VIRT_Parameters_MaxDirtyBuffers=987348
+      - VIRT_Parameters_NumberOfBuffers=1360000 # For 16G systems
+      - VIRT_Parameters_MaxDirtyBuffers=1000000
+      # - VIRT_Parameters_NumberOfBuffers=5450000 # For 64G systems
+      # - VIRT_Parameters_MaxDirtyBuffers=4000000
       # - VIRT_Parameters_MaxCheckpointRemap=4000
       # - VIRT_Parameters_MaxClientConnections		= 10 # Better to reduce if a lot of big requests
       # - VIRT_SPARQL_DefaultQuery=select distinct ?Concept where {[] a ?Concept} LIMIT 100
