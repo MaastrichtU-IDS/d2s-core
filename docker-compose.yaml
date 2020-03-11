@@ -43,6 +43,7 @@ services:
       - VIRT_Parameters_TransactionAfterImageLimit=5000000000 # default is 50M
       - VIRT_Parameters_NumberOfBuffers=5450000 # Each buffer caches one 8K page of data and occupies approximately 8700 bytes of memory.
       - VIRT_Parameters_MaxDirtyBuffers=8000000
+      - VIRT_Parameters_MaxCheckpointRemap=4000000
       # - VIRT_Parameters_MaxClientConnections		= 10 # Better to reduce if a lot of big requests
       # - VIRT_SPARQL_DefaultQuery=select distinct ?Concept where {[] a ?Concept} LIMIT 100
       # - VIRT_VDB_VDBDisconnectTimeout=7200000
@@ -75,6 +76,7 @@ services:
       - VIRT_Parameters_TransactionAfterImageLimit=5000000000 # default is 50M
       - VIRT_Parameters_NumberOfBuffers=5450000 # Each buffer caches one 8K page of data and occupies approximately 8700 bytes of memory.
       - VIRT_Parameters_MaxDirtyBuffers=8000000
+      - VIRT_Parameters_MaxCheckpointRemap=4000000
     networks:
       - network
     restart: unless-stopped
