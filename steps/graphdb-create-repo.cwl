@@ -1,7 +1,7 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: CommandLineTool
-label: Download files to process
+label: Create GraphDB repository
 doc: Docker container to automatically execute Bash script from files and URLs. See http://d2s.semanticscience.org/ for more details.
 requirements:
   # InlineJavascriptRequirement: {}
@@ -14,7 +14,7 @@ requirements:
     # Link the output dir to /data in the Docker container
 
 baseCommand: []
-arguments: ["$(inputs.cwl_dir.path)/support/graphdb_create_test_repo.sh"]
+arguments: ["$(inputs.cwl_dir.path)/support/graphdb_create_repo.sh"]
 
 inputs:
   cwl_dir:
