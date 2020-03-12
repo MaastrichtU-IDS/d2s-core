@@ -9,7 +9,7 @@
 
 [] a rep:Repository ;
     rep:repositoryID "demo" ;
-    rdfs:label "Demo repository for data2services" ;
+    rdfs:label "Data2services demo" ;
     rep:repositoryImpl [
         rep:repositoryType "graphdb:FreeSailRepository" ;
         sr:sailImpl [

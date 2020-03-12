@@ -7,5 +7,5 @@ services:
       - ENDPOINT=http://graphdb:7200/repositories/demo
 
   into-the-graph:
-    image: umids/into-the-graph:local-graphdb
+    image: umids/into-the-graph:demo
     
