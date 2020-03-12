@@ -59,10 +59,10 @@ services:
       - network
     restart: unless-stopped
 
-  virtuoso-tmp:
+  tmp-virtuoso:
     image: tenforce/virtuoso
     volumes:
-      - $PWD/workspace/virtuoso-tmp:/data
+      - $PWD/workspace/tmp-virtuoso:/data
     ports:
       - 8891:8890
       # - 1112:1111
@@ -184,7 +184,7 @@ services:
     ports: 
       - 8080:8080
     environment: 
-      - ENDPOINT=http://graphdb:7200/repositories/test
+      - ENDPOINT=http://graphdb:7200/repositories/trek
     networks:
       - network
     restart: unless-stopped
