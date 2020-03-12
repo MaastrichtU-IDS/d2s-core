@@ -43,8 +43,10 @@ services:
       - VIRT_Database_ErrorLogLevel=0 # default: 7 is maximum logs
       - VIRT_Parameters_Timeout=7200
       - VIRT_Parameters_TransactionAfterImageLimit=5000000000 # default is 50M
-      - VIRT_Parameters_NumberOfBuffers=1360000 # For 16G systems
-      - VIRT_Parameters_MaxDirtyBuffers=1000000
+      - VIRT_Parameters_NumberOfBuffers=493674 # To use up to 4G of RAM according to documentation
+      # Each buffer caches one 8K page of data and occupies approximately 8700 bytes of memory.
+      # - VIRT_Parameters_NumberOfBuffers=680000 # For 16G systems according to Optimization docs, but cause freeze
+      # - VIRT_Parameters_MaxDirtyBuffers=500000
       # - VIRT_Parameters_NumberOfBuffers=5450000 # For 64G systems
       # - VIRT_Parameters_MaxDirtyBuffers=4000000
       # - VIRT_Parameters_MaxCheckpointRemap=4000
@@ -78,7 +80,7 @@ services:
       - VIRT_Database_ErrorLogLevel=0 # default: 7 is maximum logs
       - VIRT_Parameters_Timeout=7200
       - VIRT_Parameters_TransactionAfterImageLimit=5000000000 # default is 50M
-      - VIRT_Parameters_NumberOfBuffers=493674 # To use up to 4G of RAM
+      - VIRT_Parameters_NumberOfBuffers=493674 # To use up to 4G of RAM according to documentation
       # Each buffer caches one 8K page of data and occupies approximately 8700 bytes of memory.
       # - VIRT_Parameters_MaxDirtyBuffers=987348
       # - VIRT_Parameters_MaxCheckpointRemap=4000
