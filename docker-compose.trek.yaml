@@ -33,6 +33,12 @@ services:
     environment:
       - VIRTUAL_HOST=notebooks.137.120.31.102.nip.io  # node2
 
+  rmljob:
+    environment:
+      - VIRTUAL_HOST=rmljob.137.120.31.102.nip.io  # node2
+      - VIRTUAL_PORT=8081
+
+
   # graphdb:
     # image: ontotext/graphdb:9.1.1-ee
     # environment:
