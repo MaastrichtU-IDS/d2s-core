@@ -238,8 +238,7 @@ services:
     environment:
       - JOB_MANAGER_RPC_ADDRESS=rmljob
     volumes:
-      - $PWD/workspace/input:/mnt/data
-      - $PWD/workspace/output:/mnt/output
+      - $PWD/workspace:/mnt/workspace
       - $PWD/datasets:/mnt/datasets
 
   rmltask:
@@ -253,8 +252,7 @@ services:
     environment:
       - JOB_MANAGER_RPC_ADDRESS=rmljob
     volumes:
-      - $PWD/workspace/input:/mnt/data
-      - $PWD/workspace/output:/mnt/output
+      - $PWD/workspace:/mnt/workspace
       - $PWD/datasets:/mnt/datasets
 
   # Pull Data2Services images
