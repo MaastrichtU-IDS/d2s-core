@@ -279,23 +279,3 @@ services:
 networks:
   network:
     driver: bridge
-
-
-
-# docker exec -it docker-compose_virtuoso_1 bash
-# isql-v -U dba -P password
-# ld_dir('output', '*.nq', 'http://test/');
-# rdf_loader_run();
-
-# One liner virtuoso bulk load:
-#docker exec -it docker-compose_virtuoso_1 isql-v -U dba -P password exec="ld_dir('/usr/local/virtuoso-opensource/var/lib/virtuoso/db/output', '*.nq', 'http://test/'); rdf_loader_run();"
-#docker exec -it docker-compose_virtuoso_1 isql-v -U dba -P password exec="ld_dir('output', '*.nq', 'http://test/'); rdf_loader_run();"
-
-# Reset triplestore:
-#docker exec -it docker-compose_virtuoso_1 isql-v -U dba -P password exec="RDF_GLOBAL_RESET ();"
-
-# Try to load with RdfUpload
-# docker run -it --rm --net docker-compose_network -v $PWD/workspace/output:/data umids/rdf-upload -if "/data" -url "http://virtuoso:8890" -un "dba" -pw "password"
-
-# sparql-operations works though
-# docker run -it --net docker-compose_network --rm umids/d2s-sparql-operations -op select -sp "select distinct ?Concept where {[] a ?Concept} LIMIT 1000" -ep "http://virtuoso:8890/sparql"
