@@ -239,6 +239,8 @@ services:
       - JOB_MANAGER_RPC_ADDRESS=rmljob
     volumes:
       - $PWD/workspace/input:/mnt/data
+      - $PWD/workspace/output:/mnt/output
+      - $PWD/datasets:/mnt/datasets
 
   rmltask:
     image: flink:1.9.1-scala_2.11
@@ -252,6 +254,8 @@ services:
       - JOB_MANAGER_RPC_ADDRESS=rmljob
     volumes:
       - $PWD/workspace/input:/mnt/data
+      - $PWD/workspace/output:/mnt/output
+      - $PWD/datasets:/mnt/datasets
 
   # Pull Data2Services images
   d2s-bash-exec:
