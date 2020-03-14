@@ -255,6 +255,16 @@ services:
       - $PWD/workspace:/mnt/workspace
       - $PWD/datasets:/mnt/datasets
 
+  # Access at http://localhost:7474
+  # Login: neo4j / neo4j
+  neo4j:
+    image: neo4j
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - $PWD/workspace/neo4j:/data
+
   # Pull Data2Services images
   d2s-bash-exec:
     image: umids/d2s-bash-exec:latest
@@ -270,6 +280,7 @@ services:
 
   xml2rdf:
     image: umids/xml2rdf:dev
+    # TODO: still need dev?
 
   rdf-upload:
     image: umids/rdf-upload:latest
