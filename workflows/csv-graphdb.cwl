@@ -10,25 +10,13 @@ inputs:
   - id: config_dir
     label: "CWL config directory"
     type: Directory
-  - id: cwl_workflow_filename
-    label: "CWL workflow definition file"
-    type: string
-  - id: cwl_dir
-    label: "CWL workflow directory (workflow.cwl)"
-    type: Directory
-  - id: download_username
-    label: "Username to download files"
-    type: string?
-  - id: download_password
-    label: "Password to download files"
-    type: string?
   - id: input_data_jdbc
     label: "JDBC URL for database connexion"
     type: string
   # tmp RDF4J server SPARQL endpoint to load generic RDF
-  - id: sparql_tmp_triplestore_url  # TODO: remove?
-    label: "URL of tmp triplestore"
-    type: string
+  # - id: sparql_tmp_triplestore_url  # TODO: remove?
+  #   label: "URL of tmp triplestore"
+  #   type: string
   - id: tmp_triplestore_container_id
     label: "ID of the tmp triplestore Docker container"
     type: string
@@ -67,31 +55,12 @@ inputs:
   - id: sparql_final_graph_uri
     label: "Graph URI of transformed RDF"
     type: string
-  - id: sparql_insert_metadata_path
-    label: "Path to queries to insert metadata"
-    type: string
   - id: sparql_transform_queries_path
     label: "Path to queries to transform generic RDF"
     type: string
-  - id: sparql_compute_hcls_path
-    label: "Path to queries to compute HCLS stats"
-    type: string
-    default: https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats
-  - id: hcls_metadata_graph_uri
-    label: "URI of the HCLS metadata graph"
-    type: string
-    default: https://w3id.org/d2s/metadata
     
 
 outputs:
-  # - id: download_dir
-  #   outputSource: step1-d2s-download/download_dir
-  #   type: Directory
-  #   label: "Downloaded files"
-  # - id: logs_download_dataset
-  #   outputSource: step1-d2s-download/logs_download_dataset
-  #   type: File
-  #   label: "Download script log file"
   - id: logs_autor2rml
     outputSource: step2-autor2rml/logs_autor2rml
     type: File
@@ -120,37 +89,13 @@ outputs:
     outputSource: step4-rdf-upload/logs_rdf_upload
     type: File
     label: "RDF Upload log file"
-  - id: cwl_workflow_rdf_description_file
-    outputSource: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
-    type: File
-    label: "CWL workflow RDF description file"
-  - id: logs_upload_cwl_rdf
-    outputSource: step6-upload-cwl-rdf/logs_rdf_upload
-    type: File
-    label: "CWL RDF Upload log file"
-  - id: sparql_insert_metadata_logs
-    outputSource: step5-insert-metadata/logs_execute_sparql_query_
-    type: File
-    label: "SPARQL insert metadata log file"
   - id: sparql_transform_queries_logs
     outputSource: step6-execute-transform-queries/logs_execute_sparql_query_
     type: File
     label: "SPARQL transform queries log file"
-  - id: sparql_hcls_statistics_logs
-    outputSource: step7-compute-hcls-stats/logs_execute_sparql_query_
-    type: File
-    label: "SPARQL HCLS statistics log file"
 
 
 steps:
-  # step1-d2s-download:
-  #   run: ../steps/d2s-bash-download.cwl
-  #   in:
-  #     config_dir: config_dir
-  #     download_username: download_username
-  #     download_password: download_password
-  #   out: [download_dir, logs_download_dataset]
-
   step2-autor2rml:
     run: ../steps/run-autor2rml.cwl
     in:
@@ -197,38 +142,6 @@ steps:
   #   }
   # ]
 
-  step5-insert-metadata:
-    run: ../steps/execute-sparql-queries.cwl
-    in:
-      config_dir: config_dir
-      sparql_queries_path: sparql_insert_metadata_path
-      sparql_triplestore_url: sparql_final_triplestore_url
-      sparql_username: sparql_final_triplestore_username
-      sparql_password: sparql_final_triplestore_password
-      sparql_input_graph_uri: sparql_final_graph_uri
-      sparql_output_graph_uri: hcls_metadata_graph_uri
-      previous_step_output: step4-rdf-upload/logs_rdf_upload
-    out: [logs_execute_sparql_query_]
-
-  # Generate RDF describing CWL workflows and upload it to final triplestore
-  step5-get-cwl-rdf:
-    run: ../steps/cwl-print-rdf.cwl
-    in:
-      cwl_workflow_filename: cwl_workflow_filename
-      cwl_dir: cwl_dir
-      previous_step_output: step4-rdf-upload/logs_rdf_upload
-    out: [cwl_workflow_rdf_description_file]
-
-  step6-upload-cwl-rdf:
-    run: ../steps/rdf-upload.cwl
-    in:
-      file_to_load: step5-get-cwl-rdf/cwl_workflow_rdf_description_file
-      sparql_triplestore_url: sparql_final_triplestore_url
-      sparql_username: sparql_final_triplestore_username
-      sparql_password: sparql_final_triplestore_password
-      output_graph_uri: hcls_metadata_graph_uri
-    out: [logs_rdf_upload]
-
   step6-execute-transform-queries:
     run: ../steps/execute-sparql-queries.cwl
     in:
@@ -241,19 +154,6 @@ steps:
       sparql_output_graph_uri: sparql_final_graph_uri
       sparql_service_url: sparql_tmp_service_url
       previous_step_output: step4-rdf-upload/logs_rdf_upload
-    out: [logs_execute_sparql_query_]
-
-  step7-compute-hcls-stats:
-    run: ../steps/execute-sparql-queries-url.cwl
-    in: # No sparql_queries_path, HCLS stats is the default
-      # config_dir: config_dir
-      sparql_queries_path: sparql_compute_hcls_path
-      sparql_triplestore_url: sparql_final_triplestore_url
-      sparql_username: sparql_final_triplestore_username
-      sparql_password: sparql_final_triplestore_password
-      sparql_input_graph_uri: sparql_final_graph_uri
-      sparql_output_graph_uri: hcls_metadata_graph_uri
-      previous_step_output: step6-execute-transform-queries/logs_execute_sparql_query_
     out: [logs_execute_sparql_query_]
 
 
