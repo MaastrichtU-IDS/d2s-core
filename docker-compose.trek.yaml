@@ -33,9 +33,9 @@ services:
     environment:
       - VIRTUAL_HOST=notebooks.137.120.31.102.nip.io  # node2
 
-  rmljob:
+  rmlstreamer:
     environment:
-      - VIRTUAL_HOST=rmljob.137.120.31.102.nip.io  # node2
+      - VIRTUAL_HOST=rmlstreamer.137.120.31.102.nip.io  # node2
       - VIRTUAL_PORT=8081
 
 

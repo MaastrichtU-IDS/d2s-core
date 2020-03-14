@@ -228,7 +228,7 @@ services:
     network_mode: "host"
     restart: unless-stopped
 
-  rmljob:
+  rmlstreamer:
     image: flink:1.9.1-scala_2.11
     expose:
       - "6123"
@@ -236,7 +236,7 @@ services:
       - "8078:8081"
     command: jobmanager
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=rmljob
+      - JOB_MANAGER_RPC_ADDRESS=rmlstreamer
     volumes:
       - $PWD/workspace:/mnt/workspace
       - $PWD/datasets:/mnt/datasets
@@ -247,10 +247,10 @@ services:
       - "6121"
       - "6122"
     depends_on:
-      - rmljob
+      - rmlstreamer
     command: taskmanager
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=rmljob
+      - JOB_MANAGER_RPC_ADDRESS=rmlstreamer
     volumes:
       - $PWD/workspace:/mnt/workspace
       - $PWD/datasets:/mnt/datasets
