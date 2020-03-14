@@ -75,6 +75,10 @@ steps:
       previous_step_output: step1-insert-metadata/logs_execute_sparql_query_
     out: [logs_execute_sparql_query_]
 
+  # step3-export-rdf-dump:
+  # step4-export-hdt-file
+  # step5-ldfserver-archival
+
 
 $namespaces:
   s: "http://schema.org/"
