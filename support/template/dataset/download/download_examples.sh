@@ -2,9 +2,6 @@
 
 #### Download files
 
-wget -N https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-template/master/datasets/cohd/download/cohd-sample/concepts.tsv
-wget -N https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-transform-template/master/datasets/cohd/download/cohd-sample/paired_concept_counts_associations.tsv
-
 ## SIMPLE DOWNLOAD only if file as changed
 wget -N https://github.com/MaastrichtU-IDS/d2s-download/raw/master/datasets/stitch-sample/9606.protein_chemical.links.detailed.v5.0.tsv.gz
 
