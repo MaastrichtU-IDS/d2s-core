@@ -63,9 +63,9 @@ services:
     image: tenforce/virtuoso
     volumes:
       - $PWD/workspace/tmp-virtuoso:/data
-    ports:
-      - 8891:8890
-      - 1112:1111
+    # ports:
+    #   # - 8891:8890
+    #   # - 1112:1111
     environment:
       - DBA_PASSWORD=dba
       - SPARQL_UPDATE=true
