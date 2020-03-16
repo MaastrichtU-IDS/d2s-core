@@ -13,7 +13,7 @@ services:
     command: -Dgraphdb.home=/opt/graphdb/home -Dgraphdb.workbench.cors.enable=true
     volumes:
       - $PWD/workspace/graphdb:/opt/graphdb/home
-      - $PWD/workspace/graphdb-import:/root/graphdb-import
+      - $PWD/workspace/import:/root/graphdb-import
     ports:
       - 7200:7200
     networks:
