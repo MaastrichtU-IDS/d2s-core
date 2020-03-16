@@ -1,7 +1,7 @@
 
 # Final RDF4J server SPARQL endpoint to load the BioLink RDF
-# triplestore_url: https://graphdb.dumontierlab.com/repositories/test-dqa
-# triplestore_url: https://graphdb.dumontierlab.com/repositories/test-dqa/statements
+# triplestore_url: http://graphdb.dumontierlab.com/repositories/test-dqa
+# triplestore_url: http://graphdb.dumontierlab.com/repositories/test-dqa/statements
 
 # To test different triplestores
 triplestore_url: http://graphdb:7200/repositories/test/statements
@@ -14,7 +14,7 @@ triplestore_password: password
 output_graph_uri:  https://w3id.org/d2s/graph/dqa
 
 # analyzed_sparql_endpoint: http://sparql.wikipathways.org/sparql
-analyzed_sparql_endpoint: https://graphdb.dumontierlab.com/repositories/test-dqa
+analyzed_sparql_endpoint: http://graphdb.dumontierlab.com/repositories/test-dqa
 analyzed_graph_uri: https://w3id.org/data2services/graph/biolink/hgnc
 
 

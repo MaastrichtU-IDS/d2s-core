@@ -17,13 +17,13 @@ services:
     environment: 
       - ENDPOINT=http://graphdb:7200/repositories/trek
       - VIRTUAL_HOST=api.trek.semanticscience.org
-      - LETSENCRYPT_HOST=api.trek.semanticscience.org
+      # - LETSENCRYPT_HOST=api.trek.semanticscience.org
 
   into-the-graph:
     image: umids/into-the-graph:trek
     environment:
       - VIRTUAL_HOST=trek.semanticscience.org
-      - LETSENCRYPT_HOST=trek.semanticscience.org
+      # - LETSENCRYPT_HOST=trek.semanticscience.org
 
   filebrowser:
     environment:
