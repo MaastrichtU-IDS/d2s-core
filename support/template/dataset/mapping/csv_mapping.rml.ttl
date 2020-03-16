@@ -50,7 +50,7 @@
 
 <#MapEvidenceType> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -109,7 +109,7 @@
 
 <#MapConceptCountAttribute> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -135,7 +135,7 @@
   ] .
 <#MapConceptCountAttributeValue> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -149,7 +149,7 @@
 
 <#MapConceptPrevalenceAttribute> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -175,7 +175,7 @@
   ] .
 <#MapConceptPrevalenceAttributeValue> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -189,7 +189,7 @@
 
 <#MapTtestResultsAttribute> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -215,7 +215,7 @@
   ] .
 <#MapTtestResultsAttributeValue> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -230,7 +230,7 @@
 
 <#MapTtestPvalueAttribute> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -256,7 +256,7 @@
   ] .
 <#MapTtestPvalueAttributeValue> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -270,7 +270,7 @@
 
 <#MapRelFreq1Attribute> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -296,7 +296,7 @@
   ] .
 <#MapRelFreq1AttributeValue> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -310,7 +310,7 @@
 
 <#MapRelFreq2Attribute> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -336,7 +336,7 @@
   ] .
 <#MapRelFreq2AttributeValue> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -350,7 +350,7 @@
 
 <#MapExpectedCountAttribute> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -376,7 +376,7 @@
   ] .
 <#MapExpectedCountAttributeValue> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -390,7 +390,7 @@
 
 <#MapLnRatioAttribute> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
@@ -415,7 +415,7 @@
   ] .
 <#MapLnRatioAttributeValue> a rr:TriplesMap;    
   rml:logicalSource [ 
-    rml:source "/mnt/workspace/input/cohd/paired_concept_counts_associations.csv";
+    rml:source "/mnt/workspace/input/$dataset_id/paired_concept_counts_associations.csv";
     rml:referenceFormulation ql:CSV
   ];
   rr:subjectMap [ 
