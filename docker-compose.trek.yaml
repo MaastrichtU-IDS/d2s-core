@@ -17,17 +17,19 @@ services:
     environment: 
       - ENDPOINT=http://graphdb:7200/repositories/trek
       - VIRTUAL_HOST=api.trek.semanticscience.org
-    
-  filebrowser:
-    environment:
-      - VIRTUAL_HOST=download.137.120.31.102.nip.io
-    #   - VIRTUAL_HOST=download.semanticscience.org
-    #   - LETSENCRYPT_HOST=download.semanticscience.org
+      - LETSENCRYPT_HOST=api.trek.semanticscience.org
 
   into-the-graph:
     image: umids/into-the-graph:trek
     environment:
       - VIRTUAL_HOST=trek.semanticscience.org
+      - LETSENCRYPT_HOST=trek.semanticscience.org
+
+  filebrowser:
+    environment:
+      - VIRTUAL_HOST=download.137.120.31.102.nip.io
+    #   - VIRTUAL_HOST=download.semanticscience.org
+    #   - LETSENCRYPT_HOST=download.semanticscience.org
 
   notebook:
     environment:
@@ -37,7 +39,6 @@ services:
     environment:
       - VIRTUAL_HOST=rmlstreamer.137.120.31.102.nip.io  # node2
       - VIRTUAL_PORT=8081
-
 
   # graphdb:
     # image: ontotext/graphdb:9.1.1-ee
