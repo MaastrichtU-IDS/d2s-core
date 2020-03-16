@@ -13,7 +13,7 @@
     rml:logicalSource [ 
         rml:source "/mnt/workspace/input/$dataset_id/drugbank.xml";
         rml:referenceFormulation ql:XPath;
-        rml:iterator "drugbank/drug/general-references/articles/article";
+        rml:iterator "/drugbank/drug/general-references/articles/article";
     ];
 
     rr:subjectMap [
