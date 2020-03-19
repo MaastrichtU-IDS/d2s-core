@@ -20,10 +20,14 @@ services:
       # - LETSENCRYPT_HOST=api.trek.semanticscience.org
 
   into-the-graph:
-    image: umids/into-the-graph:trek
     environment:
       - VIRTUAL_HOST=trek.semanticscience.org
       # - LETSENCRYPT_HOST=trek.semanticscience.org
+
+  comunica:
+    environment:
+      - VIRTUAL_HOST=comunica.137.120.31.102.nip.io
+
 
   filebrowser:
     environment:
@@ -40,6 +44,7 @@ services:
       - VIRTUAL_HOST=rmlstreamer.137.120.31.102.nip.io  # node2
       - VIRTUAL_PORT=8081
 
+
   # graphdb:
     # image: ontotext/graphdb:9.1.1-ee
     # environment:
@@ -51,5 +56,3 @@ services:
     #   - BLAZEGRAPH_UID=${UID}
     #   - BLAZEGRAPH_GID=${GID}
     #   - VIRTUAL_HOST=d2s-blazegraph.137.120.31.101.nip.io
-
-  # comunica:

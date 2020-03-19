@@ -118,6 +118,23 @@ services:
     networks:
       - network
 
+  # http://localhost:10035
+  # Default login: test / xyzzy
+  fuseki:
+    restart: unless-stopped
+    image: stain/jena-fuseki:3.14.0
+    environment: 
+      - FUSEKI_DATASET_1=demo
+      - ADMIN_PASSWORD=password 
+      - JVM_ARGS=-Xmx2g # Default: 1200MiB
+    ports:
+      - 3030:3030
+    volumes:
+      - $PWD/workspace/fuseki:/fuseki
+      - $PWD/workspace/import:/staging
+    networks:
+      - network
+
   # http://localhost:8086
   # Default login: admin / Passw0rd1
   anzograph:
@@ -161,7 +178,7 @@ services:
       - 8084:80
     volumes:
       - $PWD/workspace/comunica-settings.json:/usr/share/nginx/html/queries.json
-      - $PWD/workspace/hdt-archives:/data
+      - $PWD/workspace/dumps/hdt:/data
       # - $PWD/workspace/RWStore.properties:/RWStore.properties
     networks:
       - network
@@ -207,7 +224,7 @@ services:
     ports:
       - 8081:80
     volumes:
-      - $PWD/workspace/download/:/opt/www/files/
+      - $PWD/workspace/dumps/rdf:/opt/www/files
     restart: unless-stopped
 
   into-the-graph:

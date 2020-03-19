@@ -5,7 +5,4 @@ services:
   api:
     environment: 
       - ENDPOINT=http://graphdb:7200/repositories/demo
-
-  into-the-graph:
-    image: umids/into-the-graph:demo
     
