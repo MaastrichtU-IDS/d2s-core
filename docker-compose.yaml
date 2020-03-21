@@ -12,8 +12,8 @@ services:
     # image: ontotext/graphdb:9.1.1-ee
     command: -Dgraphdb.home=/opt/graphdb/home -Dgraphdb.workbench.cors.enable=true
     volumes:
-      - $PWD/workspace/graphdb:/opt/graphdb/home
-      - $PWD/workspace/import:/root/graphdb-import
+      - ../workspace/graphdb:/opt/graphdb/home
+      - ../workspace/import:/root/graphdb-import
     ports:
       - 7200:7200
     networks:
@@ -23,7 +23,7 @@ services:
   virtuoso:
     image: tenforce/virtuoso
     volumes:
-      - $PWD/workspace/virtuoso:/data
+      - ../workspace/virtuoso:/data
     ports:
       - 8890:8890
       - 1111:1111
@@ -62,7 +62,7 @@ services:
   tmp-virtuoso:
     image: tenforce/virtuoso
     volumes:
-      - $PWD/workspace/tmp-virtuoso:/data
+      - ../workspace/tmp-virtuoso:/data
     # ports:
     #   # - 8891:8890
     #   # - 1112:1111
@@ -94,8 +94,8 @@ services:
     restart: unless-stopped
     image: lyrasis/blazegraph:2.1.5
     volumes:
-      - $PWD/workspace/blazegraph:/data
-      # - $PWD/workspace/RWStore.properties:/RWStore.properties
+      - ../workspace/blazegraph:/data
+      # - ../workspace/RWStore.properties:/RWStore.properties
     ports:
       - 8082:8080
     networks:
@@ -114,7 +114,7 @@ services:
       - 10000-10035:10000-10035
     shm_size: 1g
     # volumes:
-    #   - $PWD/workspace/allegrograph:/data
+    #   - ../workspace/allegrograph:/data
     networks:
       - network
 
@@ -130,8 +130,8 @@ services:
     ports:
       - 3030:3030
     volumes:
-      - $PWD/workspace/fuseki:/fuseki
-      - $PWD/workspace/import:/staging
+      - ../workspace/fuseki:/fuseki
+      - ../workspace/import:/staging
     networks:
       - network
 
@@ -144,7 +144,7 @@ services:
       - 8086:8080
       # - 8443:8443
     # volumes:
-    #   - $PWD/workspace/anzograph:/opt/anzograph
+    #   - ../workspace/anzograph:/opt/anzograph
     networks:
       - network
 
@@ -156,8 +156,8 @@ services:
     command: /bin/bash
     tty: true
     volumes:
-      - $PWD/workspace/input:/data:ro
-      # - $PWD/workspace:/data:ro
+      - ../workspace/input:/data:ro
+      # - ../workspace:/data:ro
     networks:
       - network
     restart: unless-stopped
@@ -177,9 +177,9 @@ services:
     ports:
       - 8084:80
     volumes:
-      - $PWD/workspace/comunica-settings.json:/usr/share/nginx/html/queries.json
-      - $PWD/workspace/dumps/hdt:/data
-      # - $PWD/workspace/RWStore.properties:/RWStore.properties
+      - ../workspace/comunica-settings.json:/usr/share/nginx/html/queries.json
+      - ../workspace/dumps/hdt:/data
+      # - ../workspace/RWStore.properties:/RWStore.properties
     networks:
       - network
     restart: unless-stopped
@@ -190,8 +190,8 @@ services:
     ports:
       - 8085:3000
     volumes:
-      - $PWD/workspace/hdt-archives:/data
-      - $PWD/workspace/ldfserver-config.json:/tmp/config.json
+      - ../workspace/hdt-archives:/data
+      - ../workspace/ldfserver-config.json:/tmp/config.json
     networks:
       - network
     restart: unless-stopped
@@ -211,7 +211,7 @@ services:
     ports: 
       - 8888:8888
     volumes:
-      - $PWD/workspace/notebooks:/notebooks
+      - ../workspace/notebooks:/notebooks
     environment: 
       - PASSWORD=password
       - GIT_URL=https://github.com/vemonet/translator-sparql-notebook
@@ -224,7 +224,7 @@ services:
     ports:
       - 8081:80
     volumes:
-      - $PWD/workspace/dumps/rdf:/opt/www/files
+      - ../workspace/dumps/rdf:/opt/www/files
     restart: unless-stopped
 
   into-the-graph:
@@ -255,8 +255,8 @@ services:
     environment:
       - JOB_MANAGER_RPC_ADDRESS=rmlstreamer
     volumes:
-      - $PWD/workspace:/mnt/workspace
-      - $PWD/datasets:/mnt/datasets
+      - ../workspace:/mnt/workspace
+      - ../datasets:/mnt/datasets
 
   rmltask:
     image: flink:1.9.1-scala_2.11
@@ -269,8 +269,8 @@ services:
     environment:
       - JOB_MANAGER_RPC_ADDRESS=rmlstreamer
     volumes:
-      - $PWD/workspace:/mnt/workspace
-      - $PWD/datasets:/mnt/datasets
+      - ../workspace:/mnt/workspace
+      - ../datasets:/mnt/datasets
 
   # Access at http://localhost:7474
   # Login: neo4j / neo4j
@@ -280,7 +280,7 @@ services:
       - 7474:7474
       - 7687:7687
     volumes:
-      - $PWD/workspace/neo4j:/data
+      - ../workspace/neo4j:/data
 
   # Pull Data2Services images
   d2s-bash-exec:
