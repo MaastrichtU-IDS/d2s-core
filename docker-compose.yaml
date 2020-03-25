@@ -149,12 +149,17 @@ services:
       - network
 
   drill:
-    image: apache/drill:1.17.0
-    # image: umids/apache-drill:1.17.0-100G
+    image: umids/apache-drill:1.17.0
+    # image: apache/drill:1.17.0
+    # command: /bin/bash
     ports:
       - 8048:8047
-    command: /bin/bash
     tty: true
+    # environment: # Define this part in the deployment docker-compose.yaml
+    #   - DRILLBIT_MAX_PROC_MEM=8G
+    #   - DRILL_HEAP=4G
+    #   - DRILL_MAX_DIRECT_MEMORY=4G
+    #   - DRILLBIT_CODE_CACHE_SIZE=1G
     volumes:
       - ../workspace/input:/data:ro
       # - ../workspace:/data:ro
