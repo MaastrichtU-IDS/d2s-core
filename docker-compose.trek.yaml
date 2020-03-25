@@ -10,13 +10,12 @@ services:
 
   drill:
     environment:
-      environment:
-      - DRILLBIT_MAX_PROC_MEM=128G
-      - DRILL_HEAP=64G
-      - DRILL_MAX_DIRECT_MEMORY=64G
-      - DRILLBIT_CODE_CACHE_SIZE=2G
-      - VIRTUAL_HOST=drill.137.120.31.102.nip.io  # node2
-      - VIRTUAL_PORT=8047
+    - DRILLBIT_MAX_PROC_MEM=128G
+    - DRILL_HEAP=64G
+    - DRILL_MAX_DIRECT_MEMORY=64G
+    - DRILLBIT_CODE_CACHE_SIZE=2G
+    - VIRTUAL_HOST=drill.137.120.31.102.nip.io  # node2
+    - VIRTUAL_PORT=8047
 
   api:
     environment: 
