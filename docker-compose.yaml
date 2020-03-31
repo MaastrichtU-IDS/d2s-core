@@ -251,7 +251,8 @@ services:
     restart: unless-stopped
 
   rmlstreamer:
-    image: flink:1.9.1-scala_2.11
+    image: umids/flink-rmlstreamer
+    # image: flink:1.9.1-scala_2.11
     expose:
       - "6123"
     ports:
