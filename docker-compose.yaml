@@ -265,7 +265,7 @@ services:
       - ../datasets:/mnt/datasets
 
   rmltask:
-    image: flink:1.9.1-scala_2.11
+    image: umids/flink-rmlstreamer
     expose:
       - "6121"
       - "6122"
