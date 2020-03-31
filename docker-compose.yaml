@@ -251,7 +251,7 @@ services:
     restart: unless-stopped
 
   rmlstreamer:
-    image: umids/flink-rmlstreamer
+    image: umids/flink-rmlstreamer:latest
     # image: flink:1.9.1-scala_2.11
     expose:
       - "6123"
@@ -265,7 +265,7 @@ services:
       - ../datasets:/mnt/datasets
 
   rmltask:
-    image: umids/flink-rmlstreamer
+    image: umids/flink-rmlstreamer:latest
     expose:
       - "6121"
       - "6122"
@@ -277,6 +277,17 @@ services:
     volumes:
       - ../workspace:/mnt/workspace
       - ../datasets:/mnt/datasets
+
+  # At http://localhost:8090
+  limes-server:
+    image: dicegroup/limes:latest
+    ports:
+      - "8090:8080"
+    # command: java -jar limes.jar
+    volumes:
+      - ../workspace:/mnt/workspace
+      - ../datasets:/mnt/datasets
+    
 
   # Access at http://localhost:7474
   # Login: neo4j / neo4j
