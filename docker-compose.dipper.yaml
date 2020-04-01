@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+
+  into-the-graph:
+    environment:
+      - VIRTUAL_HOST=trek.semanticscience.org
+      # - LETSENCRYPT_HOST=trek.semanticscience.org
+
+  notebook:
+    environment:
+      - VIRTUAL_HOST=covid-kg-notebooks.137.120.31.102.nip.io  # node2
+      - GIT_URL=https://github.com/MaastrichtU-IDS/covid-kg-notebooks
