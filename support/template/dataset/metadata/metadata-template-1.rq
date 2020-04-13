@@ -68,9 +68,11 @@ INSERT {
 
       # TODO: What should be data2services BioLink RDF license?
       dct:license <$rdf_license> ;           
-      void:exampleResource <https://identifiers.org/drugbank:DB00001> ;     
+
+      # void:exampleResource <https://identifiers.org/drugbank:DB00001> ;     
+
       # TODO: should we point createdWith to the SPARQL mappings? Or d2s-cli URL?
-      pav:createdWith <https://github.com/MaastrichtU-IDS/d2s-cwl-workflows/tree/master/support/template/dataset/mapping> ;  
+      pav:createdWith <https://d2s.semanticscience.org/> ;  
 
       # Which publisher for RDF BioLink Dataset? IDS by default
       dct:publisher ?rdfPublisherUri ;  
@@ -81,8 +83,8 @@ INSERT {
       void:vocabulary <https://w3id.org/biolink/vocab/> ;
 
       dcat:accessURL <https://graphdb.dumontierlab.com/graphs> ;
-      dcat:downloadURL <https://graphdb.dumontierlab.com/repositories/ncats-red-kg/statements> ;
-      void:dataDump <https://graphdb.dumontierlab.com/repositories/ncats-red-kg/statements> ;
+      dcat:downloadURL <https://graphdb.dumontierlab.com/repositories/covid-kg/statements> ;
+      void:dataDump <https://graphdb.dumontierlab.com/repositories/covid-kg/statements> ;
       dcat:mediaType "application/n-quads" ;
 
       dct:title ?rdfDctTitle ;
@@ -103,9 +105,9 @@ INSERT {
     ?distributionSourceUri 
       a dcat:Distribution ;
       dct:format "application/xml" ;
-      dcat:downloadURL
-        <https://www.drugbank.ca/releases/5-1-1/downloads/all-full-database> ;
-      idot:exampleIdentifier "DB00001"^^xsd:string ;
+      dcat:downloadURL <https://www.drugbank.ca/releases/5-1-1/downloads/all-full-database> ;
+      
+      # idot:exampleIdentifier "DB00001"^^xsd:string ;
 
       # TODO: should we put issues?
       
