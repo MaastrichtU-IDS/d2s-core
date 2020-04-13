@@ -48,6 +48,10 @@ services:
       - VIRTUAL_HOST=rmlstreamer.137.120.31.102.nip.io  # node2
       - VIRTUAL_PORT=8081
 
+  nanobench:
+    environment:
+      - VIRTUAL_HOST=nanobench.137.120.31.102.nip.io  # node2
+      - VIRTUAL_PORT=37373
 
   # graphdb:
     # image: ontotext/graphdb:9.1.1-ee
