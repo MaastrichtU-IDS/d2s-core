@@ -282,12 +282,20 @@ services:
   limes-server:
     image: dicegroup/limes:latest
     ports:
-      - "8090:8080"
+      - 8090:8080
     # command: java -jar limes.jar
     volumes:
       - ../workspace:/mnt/workspace
       - ../datasets:/mnt/datasets
     
+  nanobench:
+    image: nanopub/nanobench
+    ports:
+      - 37373:37373
+    volumes:
+      - ../workspace/.nanopub:/root/.nanopub
+    environment:
+      - NANOBENCH_API_INSTANCES=http://grlc.np.dumontierlab.com/api/local/local/ http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/ http://130.60.24.146:7881/api/local/local/
 
   # Access at http://localhost:7474
   # Login: neo4j / neo4j
