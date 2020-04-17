@@ -263,6 +263,8 @@ services:
     volumes:
       - ../workspace:/mnt/workspace
       - ../datasets:/mnt/datasets
+    networks:
+      - network
 
   rmltask:
     image: umids/flink-rmlstreamer:latest
@@ -277,6 +279,15 @@ services:
     volumes:
       - ../workspace:/mnt/workspace
       - ../datasets:/mnt/datasets
+    networks:
+      - network
+
+  mapeathor:
+    container_name: mapeathor
+    image: oegdataintegration/mapeathor:1.0.0
+    volumes:
+      - ../datasets:/Mapeathor/data
+      - ../workspace/mapeathor:/Mapeathor/result
 
   # At http://localhost:8090
   limes-server:
@@ -287,6 +298,8 @@ services:
     volumes:
       - ../workspace:/mnt/workspace
       - ../datasets:/mnt/datasets
+    networks:
+      - network
     
   nanobench:
     image: nanopub/nanobench
@@ -306,6 +319,8 @@ services:
       - 7687:7687
     volumes:
       - ../workspace/neo4j:/data
+    networks:
+      - network
 
   # Pull Data2Services images
   d2s-bash-exec:
