@@ -240,6 +240,21 @@ services:
       - network
     restart: unless-stopped
 
+  docket:
+    image: "umids/docket:latest"
+    ports:
+      - 8002:8888
+    volumes:
+      - ../workspace/docket:/data
+    environment:
+      DEBUG: 1
+      PYTHONUNBUFFERED: 1
+      PYTHONPATH: '/app'
+      # JUPYTER_ENABLE_LAB: 'yes'
+    networks:
+      - network
+    restart: unless-stopped
+
   filebrowser:
     image: umids/nginx-file-browser:latest
     ports:
