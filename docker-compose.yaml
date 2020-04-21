@@ -224,6 +224,22 @@ services:
       - network
     restart: unless-stopped
 
+  # Web app on 8001, API on 8000
+  biothings-studio:
+    image: biothings/biothings-studio:0.2a
+    ports: 
+      - 8001:8080
+      - 8000:8000
+      - 9000:9000
+      - 7022:7022
+      - 9200:9200
+      - 27017:27017
+    volumes:
+      - ../workspace/biothings:/data
+    networks:
+      - network
+    restart: unless-stopped
+
   filebrowser:
     image: umids/nginx-file-browser:latest
     ports:
