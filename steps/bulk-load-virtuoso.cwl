@@ -7,7 +7,7 @@ baseCommand: [docker, exec]
 
 # arguments: [ "-i", "virtuoso","bash", "-c", "cd /data && ./load.sh $(inputs.nquads_file.dirname) rdf_output.nq http://bio2rdf.org vload.log $(inputs.triple_store_password)"]
 
-# arguments: [ "-i", "d2s-cwl-workflows_virtuoso_1","bash", "-c", "/tmp/load.sh $(inputs.file_to_load.dirname) rdf_output.nq http://w3id.org/data2services vload.log $(inputs.sparql_password)"]
+# arguments: [ "-i", "d2s-virtuoso","bash", "-c", "/tmp/load.sh $(inputs.file_to_load.dirname) rdf_output.nq http://w3id.org/data2services vload.log $(inputs.sparql_password)"]
 
 arguments: [ "-i", "$(inputs.virtuoso_container_id)", "bash", "-c", "/load.sh $(inputs.virtuoso_load_dir) $(inputs.file_to_load.basename) $(inputs.default_graph) $(inputs.file_to_load.basename)_vload.log $(inputs.sparql_password)" ]
 
@@ -45,13 +45,13 @@ outputs:
 # requirements:
 #   InlineJavascriptRequirement: {}
 
-# arguments: [ "d2s-cwl-workflows_virtuoso_1", "isql-v", "-U" , "dba", "-P", "password",
+# arguments: [ "d2s-virtuoso", "isql-v", "-U" , "dba", "-P", "password",
 # "$(exec=\"ld_dir('/usr/local/virtuoso-opensource/var/lib/virtuoso/db/output','*.nq','http://test/');rdf_loader_run();\")" ]
 
 
 
 # arguments:
-#   - valueFrom: "d2s-cwl-workflows_virtuoso_1"
+#   - valueFrom: "d2s-virtuoso"
 #   - valueFrom: "isql-v"
 #   - prefix: -U
 #     valueFrom: "dba"

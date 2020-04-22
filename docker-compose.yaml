@@ -3,6 +3,7 @@ version: "3"
 services:
 
   graphdb:
+    container_name: d2s-graphdb
     build:
       context: ./support/graphdb
       dockerfile: Dockerfile
@@ -21,6 +22,7 @@ services:
     restart: unless-stopped
 
   virtuoso:
+    container_name: d2s-virtuoso
     image: umids/d2s-virtuoso:latest
     # image: tenforce/virtuoso:1.3.2-virtuoso7.2.5.1
     volumes:
@@ -61,6 +63,7 @@ services:
     restart: unless-stopped
 
   tmp-virtuoso:
+    container_name: d2s-tmp-virtuoso
     image: umids/d2s-virtuoso:latest
     # image: tenforce/virtuoso:1.3.2-virtuoso7.2.5.1
     volumes:
@@ -93,7 +96,7 @@ services:
   # http://localhost:8889/bigdata/#splash
   # https://hub.docker.com/r/lyrasis/blazegraph
   blazegraph:
-    restart: unless-stopped
+    container_name: d2s-blazegraph
     image: lyrasis/blazegraph:2.1.5
     volumes:
       - ../workspace/blazegraph:/data
@@ -102,6 +105,7 @@ services:
       - 8082:8080
     networks:
       - network
+    restart: unless-stopped
     # environment:
     #   # Work for Ubuntu ($UID=1000 and 1000 in $GROUPS)
     #   - BLAZEGRAPH_UID=${UID}
@@ -110,7 +114,7 @@ services:
   # http://localhost:10035
   # Default login: test / xyzzy
   allegrograph:
-    restart: unless-stopped
+    container_name: d2s-allegrograph
     image: franzinc/agraph:v6.6.0
     ports:
       - 10000-10035:10000-10035
@@ -119,11 +123,12 @@ services:
     #   - ../workspace/allegrograph:/data
     networks:
       - network
+    restart: unless-stopped
 
   # http://localhost:10035
   # Default login: test / xyzzy
   fuseki:
-    restart: unless-stopped
+    container_name: d2s-fuseki
     image: stain/jena-fuseki:3.14.0
     environment: 
       - FUSEKI_DATASET_1=demo
@@ -136,11 +141,12 @@ services:
       - ../workspace/import:/staging
     networks:
       - network
+    restart: unless-stopped
 
   # http://localhost:8086
   # Default login: admin / Passw0rd1
   anzograph:
-    restart: unless-stopped
+    container_name: d2s-anzograph
     image: cambridgesemantics/anzograph:2.0.2 
     ports:
       - 8086:8080
@@ -149,8 +155,10 @@ services:
     #   - ../workspace/anzograph:/opt/anzograph
     networks:
       - network
+    restart: unless-stopped
 
   drill:
+    container_name: d2s-drill
     image: umids/apache-drill:1.17.0
     # image: apache/drill:1.17.0
     # command: /bin/bash
@@ -170,6 +178,7 @@ services:
     restart: unless-stopped
 
   postgres:
+    container_name: d2s-postgres
     image: postgres:11
     environment:
       - POSTGRES_PASSWORD=postgres
@@ -179,6 +188,7 @@ services:
     restart: unless-stopped
 
   comunica:
+    container_name: d2s-comunica
     image: comunica/jquery-widget.js:latest
     # image: umids/comunica-sparql-widget:latest
     ports:
@@ -192,6 +202,7 @@ services:
     restart: unless-stopped
 
   ldf-server:
+    container_name: d2s-ldf-server
     image: umids/ldf-server:latest
     command: /tmp/config.json
     ports:
@@ -204,6 +215,7 @@ services:
     restart: unless-stopped
 
   api:
+    container_name: d2s-api
     image: umids/d2s-api:latest
     ports: 
       - 8080:8080
@@ -214,6 +226,7 @@ services:
     restart: unless-stopped
 
   notebook:
+    container_name: d2s-notebook
     image: umids/jupyterlab:latest
     ports: 
       - 8888:8888
@@ -228,6 +241,7 @@ services:
 
   # Web app on 8001, API on 8000
   biothings-studio:
+    container_name: d2s-biothings-studio
     image: biothings/biothings-studio:0.2a
     ports: 
       - 8080:8080
@@ -244,6 +258,7 @@ services:
 
   # Password is "test" by default
   docket:
+    container_name: d2s-docket
     image: umids/docket:latest
     command: start-notebook.sh  --NotebookApp.password='sha1:9316432938f9:93985dffbb854d31308dfe0602a51db947fb7d80'
     ports:
@@ -260,6 +275,7 @@ services:
     restart: unless-stopped
 
   filebrowser:
+    container_name: d2s-filebrowser
     image: umids/nginx-file-browser:latest
     ports:
       - 8081:80
@@ -268,6 +284,7 @@ services:
     restart: unless-stopped
 
   into-the-graph:
+    container_name: d2s-into-the-graph
     image: umids/into-the-graph:latest
     ports:
       - 8079:5000
@@ -276,6 +293,7 @@ services:
     restart: unless-stopped
 
   proxy:
+    container_name: d2s-proxy
     image: jwilder/nginx-proxy:latest
     ports:
       - "80:80"
@@ -286,6 +304,7 @@ services:
     restart: unless-stopped
 
   rmlstreamer:
+    container_name: d2s-rmlstreamer
     image: umids/flink-rmlstreamer:latest
     # image: flink:1.9.1-scala_2.11
     expose:
@@ -302,6 +321,7 @@ services:
       - network
 
   rmltask:
+    container_name: d2s-rmltask
     image: umids/flink-rmlstreamer:latest
     expose:
       - "6121"
@@ -318,7 +338,7 @@ services:
       - network
 
   mapeathor:
-    container_name: mapeathor
+    container_name: d2s-mapeathor
     image: oegdataintegration/mapeathor:1.0.0
     volumes:
       - ../datasets:/Mapeathor/data
@@ -326,6 +346,7 @@ services:
 
   # At http://localhost:8090
   limes-server:
+    container_name: d2s-limes-server
     image: dicegroup/limes:latest
     ports:
       - 8090:8080
@@ -337,7 +358,8 @@ services:
       - network
     
   nanobench:
-    image: nanopub/nanobench
+    container_name: d2s-nanobench
+    image: nanopub/nanobench:latest
     ports:
       - 37373:37373
     volumes:
@@ -346,6 +368,7 @@ services:
       - NANOBENCH_API_INSTANCES=http://grlc.np.dumontierlab.com/api/local/local/ http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/ http://130.60.24.146:7881/api/local/local/
 
   fairdatapoint:
+    container_name: d2s-fairdatapoint
     image: fairdata/fairdatapoint:latest
     ports:
       - 8098:8080
@@ -355,6 +378,7 @@ services:
   # Access at http://localhost:7474
   # Login: neo4j / neo4j
   neo4j:
+    container_name: d2s-neo4j
     image: neo4j
     ports:
       - 7474:7474
