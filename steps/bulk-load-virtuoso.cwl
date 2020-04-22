@@ -9,7 +9,7 @@ baseCommand: [docker, exec]
 
 # arguments: [ "-i", "d2s-cwl-workflows_virtuoso_1","bash", "-c", "/tmp/load.sh $(inputs.file_to_load.dirname) rdf_output.nq http://w3id.org/data2services vload.log $(inputs.sparql_password)"]
 
-arguments: [ "-i", "$(inputs.virtuoso_container_id)", "bash", "-c", "$(inputs.virtuoso_load_dir)/load.sh $(inputs.virtuoso_load_dir) $(inputs.file_to_load.basename) $(inputs.default_graph) $(inputs.file_to_load.basename)_vload.log $(inputs.sparql_password)" ]
+arguments: [ "-i", "$(inputs.virtuoso_container_id)", "bash", "-c", "/load.sh $(inputs.virtuoso_load_dir) $(inputs.file_to_load.basename) $(inputs.default_graph) $(inputs.file_to_load.basename)_vload.log $(inputs.sparql_password)" ]
 
 
 inputs:
