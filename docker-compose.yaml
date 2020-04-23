@@ -231,10 +231,11 @@ services:
     ports: 
       - 8888:8888
     volumes:
-      - ../workspace/notebooks:/notebooks
+      - ../datasets:/notebooks/datasets
+      - ../workspace:/notebooks/workspace
     environment: 
       - PASSWORD=password
-      - GIT_URL=https://github.com/vemonet/translator-sparql-notebook
+      # - GIT_URL=https://github.com/vemonet/translator-sparql-notebook
     networks:
       - network
     restart: unless-stopped
