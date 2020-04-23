@@ -24,8 +24,8 @@ INSERT {
 
     # Agent publishing the RDF distribution
     ?rdfPublisherUri a dct:Agent ;
-      foaf:name ?umidsName ;
-      foaf:page <https://maastrichtuniversity.nl/ids> .   
+      foaf:name ?rdfPublisherName ;
+      foaf:page <$rdfPublisherPage> .
 
     # Version
     ?versionUri
@@ -34,7 +34,7 @@ INSERT {
       pav:version ?pavVersion ;
 
       dcat:distribution <?_input> ;
-      dcat:accessURL <https://graphdb.dumontierlab.com/graphs> ; 
+      # dcat:accessURL <https://graphdb.dumontierlab.com/graphs> ; 
 
       ## MAY
       # dct:references <IRI> ; # Supporting material as web pages and documents (use cito for publications)
@@ -82,9 +82,10 @@ INSERT {
       dct:language ?dctLanguage ;
       void:vocabulary <https://w3id.org/biolink/vocab/> ;
 
-      dcat:accessURL <https://graphdb.dumontierlab.com/graphs> ;
-      dcat:downloadURL <https://graphdb.dumontierlab.com/repositories/covid-kg/statements> ;
-      void:dataDump <https://graphdb.dumontierlab.com/repositories/covid-kg/statements> ;
+      # TODO: Use dcat:accessURL to specify a directory containing the file(s) of interest.
+      dcat:accessURL <$sparqlEndpoint> ;
+      dcat:downloadURL <$rdfDownloadURL> ;
+      void:dataDump <$sparqlEndpoint> ;
       dcat:mediaType "application/n-quads" ;
 
       dct:title ?rdfDctTitle ;
@@ -104,8 +105,8 @@ INSERT {
     ### Source distribution (non-RDF) description
     ?distributionSourceUri 
       a dcat:Distribution ;
-      dct:format "application/xml" ;
-      dcat:downloadURL <https://www.drugbank.ca/releases/5-1-1/downloads/all-full-database> ;
+      dct:format "$inputFormat" ;
+      dcat:downloadURL <$downloadURL> ;
       
       # idot:exampleIdentifier "DB00001"^^xsd:string ;
 
@@ -157,6 +158,6 @@ INSERT {
   BIND(iri(concat(str(?summaryUri), "/distribution/source#", str(?pavVersion))) AS ?distributionSourceUri)
   BIND(<http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> AS ?hclsDataset)
 
-  BIND ( "Institute of Data Science at Maastricht University" as ?umidsName)
-  BIND ( iri(concat("https://w3id.org/d2s/agent/", md5(?umidsName))) AS ?rdfPublisherUri )
+  BIND ( "$rdfPublisherName" as ?rdfPublisherName)
+  BIND ( iri(concat("https://w3id.org/d2s/agent/", md5(?rdfPublisherName))) AS ?rdfPublisherUri )
 }
