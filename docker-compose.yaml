@@ -240,19 +240,20 @@ services:
       - network
     restart: unless-stopped
 
-  # Web app on 8001, API on 8000
+  # Web app on 8880, API on 7080
   biothings-studio:
     container_name: d2s-biothings-studio
     image: biothings/biothings-studio:0.2a
     ports: 
-      - 8080:8080
+      - 8880:8080
+      - 7080:7080
       - 8000:8000
       - 9000:9000
       - 7022:7022
       - 9200:9200
       - 27017:27017
-    # volumes:
-    #   - ../workspace/biothings:/data
+    volumes:
+      - ../workspace/biothings:/data
     networks:
       - network
     restart: unless-stopped
