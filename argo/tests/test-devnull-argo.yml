@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: test-devnull-argo-
+spec:
+  entrypoint: execute-workflow
+
+  # Use existing volume
+  volumes:
+  - name: workdir
+    # persistentVolumeClaim:
+    #   claimName: pvc-mapr-projects-test-vincent 
+    hostPath:
+      path: /data/dqa-workspace
+      type: Directory
+
+  arguments:
+    parameters:
+    - name: sparql-triplestore-url
+      value: https://graphdb.dumontierlab.com/repositories/test-dqa/statements
+    - name: sparql-triplestore-username
+      value: import_user
+    # - name: sparql-triplestore-password
+    #   value: null
+    - name: sparql-graph-uri
+      value: https://w3id.org/data2services/graph/biolink/hgnc
+
+  templates:
+  - name: execute-workflow
+    steps:
+    - - name: run-rdfunit
+        template: rdfunit
+        arguments:
+          parameters:
+          - name: dataset
+            value: "test-devnull-datasets"
+   
+  - name: rdfunit
+    inputs:
+      parameters:
+      - name: dataset
+    container:
+      image: umids/rdfunit:latest
+      # args: ["-d", "http://sparql.wikipathways.org/",
+      # "-f", "/data/dqa-workspace/",
+      # "-s", "https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#", 
+      # "-o", "ttl"]
+      command: [tail]
+      args: ["-f", "/dev/null"]
+      volumeMounts:
+      - name: workdir
+        mountPath: /data
+        # subPath: dqa-workspace

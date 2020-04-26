@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    purpose: download-input-file
+  name: d2s-download-job
+  namespace: argo
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: c-0014.dsri.unimaas.nl
+      restartPolicy: Never
+      containers:
+      - name: d2s-download
+        image: umids/d2s-download:latest
+        env:
+        - name: dataset-to-download
+          value: "pubmed"
+        - name: working-path
+          value: "/data/pubmed/input"
+        args: ["--download-datasets", "$(dataset-to-download)", "--working-path", "$(working-path)"]
+        volumeMounts:
+        - mountPath: /data
+          name: workdir
+      volumes:
+      - name: workdir
+        persistentVolumeClaim:
+          claimName: data2services-storage

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+# https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/pods_and_services.html
+
+metadata:
+  labels:
+    name: virtuoso
+    purpose: d2s-services
+    service: virtuoso
+  name: d2s-pod-virtuoso2
+spec:
+  volumes:
+  - name: workdir
+    hostPath:
+      path: /data/d2s-workspace/virtuoso
+      type: Directory
+  containers:
+  - name: d2s-virtuoso
+    image: openlink/virtuoso-opensource-7
+    restartPolicy: OnFailure
+    ports:
+      - containerPort: 8890
+    #command: [ "tail", "-f", "/dev/null"]
+    volumeMounts:
+    - name: workdir
+      mountPath: /data/virtuoso

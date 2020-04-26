@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    purpose: test
+  name: test-devnull-pod
+spec:
+  volumes:
+  - name: workdir
+    hostPath:
+      path: /data/dqa-workspace
+      type: Directory
+    # persistentVolumeClaim:
+    #   claimName: pvc-mapr-projects-test-vincent
+  containers:
+  - name: test-devnull
+    image: umids/rdfunit:latest
+    command: [ "tail", "-f", "/dev/null"]
+    # args: ["-d", "http://sparql.wikipathways.org/sparql",
+    #   "-f", "/data/dqa-workspace/",
+    #   "-s", "https://www.w3.org/2012/pyRdfa/extract?uri=http://vocabularies.wikipathways.org/wp#", 
+    #   "-o", "ttl"]
+    resources:
+      limits:
+        cpu: 1000m 
+        memory: 10Gi 
+    volumeMounts:
+    - name: workdir
+      mountPath: /data
+      # subPath: dqa-workspace

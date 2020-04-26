@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: d2s-workflow-test-
+spec:
+  entrypoint: execute-workflow
+  # Run it:
+  # argo submit tests/d2s-workflow-test.yml -f tests/config-argo-test.yml
+
+  volumes:
+  - name: workdir
+    hostPath:
+      path: /data/d2s-workspace
+      type: Directory
+
+  arguments:
+    parameters:
+    - name: dataset
+      value: null
+
+  templates:
+  - name: execute-workflow
+    steps:
+    - - name: printy
+        template: print-thing
+        # arguments:
+        #   parameters:
+        #   - name: dataset
+        #     value: "/data/{{workflow.parameters.dataset}}/test"
+
+  - name: print-thing
+    # inputs:
+    #   parameters:
+    #   - name: dataset
+    container:
+      image: alpine:3.7
+      command: [echo, "/data/{{workflow.parameters.dataset}}/test"]

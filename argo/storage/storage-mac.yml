@@ -1,0 +1,38 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: manual
+provisioner: docker.io/hostpath
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: d2s
+  name: d2s-storage
+spec:
+  # storageClassName: localstorage
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: d2s-pv
+  labels:
+    type: local
+spec:
+  # storageClassName: localstorage
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+  hostPath:
+    path: "/data/d2s-workspace"

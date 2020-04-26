@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+# https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/pods_and_services.html
+
+metadata:
+  labels:
+    purpose: d2s-services
+    service: virtuoso
+    # deployment: docker-registry-1
+    # deploymentconfig: docker-registry
+  name: d2s-pod-virtuoso2
+  namespace: argo
+spec:
+  volumes:
+  - name: workdir
+    persistentVolumeClaim:
+      claimName: data2services-storage
+  containers:
+  - name: d2s-virtuoso
+    image: tenforce/virtuoso:latest
+    restartPolicy: OnFailure
+    ports:
+      - containerPort: 8890
+        protocol: TCP
+    # args: ["1111"]
+    env:
+      - name: DBA_PASSWORD
+        value: dba
+      - name: SPARQL_UPDATE
+        value: "true"
+      - name: DEFAULT_GRAPH
+        value: "https://w3id.org/data2services/graph"
+    #command: [ "tail", "-f", "/dev/null"]
+    volumeMounts:
+    - name: workdir
+      mountPath: /data/virtuoso

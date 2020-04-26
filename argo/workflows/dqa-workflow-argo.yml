@@ -1,0 +1,127 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: dqa-workflow-
+spec:
+  entrypoint: execute-workflow
+
+  volumes:
+  - name: workdir
+    hostPath:
+      # Change the path used on your machine here
+      path: /data/dqa-workspace
+      type: Directory
+    # persistentVolumeClaim:
+    #   claimName: pvc-test
+
+  arguments:
+    parameters:
+    - name: triplestore-url
+      value: https://graphdb.dumontierlab.com/repositories/test-dqa/statements
+    - name: triplestore-username
+      value: import_user
+    - name: triplestore-password
+      value: null
+    - name: graph-uri
+      value: https://w3id.org/d2s/graph
+    - name: rdfunit-schema
+      value: null
+    - name: fairsharing-metrics-url
+      value: null
+
+  templates:
+  - name: execute-workflow
+    dag:
+      tasks:
+      - name: sparql-compute-hcls-stats
+        template: d2s-sparql-operations
+        arguments:
+          parameters:
+          - name: sparql-queries-path
+            value: "https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats"
+          - name: graph-uri
+            value: "{{workflow.parameters.graph-uri}}"
+      - name: run-rdfunit
+        template: rdfunit
+        arguments:
+          parameters:
+          - name: rdfunit-schema
+            value: "{{workflow.parameters.rdfunit-schema}}"
+      - name: run-fairsharing-metrics
+        template: fairsharing-metrics
+        arguments:
+          parameters:
+          - name: fairsharing-metrics-url
+            value: "{{workflow.parameters.fairsharing-metrics-url}}"
+      - name: upload-rdfunit
+        template: rdf-upload
+        dependencies: [run-rdfunit]
+        arguments:
+          parameters:
+          - name: file-to-upload
+            value: "/data/results"
+          - name: graph-uri
+            value: "{{workflow.parameters.graph-uri}}"
+      - name: upload-fairsharing-metrics
+        template: rdf-upload
+        dependencies: [run-fairsharing-metrics]
+        arguments:
+          parameters:
+          - name: file-to-upload
+            value: "/data/fairsharing.nt"
+          - name: graph-uri
+            value: "{{workflow.parameters.graph-uri}}"
+
+  - name: d2s-sparql-operations
+    inputs:
+      parameters:
+      - name: sparql-queries-path
+      - name: graph-uri
+    container:
+      image: umids/d2s-sparql-operations:latest
+      args: ["-ep", "{{workflow.parameters.triplestore-url}}", 
+        "-op", "update", "-f", "{{inputs.parameters.sparql-queries-path}}",
+        "-un", "{{workflow.parameters.triplestore-username}}", 
+        "-pw", "{{workflow.parameters.triplestore-password}}",
+        "--var-input", "{{inputs.parameters.graph-uri}}" ]
+
+  - name: rdfunit
+    inputs:
+      parameters:
+      - name: rdfunit-schema
+    container:
+      image: umids/rdfunit:latest
+      args: ["-d", "{{workflow.parameters.triplestore-url}}",
+      "-f", "/data/",
+      "-s", "{{inputs.parameters.rdfunit-schema}}", 
+      "-o", "ttl"]
+      volumeMounts:
+      - name: workdir
+        mountPath: /data
+
+  - name: fairsharing-metrics
+    inputs:
+      parameters:
+      - name: fairsharing-metrics-url
+    container:
+      image: umids/fairsharing-metrics:latest
+      args: ["{{inputs.parameters.fairsharing-metrics-url}}"]
+      volumeMounts:
+      - name: workdir
+        mountPath: /data
+  
+  - name: rdf-upload
+    inputs:
+      parameters:
+      - name: file-to-upload
+      - name: graph-uri
+    container:
+      image: umids/rdf-upload:latest
+      args: ["-url", "{{workflow.parameters.triplestore-url}}",
+      "-if", "{{inputs.parameters.file-to-upload}}", 
+      "-un", "{{workflow.parameters.triplestore-username}}", 
+      "-pw", "{{workflow.parameters.triplestore-password}}",
+      "-g", "{{inputs.parameters.graph-uri}}"]
+      volumeMounts:
+      - name: workdir
+        mountPath: /data
