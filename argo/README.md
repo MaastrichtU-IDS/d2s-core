@@ -48,15 +48,15 @@ Run `oc login` to connect to the [OpenShift cluster](https://app.dsri.unimaas.nl
 
 ```shell
 # steps based workflow
-argo submit d2s-argo-workflows/workflows/d2s-workflow-transform-xml.yml \
+argo submit d2s-core/argo/workflows/d2s-workflow-transform-xml.yml \
   -f support/config/config-transform-xml-drugbank.yml
 
 # DAG workflow
-argo submit d2s-argo-workflows/workflows/d2s-workflow-transform-xml-dag.yml \
+argo submit d2s-core/argo/workflows/d2s-workflow-transform-xml-dag.yml \
   -f support/config/config-transform-xml-drugbank.yml
 
 # Test
-argo submit --watch d2s-argo-workflows/workflows/d2s-workflow-sparql.yml
+argo submit --watch d2s-core/argo/workflows/d2s-workflow-sparql.yml
 ```
 
 ### Check running workflows
