@@ -21,6 +21,22 @@ services:
       - network
     restart: unless-stopped
 
+  # Access at http://localhost:7199
+  graphdb-ee:
+    container_name: d2s-graphdb-ee
+    image: ontotext/graphdb:9.2.0-ee
+    # build: ./support/graphdb
+    # image: ontotext/graphdb:9.1.1-ee
+    command: -Dgraphdb.home=/opt/graphdb/home -Dgraphdb.workbench.cors.enable=true
+    volumes:
+      - ../workspace/graphdb:/opt/graphdb/home
+      - ../workspace/import:/root/graphdb-import
+    ports:
+      - 7199:7200
+    networks:
+      - network
+    restart: unless-stopped
+
   virtuoso:
     container_name: d2s-virtuoso
     image: umids/d2s-virtuoso:latest
