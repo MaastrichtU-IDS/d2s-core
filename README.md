@@ -23,6 +23,6 @@ See [d2s.semanticscience.org](https://d2s.semanticscience.org/docs/d2s-workspace
 ## Clone
 
 ```bash
-git clone --recursive https://github.com/MaastrichtU-IDS/d2s-cwl-workflows.git
+git clone --recursive https://github.com/MaastrichtU-IDS/d2s-core.git
 ```
 

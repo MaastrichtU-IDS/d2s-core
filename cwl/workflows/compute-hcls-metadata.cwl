@@ -105,7 +105,7 @@ dct:contributor:
 
 dct:license: "https://opensource.org/licenses/MIT"
 s:citation: "https://swat4hcls.figshare.com/articles/Data2Services_enabling_automated_conversion_of_data_to_services/7345868/files/13573628.pdf"
-s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-cwl-workflows
+s:codeRepository: https://github.com/MaastrichtU-IDS/d2s-core
 
 edam:has_function:
   - edam:operation_0226   # Annotation

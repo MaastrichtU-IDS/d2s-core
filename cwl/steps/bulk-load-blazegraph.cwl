@@ -9,7 +9,7 @@ baseCommand: [docker, run]
 
 arguments: ["umids/d2s-bash-exec:latest",
 # Bash script to copy files in shared volume and send curl:
-"https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/master/support/blazegraph/blazegraph-bulk-load.sh",
+"https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-core/master/support/blazegraph/blazegraph-bulk-load.sh",
 "$(inputs.file_to_load.path)",
 "$(inputs.default_graph)"]
 

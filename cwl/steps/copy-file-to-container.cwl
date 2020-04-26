@@ -12,7 +12,7 @@ arguments: ["-aL", "$(inputs.file_to_load)",
 
 # Virtuoso load dir: /usr/local/virtuoso-opensource/var/lib/virtuoso/db
 
-# https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/develop/support/virtuoso/load.sh
+# https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-core/develop/support/virtuoso/load.sh
 
 inputs:
   load_in_container_id:

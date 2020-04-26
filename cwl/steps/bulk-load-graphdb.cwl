@@ -24,7 +24,7 @@ arguments: ["-X", "POST", "-u", "$(inputs.graphdb_username):$(inputs.graphdb_pas
 
 # "'http://localhost:7200/repositories/test/rdf-graphs/service?graph=$(inputs.file_to_load.path)'"
 # # Bash script to copy files in shared volume and send curl:
-# "https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-cwl-workflows/master/support/blazegraph/blazegraph-bulk-load.sh",
+# "https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-core/master/support/blazegraph/blazegraph-bulk-load.sh",
 # "$(inputs.file_to_load.path)",
 # "$(inputs.default_graph)"]
 # curl -X POST --data-binary @dataloader.txt --header 'Content-Type:text/plain' \
