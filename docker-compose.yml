@@ -109,7 +109,7 @@ services:
       - network
     restart: unless-stopped
 
-  # http://localhost:8889/bigdata/#splash
+  # http://localhost:8082/bigdata/#splash
   # https://hub.docker.com/r/lyrasis/blazegraph
   blazegraph:
     container_name: d2s-blazegraph
@@ -252,6 +252,22 @@ services:
     environment: 
       - PASSWORD=password
       # - GIT_URL=https://github.com/vemonet/translator-sparql-notebook
+    networks:
+      - network
+    restart: unless-stopped
+
+  # Default password: "password"
+  spark-notebook:
+    container_name: d2s-spark-notebook
+    image: umids/spark-jupyterlab:latest
+    command: start-notebook.sh  --NotebookApp.password='sha1:9316432938f9:93985dffbb854d31308dfe0602a51db947fb7d80'
+    ports: 
+      - 8889:8888
+    volumes:
+      - ../datasets:/home/jovyan/work/datasets
+      - ../workspace:/home/jovyan/work/workspace
+    environment: 
+      - JUPYTER_ENABLE_LAB=yes
     networks:
       - network
     restart: unless-stopped
