@@ -37,10 +37,10 @@ oc login https://openshift_cluster:8443 --token=MY_TOKEN
 
 ### Run [examples](https://github.com/MaastrichtU-IDS/data2services-transform-biolink)
 
-As example we will use config files from [d2s-transform-template](https://github.com/MaastrichtU-IDS/d2s-transform-template). Clone it with the argo submodule:
+As example we will use config files from [d2s-project-template](https://github.com/MaastrichtU-IDS/d2s-project-template). Clone it with the argo submodule:
 
 ```shell
-git clone --recursive https://github.com/MaastrichtU-IDS/d2s-transform-template.git
+git clone --recursive https://github.com/MaastrichtU-IDS/d2s-project-template.git
 cd d2s-transform-biolink
 ```
 

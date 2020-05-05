@@ -25,8 +25,8 @@ spec:
           - "/data/output-data/"
           - "--usage-report"
           - "/data/output-data/usage.json"
-          - "/data/d2s-transform-template/d2s-core/cwl/workflows/graphdb-workflow-xml.cwl"
-          - "/data/d2s-transform-template/datasets/drugbank/config-transform-graphdb-xml-drugbank.yml"
+          - "/data/d2s-project-template/d2s-core/cwl/workflows/graphdb-workflow-xml.cwl"
+          - "/data/d2s-project-template/datasets/drugbank/config-transform-graphdb-xml-drugbank.yml"
         volumeMounts:
         - mountPath: /data
           name: pv-test-vincent
