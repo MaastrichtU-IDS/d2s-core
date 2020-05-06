@@ -1,5 +1,4 @@
 
-## For Tabular files workflows
 dataset_to_process: "$dataset_id"
 
 ## For XML workflows
@@ -22,17 +21,19 @@ sparql_final_triplestore_password: "dba"
 input_data_jdbc: "jdbc:drill:drillbit=drill:31010"
 
 # Temporary triplestore (e.g. Virtuoso). TODO: improve
-sparql_tmp_service_url: "http://virtuoso:8890/sparql"
+sparql_tmp_service_url: "http://tmp-virtuoso:8890/sparql"
 # sparql_tmp_service_url: "http://blazegraph:8082/bigdata/sparql"
 
-sparql_tmp_triplestore_url: "http://virtuoso:8890/sparql"
+sparql_tmp_triplestore_url: "http://tmp-virtuoso:8890/sparql"
 # sparql_tmp_triplestore_url: "http://blazegraph:8082/bigdata/sparql"
 sparql_tmp_triplestore_username: "dba"
 sparql_tmp_triplestore_password: "dba"
 
 sparql_tmp_graph_uri: "https://w3id.org/d2s/graph/$dataset_id"
 # sparql_tmp_graph_uri: "https://w3id.org/d2s/graph/xml2rdf"
-tmp_triplestore_container_id: "d2s-virtuoso"
+# sparql_tmp_graph_uri: "https://w3id.org/d2s/graph/autor2rml"
+
+tmp_triplestore_container_id: "d2s-tmp-virtuoso"
 tmp_triplestore_load_dir: "/usr/local/virtuoso-opensource/var/lib/virtuoso/db"
 
 # Split params
@@ -44,7 +45,8 @@ tmp_triplestore_load_dir: "/usr/local/virtuoso-opensource/var/lib/virtuoso/db"
 sparql_transform_queries_path: "mapping"
 sparql_insert_metadata_path: "metadata"
 
-cwl_workflow_filename: "virtuoso.cwl"
+cwl_workflow_filename: "csv-virtuoso.cwl"
+# cwl_workflow_filename: "xml-virtuoso.cwl"
 
 config_dir:
   class: Directory
