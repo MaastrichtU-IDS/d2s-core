@@ -202,8 +202,25 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=db
+    ports: 
+      - 5432:5432
     volumes:
       - ../workspace/input:/data
+      - ../workspace/input/postgres/db:/var/lib/postgresql/data
+      - ../workspace/input/postgres/init:/docker-entrypoint-initdb.d
+      # .sql file in initdb are imported on startup
+    networks:
+      - network
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: d2s-pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=test@test.edu
+      - PGADMIN_DEFAULT_PASSWORD=password
+    ports: 
+      - 5433:80
     networks:
       - network
     restart: unless-stopped
