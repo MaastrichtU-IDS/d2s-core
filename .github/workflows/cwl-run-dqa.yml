@@ -36,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: dqa-output
-        path: $GITHUB_WORKSPACE/output
+        path: ${{github.workspace}}/output
