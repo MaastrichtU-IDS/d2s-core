@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  test:
+  cwl:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,15 +24,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install cwlref-runner
-        mkdir -p /data/dqa-workspace/output/tmp-outdir
+        mkdir -p $GITHUB_WORKSPACE/output/tmp-outdir
         echo "triplestore_password: ${{ secrets.TRIPLESTORE_PASSWORD }}" > support/config-cwl-dqa.yml
     
     - name: Run CWL workflow
       run: |
-        cwl-runner --custom-net d2s-core_network --outdir /data/dqa-workspace/output --tmp-outdir-prefix=/data/dqa-workspace/output/tmp-outdir/ --tmpdir-prefix=/data/dqa-workspace/output/tmp-outdir/tmp- workflows/workflow-dqa.cwl support/config-cwl-dqa.yml
+        cwl-runner --custom-net d2s-core_network --outdir $GITHUB_WORKSPACE/output --tmp-outdir-prefix=$GITHUB_WORKSPACE/output/tmp-outdir/ --tmpdir-prefix=$GITHUB_WORKSPACE/output/tmp-outdir/tmp- workflows/workflow-dqa.cwl support/config-cwl-dqa.yml
 
     - name: Upload DQA output artifact
       uses: actions/upload-artifact@v1
       with:
         name: dqa-output
-        path: /data/dqa-workspace/output
+        path: $GITHUB_WORKSPACE/output
