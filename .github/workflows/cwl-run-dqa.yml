@@ -28,9 +28,14 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/output/tmp-outdir
         echo "triplestore_password: ${{ secrets.TRIPLESTORE_PASSWORD }}" > support/config-cwl-dqa.yml
     
+
+
+    # Issue when using env variables with CWL: 
+    #raise ValidationException("Not found: '%s'" % argsworkflow) schema_salad.exceptions.ValidationException: Not found: 'workflows/workflow-dqa.cwl'
+    # cwl-runner --outdir /home/runner/work/d2s-core/d2s-core/output --tmp-outdir-prefix /home/runner/work/d2s-core/d2s-core/output/tmp-outdir/ --tmpdir-prefix /home/runner/work/d2s-core/d2s-core/output/tmp-outdir/tmp- workflows/workflow-dqa.cwl support/config-cwl-dqa.yml
     - name: Run CWL workflow
       run: |
-        cwl-runner --outdir /home/runner/work/d2s-core/d2s-core/output --tmp-outdir-prefix /home/runner/work/d2s-core/d2s-core/output/tmp-outdir/ --tmpdir-prefix /home/runner/work/d2s-core/d2s-core/output/tmp-outdir/tmp- workflows/workflow-dqa.cwl support/config-cwl-dqa.yml
+        cwl-runner --outdir $GITHUB_WORKSPACE/output --tmp-outdir-prefix $GITHUB_WORKSPACE/output/tmp-outdir/ --tmpdir-prefix $GITHUB_WORKSPACE/output/tmp-outdir/tmp- cwl/workflows/workflow-dqa.cwl support/config-cwl-dqa.yml
 
     - name: Upload DQA output artifact
       uses: actions/upload-artifact@v1
