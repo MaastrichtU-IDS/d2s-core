@@ -22,7 +22,6 @@ jobs:
 
     - name: Install dependencies
       run: |
-        echo $GITHUB_WORKSPACE
         python -m pip install --upgrade pip
         pip install cwlref-runner
         mkdir -p $GITHUB_WORKSPACE/output/tmp-outdir
@@ -30,7 +29,7 @@ jobs:
 
     - name: Run CWL workflow
       run: |
-        cwl-runner --custom-net=host --outdir $GITHUB_WORKSPACE/output --tmp-outdir-prefix $GITHUB_WORKSPACE/output/tmp-outdir/ --tmpdir-prefix $GITHUB_WORKSPACE/output/tmp-outdir/tmp- cwl/workflows/workflow-dqa.cwl support/config-cwl-dqa.yml
+        cwl-runner --outdir $GITHUB_WORKSPACE/output --tmp-outdir-prefix $GITHUB_WORKSPACE/output/tmp-outdir/ --tmpdir-prefix $GITHUB_WORKSPACE/output/tmp-outdir/tmp- cwl/workflows/workflow-dqa.cwl support/config-cwl-dqa.yml
 
     - name: Upload DQA output artifact
       uses: actions/upload-artifact@v1
