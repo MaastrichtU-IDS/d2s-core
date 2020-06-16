@@ -8,29 +8,50 @@ services:
       context: ./support/graphdb
       dockerfile: Dockerfile
       args:
-        version: 9.1.1
-    # build: ./support/graphdb
-    # image: ontotext/graphdb:9.1.1-ee
-    command: -Dgraphdb.home=/opt/graphdb/home -Dgraphdb.workbench.cors.enable=true
-    # environment: 
-    #   - GDB_HEAP_SIZE=20B
+        version: ${GRAPHDB_VERSION}
+    command: [ "-Dgraphdb.home=/opt/graphdb/home", "-Dgraphdb.workbench.cors.enable=true" ]
+    environment: 
+      - GDB_HEAP_SIZE=${GRAPHDB_HEAP_SIZE}
       # See http://graphdb.ontotext.com/documentation/standard/requirements.html
     volumes:
-      - ../workspace/graphdb:/opt/graphdb/home
       - ../workspace/import:/root/graphdb-import
+      - ../workspace/graphdb:/opt/graphdb/home
     ports:
       - 7200:7200
     networks:
       - network
     restart: unless-stopped
 
+  graphdb-preload:
+    container_name: graphdb-preload
+    # image: ontotext/graphdb:9.3.0-ee
+    build:
+      context: ./support/graphdb
+      dockerfile: Dockerfile
+      args:
+        version: ${GRAPHDB_VERSION}
+    # Load all files from ../import in repo defined in ./graphdb-repo-config.ttl
+    # entrypoint: [ "/opt/graphdb/dist/bin/preload --force", "--recursive", "-c", "/root/preload-config.ttl", "/root/graphdb-import/preload" ]
+    entrypoint: /opt/graphdb/dist/bin/preload --force --recursive -c /root/preload-config.ttl /root/graphdb-import/preload
+    # Preload given file to existing repository (here "demo")
+    # command: [ "/opt/graphdb/dist/bin/preload", "-f", "-i", "demo", "/root/graphdb-import/preload" ]
+    environment: 
+      - GDB_HEAP_SIZE=${GRAPHDB_HEAP_SIZE}
+    volumes:
+      - ../workspace/graphdb/preload-config.ttl:/root/preload-config.ttl
+      - ../workspace/graphdb/preload-data:/opt/graphdb/dist/data
+      - ../workspace/graphdb/preload-logs:/opt/graphdb/dist/logs
+      - ../workspace/import:/root/graphdb-import
+      - ../workspace/graphdb/work:/opt/graphdb/dist/work
+
+
   # Access at http://localhost:7199
   graphdb-ee:
     container_name: d2s-graphdb-ee
-    image: ontotext/graphdb:9.2.0-ee
-    # build: ./support/graphdb
-    # image: ontotext/graphdb:9.1.1-ee
+    image: ontotext/graphdb:${GRAPHDB_VERSION}-ee
     command: -Dgraphdb.home=/opt/graphdb/home -Dgraphdb.workbench.cors.enable=true
+    environment: 
+      - GDB_HEAP_SIZE=${GRAPHDB_HEAP_SIZE}
     volumes:
       - ../workspace/graphdb:/opt/graphdb/home
       - ../workspace/import:/root/graphdb-import
