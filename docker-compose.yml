@@ -93,7 +93,7 @@ services:
       # - VIRT_Parameters_NumberOfBuffers=5450000 # For 64G systems
       # - VIRT_Parameters_MaxDirtyBuffers=4000000
       # - VIRT_Parameters_MaxCheckpointRemap=4000
-      # - VIRT_Parameters_MaxClientConnections		= 10 # Better to reduce if a lot of big requests
+      # - VIRT_Parameters_MaxClientConnections= 10 # Better to reduce if a lot of big requests
       # - VIRT_SPARQL_DefaultQuery=select distinct ?Concept where {[] a ?Concept} LIMIT 100
       # - VIRT_VDB_VDBDisconnectTimeout=7200000
       # - VIRT_Client_SQL_QUERY_TIMEOUT=14400000
