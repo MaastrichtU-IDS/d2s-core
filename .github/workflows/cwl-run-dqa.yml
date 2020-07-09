@@ -1,6 +1,7 @@
 name: Run Data Quality Analysis Assessment CWL workflow
 
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
 
