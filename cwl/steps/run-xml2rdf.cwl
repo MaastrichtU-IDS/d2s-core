@@ -47,7 +47,7 @@ $namespaces:
   foaf: "http://xmlns.com/foaf/0.1/"
   edam: "http://edamontology.org/"
 $schemas:
-  - http://schema.org/version/latest/schema.rdf
+  - https://schema.org/version/latest/schemaorg-current-http.rdf
   - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
   - http://xmlns.com/foaf/spec/index.rdf
   - http://edamontology.org/EDAM_1.18.owl

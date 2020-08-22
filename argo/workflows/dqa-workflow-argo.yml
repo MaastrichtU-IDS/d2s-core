@@ -90,7 +90,7 @@ spec:
       parameters:
       - name: rdfunit-schema
     container:
-      image: umids/rdfunit:latest
+      image: aksw/rdfunit:latest
       args: ["-d", "{{workflow.parameters.triplestore-url}}",
       "-f", "/data/",
       "-s", "{{inputs.parameters.rdfunit-schema}}", 

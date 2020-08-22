@@ -13,12 +13,12 @@ triplestore_url: https://graphdb.dumontierlab.com/repositories/test/statements
 
 triplestore_username: import_user
 
-# triplestore_password: password
+triplestore_password: maasitest12
 
 output_graph_uri:  https://w3id.org/d2s/graph/dqa
 
 # analyzed_sparql_endpoint: http://sparql.wikipathways.org/sparql
-analyzed_sparql_endpoint: https://graphdb.dumontierlab.com/repositories/test-dqa
+analyzed_sparql_endpoint: https://graphdb.dumontierlab.com/repositories/test-dqa/statements
 analyzed_graph_uri: https://w3id.org/data2services/graph/biolink/hgnc
 
 

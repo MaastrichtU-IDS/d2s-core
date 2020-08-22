@@ -39,14 +39,14 @@ outputs:
     outputSource: step1-compute-hcls-stats/logs_execute_sparql_query_
     type: File
     label: "SPARQL HCLS statistics log file"
-  # - id: rdfunit_rdf_output
-  #   outputSource: step2-run-rdfunit/rdfunit_rdf_output
-  #   type: Directory
-  #   label: "RDFUnit results as RDF"
-  # - id: rdfunit_logs
-  #   outputSource: step2-run-rdfunit/rdfunit_logs
-  #   type: File
-  #   label: "RDFUnit log file"
+  - id: rdfunit_rdf_output
+    outputSource: step2-run-rdfunit/rdfunit_rdf_output
+    type: Directory
+    label: "RDFUnit results as RDF"
+  - id: rdfunit_logs
+    outputSource: step2-run-rdfunit/rdfunit_logs
+    type: File
+    label: "RDFUnit log file"
   - id: fairsharing_metrics_rdf_output
     outputSource: step3-run-fairsharing-metrics/fairsharing_metrics_rdf_output
     type: File
@@ -55,10 +55,10 @@ outputs:
     outputSource: step3-run-fairsharing-metrics/fairsharing_metrics_logs
     type: File
     label: "FairSharing metrics log file"
-  # - id: upload_rdfunit_logs
-  #   outputSource: step4-upload-rdfunit/logs_rdf_upload
-  #   type: File
-  #   label: "Upload RDFUnit log file"
+  - id: upload_rdfunit_logs
+    outputSource: step4-upload-rdfunit/logs_rdf_upload
+    type: File
+    label: "Upload RDFUnit log file"
   - id: upload_fairsharing_metrics_logs
     outputSource: step4-upload-fairsharing-metrics/logs_rdf_upload
     type: File
@@ -77,12 +77,12 @@ steps:
       sparql_service_url: analyzed_sparql_endpoint
     out: [logs_execute_sparql_query_]
 
-  # step2-run-rdfunit:
-  #   run: ../steps/run-rdfunit.cwl
-  #   in:
-  #     rdfunit_schema: rdfunit_schema
-  #     sparql_triplestore_url: analyzed_sparql_endpoint
-  #   out: [rdfunit_rdf_output, rdfunit_logs]
+  step2-run-rdfunit:
+    run: ../steps/run-rdfunit.cwl
+    in:
+      rdfunit_schema: rdfunit_schema
+      sparql_triplestore_url: analyzed_sparql_endpoint
+    out: [rdfunit_rdf_output, rdfunit_logs]
 
 
   step3-run-fairsharing-metrics:
@@ -92,16 +92,16 @@ steps:
     out: [fairsharing_metrics_rdf_output, fairsharing_metrics_logs]
 
 
-  # step4-upload-rdfunit:
-  #   run: ../steps/rdf-upload-directory.cwl
-  #   # run: ../steps/virtuoso-bulk-load.cwl
-  #   in:
-  #     dir_to_load: step2-run-rdfunit/rdfunit_rdf_output
-  #     sparql_triplestore_url: triplestore_url
-  #     sparql_username: triplestore_username
-  #     sparql_password: triplestore_password
-  #     output_graph_uri: output_graph_uri
-  #   out: [logs_rdf_upload]
+  step4-upload-rdfunit:
+    run: ../steps/rdf-upload-directory.cwl
+    # run: ../steps/virtuoso-bulk-load.cwl
+    in:
+      dir_to_load: step2-run-rdfunit/rdfunit_rdf_output
+      sparql_triplestore_url: triplestore_url
+      sparql_username: triplestore_username
+      sparql_password: triplestore_password
+      output_graph_uri: output_graph_uri
+    out: [logs_rdf_upload]
 
 
   step4-upload-fairsharing-metrics:
@@ -125,7 +125,7 @@ $namespaces:
   foaf: "http://xmlns.com/foaf/0.1/"
   edam: "http://edamontology.org/"
 $schemas:
-  - http://schema.org/version/latest/schema.rdf
+  - https://schema.org/version/latest/schemaorg-current-http.rdf
   - https://lov.linkeddata.es/dataset/lov/vocabs/dcterms/versions/2012-06-14.n3
   - http://xmlns.com/foaf/spec/index.rdf
   - http://edamontology.org/EDAM_1.18.owl
