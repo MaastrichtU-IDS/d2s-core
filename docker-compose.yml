@@ -30,7 +30,7 @@ services:
       dockerfile: Dockerfile
       args:
         version: ${GRAPHDB_VERSION}
-    # Load all files from ../import in repo defined in ./graphdb-repo-config.ttl
+    # Load all files from workspace/import/preload in repo defined in ./graphdb-repo-config.ttl
     # entrypoint: [ "/opt/graphdb/dist/bin/preload --force", "--recursive", "-c", "/root/preload-config.ttl", "/root/graphdb-import/preload" ]
     entrypoint: /opt/graphdb/dist/bin/preload --force --recursive -c /root/preload-config.ttl /root/graphdb-import/preload
     # Preload given file to existing repository (here "demo")
